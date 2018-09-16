@@ -12,7 +12,7 @@
 
         <ListView Name="databaseInformation" HorizontalAlignment="Left" Height="796" VerticalAlignment="Top" Width="800" Background="White" Margin="52,67,0,0"/>
 
-
-        <Button Content="LOG OUT" HorizontalAlignment="Left" Margin="-197,686,0,0" VerticalAlignment="Top" Height="66" Width="165" Click="Button_Click" Background="Gainsboro"/>
+        <Button Content="REGISTER" HorizontalAlignment="Left" Margin="-197,536,0,0" VerticalAlignment="Top" Height="66" Width="165" Click="onRegister_Click" Background="Gainsboro"/>
+        <Button Content="LOG OUT" HorizontalAlignment="Left" Margin="-197,686,0,0" VerticalAlignment="Top" Height="66" Width="165" Click="onLogout_Click" Background="Gainsboro"/>
     </Grid>
 </Page>

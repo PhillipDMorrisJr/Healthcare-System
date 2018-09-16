@@ -28,9 +28,14 @@ namespace Healthcare
           
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void onLogout_Click(object sender, RoutedEventArgs e)
         {
             this.Frame.Navigate(typeof(LoginPage));
+        }
+
+        private void onRegister_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
