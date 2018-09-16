@@ -8,7 +8,7 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Grid Background="#439FCB">
+   
         <Grid Background="White" HorizontalAlignment="Center" Height="500" VerticalAlignment="Center" Width="500">
             <TextBlock HorizontalAlignment="Left" FontWeight="Bold" Margin="10,10,0,0" Text="Healthcare Services" Foreground="Gray" FontSize="50" TextAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" Height="123" Width="483"/>
             <TextBox Name="userNameBox" HorizontalAlignment="Left" Margin="35,137,0,0" VerticalAlignment="Top" Height="57" Width="434" BorderBrush="DarkGray" FontSize="25"/>
@@ -19,5 +19,5 @@
 
         </Grid>
 
-    </Grid>
+    
 </Page>

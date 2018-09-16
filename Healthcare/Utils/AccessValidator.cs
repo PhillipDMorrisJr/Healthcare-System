@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Utils
 {
+    /// <summary>
+    /// This utility is responsible for confirming that a user's identification exists within the database
+    /// </summary>
     public static class AccessValidator
     {
         /// <summary>
