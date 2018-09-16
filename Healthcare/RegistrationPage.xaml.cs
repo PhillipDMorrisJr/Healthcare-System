@@ -17,11 +17,16 @@ using Windows.UI.Xaml.Navigation;
 
 namespace Healthcare
 {
-    public sealed partial class RegistrationPage : UserControl
+    public sealed partial class RegistrationPage : Page
     {
         public RegistrationPage()
         {
             this.InitializeComponent();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            this.Frame.Navigate(typeof(MainPage));
         }
     }
 }
