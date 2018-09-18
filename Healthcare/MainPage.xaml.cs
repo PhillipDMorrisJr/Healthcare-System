@@ -12,6 +12,8 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using Healthcare.Model;
+using Healthcare.Utils;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -35,7 +37,7 @@ namespace Healthcare
 
         private void onRegister_Click(object sender, RoutedEventArgs e)
         {
-
+           Patient patientToRegister =  RegistrationUtility.GetPreviousRegistrationData();
         }
     }
 }

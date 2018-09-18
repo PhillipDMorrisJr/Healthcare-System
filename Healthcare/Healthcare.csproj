@@ -107,6 +107,7 @@
       <DependentUpon>RegistrationPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Utils\AccessValidator.cs" />
+    <Compile Include="Utils\RegistrationUtility.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
