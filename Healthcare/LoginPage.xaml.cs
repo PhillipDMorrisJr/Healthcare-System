@@ -30,11 +30,15 @@ namespace Healthcare
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-           bool access = Utils.AccessValidator.ConfirmUserAccess(this.userNameBox.Text, this.passwordBox.Text);
+           bool access = Utils.AccessValidator.ConfirmUserAccess(this.UserNameBox.Text, this.PasswordBox.Password);
 
             if (access)
             {
                 this.Frame.Navigate(typeof(MainPage));
+            }
+            else
+            {
+
             }
         }
     }

@@ -19,7 +19,8 @@ namespace Utils
         /// <returns></returns>
         public static bool ConfirmUserAccess(String username, string password)
         {
-            return true;
+            return !(string.IsNullOrWhiteSpace(username) && string.IsNullOrWhiteSpace(password));
+
         }
 
         
