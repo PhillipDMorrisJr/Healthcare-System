@@ -13,16 +13,16 @@ namespace Healthcare.Utils
     public static class RegistrationUtility 
     {
         private static Patient currentPatient= null;
+        private static List<Patient> patients = new List<Patient>();
 
         /// <summary>
         /// Sets the registration patient.
         /// </summary>
         /// <param name="patient">The patient.</param>
         /// <returns></returns>
-        public static object SetRegistrationPatient(Patient patient)
+        public static void CreateNewPatient(Patient patient)
         {
-            Patient data = RegistrationUtility.currentPatient;
-            return data;
+            patients.Add(patient);
         }
 
         /// <summary>
@@ -30,10 +30,8 @@ namespace Healthcare.Utils
         /// </summary>
         /// <param name="patient">The patient.</param>
         /// <returns></returns>
-        public static Patient GetPreviousRegistrationData()
+        public static List<Patient> GetPatients()
         {
-            Patient data = RegistrationUtility.currentPatient;
-            RegistrationUtility.currentPatient = null;
-            return data;
+            return RegistrationUtility.patients;
         } }
 }

@@ -31,12 +31,7 @@ namespace Healthcare
         {
             this.InitializeComponent();
             //On load this should get you the patient registered in the registration page
-            Patient patientToRegister =  RegistrationUtility.GetPreviousRegistrationData();
-            if (patientToRegister != null)
-            {
-                //TODO: use patient to populate listview
-                //this.databaseInformation
-            }
+
         }
 
         /// <summary>
@@ -57,6 +52,23 @@ namespace Healthcare
         private void onRegister_Click(object sender, RoutedEventArgs e)
         {
             this.Frame.Navigate(typeof(RegistrationPage));
+        }
+
+        private void MainPage_OnLoaded(object sender, RoutedEventArgs e)
+        {
+
+            List<Patient> patientRegistry =  RegistrationUtility.GetPatients();
+            foreach (var patientToRegister in patientRegistry)
+            {
+
+
+                if (patientToRegister != null)
+                {
+                    //TODO: use patient to populate listview
+                    this.databaseInformation.Items.Add(patientToRegister.Format());
+
+                }
+            }
         }
     }
 }

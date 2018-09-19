@@ -44,7 +44,7 @@ namespace Healthcare
             
             if(!(string.IsNullOrWhiteSpace(fname) && string.IsNullOrWhiteSpace(lname) && string.IsNullOrWhiteSpace(phone))) {
                 Patient patient = new Patient(fname, lname, phone, date, time);
-                RegistrationUtility.SetRegistrationPatient(patient);
+                RegistrationUtility.CreateNewPatient(patient);
                 this.Frame.Navigate(typeof(MainPage));
             }
         }

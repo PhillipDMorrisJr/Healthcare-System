@@ -60,7 +60,15 @@ namespace Healthcare.Model
             this.Phone = phoneNumber;
             this.AppointmentDate = appointmentDate;
             this.AppointmentTime = appointmentTime;
-        } 
+        }
+
+
+        public string Format()
+        {
+            DateTime time = DateTime.Today.Add(AppointmentTime);
+            return FirstName + " " + LastName + " " + Phone + " " + AppointmentDate.ToString("d") + " " +
+                   time.ToString("hh:mm tt");
+        }
 
     }
 }
