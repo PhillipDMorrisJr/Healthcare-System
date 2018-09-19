@@ -30,7 +30,13 @@ namespace Healthcare
         public MainPage()
         {
             this.InitializeComponent();
-          
+            //On load this should get you the patient registered in the registration page
+            Patient patientToRegister =  RegistrationUtility.GetPreviousRegistrationData();
+            if (patientToRegister != null)
+            {
+                //TODO: use patient to populate listview
+                //this.databaseInformation
+            }
         }
 
         /// <summary>
@@ -50,7 +56,7 @@ namespace Healthcare
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void onRegister_Click(object sender, RoutedEventArgs e)
         {
-           Patient patientToRegister =  RegistrationUtility.GetPreviousRegistrationData();
+            this.Frame.Navigate(typeof(RegistrationPage));
         }
     }
 }

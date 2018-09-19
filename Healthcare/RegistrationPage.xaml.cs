@@ -42,7 +42,7 @@ namespace Healthcare
             DateTime date = this.AppointmentDate.Date.DateTime;
             TimeSpan time = this.AppointmentTime.Time;
             
-            if(string.IsNullOrWhiteSpace(fname) && string.IsNullOrWhiteSpace(lname) && string.IsNullOrWhiteSpace(phone)) {
+            if(!(string.IsNullOrWhiteSpace(fname) && string.IsNullOrWhiteSpace(lname) && string.IsNullOrWhiteSpace(phone))) {
                 Patient patient = new Patient(fname, lname, phone, date, time);
                 RegistrationUtility.SetRegistrationPatient(patient);
                 this.Frame.Navigate(typeof(MainPage));
