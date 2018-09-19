@@ -41,8 +41,23 @@ namespace Healthcare
             string phone = this.Phone.Text;
             DateTime date = this.AppointmentDate.Date.DateTime;
             TimeSpan time = this.AppointmentTime.Time;
+            int phoneNumber;
+            bool isTenDigit = false;
+            if (phone.Length == 10)
+            {
+                try
+                {
+                    phoneNumber = Convert.ToInt32(phone);
+                    isTenDigit = true;
+                }
+                catch (Exception)
+                {
+                   
+                }
+            }
+
             
-            if(!(string.IsNullOrWhiteSpace(fname) && string.IsNullOrWhiteSpace(lname) && string.IsNullOrWhiteSpace(phone))) {
+            if(!(string.IsNullOrWhiteSpace(fname) && string.IsNullOrWhiteSpace(lname) && string.IsNullOrWhiteSpace(phone)) && isTenDigit) {
                 Patient patient = new Patient(fname, lname, phone, date, time);
                 RegistrationUtility.CreateNewPatient(patient);
                 this.Frame.Navigate(typeof(MainPage));

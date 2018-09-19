@@ -66,7 +66,7 @@ namespace Healthcare.Model
         public string Format()
         {
             DateTime time = DateTime.Today.Add(AppointmentTime);
-            return FirstName + " " + LastName + " " + Phone + " " + AppointmentDate.ToString("d") + " " +
+            return FirstName + " " + LastName + " " + string.Format("{0:(###) ###-####}", Convert.ToInt32(Phone)) + " " + AppointmentDate.ToString("d") + " " +
                    time.ToString("hh:mm tt");
         }
 
