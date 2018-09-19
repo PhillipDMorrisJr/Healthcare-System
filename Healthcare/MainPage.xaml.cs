@@ -24,17 +24,30 @@ namespace Healthcare
     /// </summary>
     public sealed partial class MainPage : Page
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MainPage"/> class.
+        /// </summary>
         public MainPage()
         {
             this.InitializeComponent();
           
         }
 
+        /// <summary>
+        /// Handles the Click event of the onLogout control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void onLogout_Click(object sender, RoutedEventArgs e)
         {
             this.Frame.Navigate(typeof(LoginPage));
         }
 
+        /// <summary>
+        /// Handles the Click event of the onRegister control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void onRegister_Click(object sender, RoutedEventArgs e)
         {
            Patient patientToRegister =  RegistrationUtility.GetPreviousRegistrationData();

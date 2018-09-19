@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Utils
+namespace Healthcare.Utils
 {
     /// <summary>
     /// This utility is responsible for confirming that a user's identification exists within the database
