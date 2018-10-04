@@ -31,6 +31,8 @@ namespace Healthcare
         {
             this.InitializeComponent();
             //On load this should get you the patient registered in the registration page
+            this.nameID.Text = AccessValidator.CurrentUser.Username;
+            this.userID.Text = AccessValidator.CurrentUser.ID;
 
         }
 

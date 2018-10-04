@@ -21,9 +21,7 @@ namespace Healthcare.Utils
             (new User("2", "2")),
         };
 
-
-
-
+        public static User CurrentUser;
 
         /// <summary>
         /// Confirms the user access by checking to see if user exists inside database.
@@ -34,8 +32,10 @@ namespace Healthcare.Utils
         public static bool ConfirmUserAccess(String username, string password)
         {
             bool validInput = ValidateThatUsernameAndPasswordAreNotEmpty(username, password);
-            bool validUser = users.Exists(user => user.Username == username && user.Password == password);
-            return validUser && validInput;
+            CurrentUser = users.Find(user => user.Username == username && user.Password == password);
+            bool isValid = CurrentUser != null && validInput;
+
+            return isValid;
 
         }
 

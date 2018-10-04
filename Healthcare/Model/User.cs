@@ -24,6 +24,14 @@ namespace Healthcare.Model
         public string Password { get; }
 
         /// <summary>
+        /// Gets the identifier.
+        /// </summary>
+        /// <value>
+        /// The identifier.
+        /// </value>
+        public string ID { get;}
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="User"/> class.
         /// </summary>
         /// <param name="username">The username.</param>
@@ -32,6 +40,13 @@ namespace Healthcare.Model
         {
             this.Username = username;
             this.Password = password;
+            ID = Base64Encode("test string");
+        }
+
+        static string Base64Encode(string text)
+        {
+            var bytes = System.Text.Encoding.UTF8.GetBytes(text);
+            return System.Convert.ToBase64String(bytes);            
         }
     }
 }

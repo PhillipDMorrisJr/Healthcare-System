@@ -10,11 +10,19 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid  HorizontalAlignment="Stretch" Margin="232,10,0,0" VerticalAlignment="Stretch">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="10*"/>
+        </Grid.RowDefinitions>
 
-        <ListView Name="databaseInformation" HorizontalAlignment="Left" Height="796" VerticalAlignment="Top" Width="800" Background="White" Margin="52,67,0,0"/>
+        <ListView Name="databaseInformation" HorizontalAlignment="Left" Height="796" VerticalAlignment="Top" Width="800" Background="White" Margin="52,67,0,0" Grid.RowSpan="2"/>
 
-        <Button Content="REGISTER" HorizontalAlignment="Left" Margin="-197,536,0,0" VerticalAlignment="Top" Height="66" Width="165" Click="onRegister_Click" Background="Gainsboro"/>
-        <Button Content="LOG OUT" HorizontalAlignment="Left" Margin="-197,686,0,0" VerticalAlignment="Top" Height="66" Width="165" Click="onLogout_Click" Background="Gainsboro"/>
-        <TextBlock Text="Healthcare Services" HorizontalAlignment="Left" Margin="-217,67,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="233" Width="261" Foreground="White" FontSize="50" TextAlignment="Center" />
+        <Button Content="REGISTER" HorizontalAlignment="Left" Margin="-197,313.8,0,0" VerticalAlignment="Top" Height="66" Width="165" Click="onRegister_Click" Background="Gainsboro" Grid.Row="1"/>
+        <Button Content="LOG OUT" HorizontalAlignment="Left" Margin="-197,385.8,0,0" VerticalAlignment="Top" Height="66" Width="165" Click="onLogout_Click" Background="Gainsboro" Grid.Row="1"/>
+        <TextBlock Grid.Row="0" Text="Healthcare Services" HorizontalAlignment="Left" Margin="-217,67,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="139" Width="254" Foreground="White" FontSize="50" TextAlignment="Center" />
+        <TextBlock Grid.Row="0" HorizontalAlignment="Left" Margin="-197,231,0,0" Text="Name:" TextWrapping="Wrap" Foreground="GhostWhite" VerticalAlignment="Top" Height="20" Width="62"/>
+        <TextBlock Grid.Row="0" Name="nameID" HorizontalAlignment="Left" Margin="-107,231,0,0" Text="" TextWrapping="Wrap" Foreground="GhostWhite" VerticalAlignment="Top" Height="20" Width="62"/>
+        <TextBlock Grid.Row="0" HorizontalAlignment="Left" Margin="-197,251,0,0" Text="User ID:" TextWrapping="Wrap" Foreground="GhostWhite" VerticalAlignment="Top" Height="20" Width="62"/>
+        <TextBlock Grid.Row="0" Name="userID" HorizontalAlignment="Left" Margin="-107,251,0,0" Text="" TextWrapping="Wrap" Foreground="GhostWhite" VerticalAlignment="Top" Height="20" Width="62"/>
     </Grid>
 </Page>

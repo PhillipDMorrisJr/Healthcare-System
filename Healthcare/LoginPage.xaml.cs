@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Windows.Devices.AllJoyn;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI;
@@ -30,8 +31,9 @@ namespace Healthcare
 
         private void onLogin_Click(object sender, RoutedEventArgs e)
         {
+            
             bool access = Utils.AccessValidator.ConfirmUserAccess(this.UserNameBox.Text, this.PasswordBox.Password);
-
+           
             if (access)
             {
                 this.Frame.Navigate(typeof(MainPage));
