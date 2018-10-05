@@ -54,7 +54,7 @@ namespace Healthcare
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void onRegister_Click(object sender, RoutedEventArgs e)
         {
-            this.Frame.Navigate(typeof(RegistrationPage));
+            
         }
 
         private void MainPage_OnLoaded(object sender, RoutedEventArgs e)
@@ -72,6 +72,26 @@ namespace Healthcare
 
                 }
             }
+        }
+
+        private void onRegisterAppointment_Click(object sender, RoutedEventArgs e)
+        {
+            this.Frame.Navigate(typeof(RegistrationPage));
+        }
+
+        private void onAddPatient_Click(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void onUpdatePatient_Click(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void onPatientDetails_Click(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
         }
     }
 }
