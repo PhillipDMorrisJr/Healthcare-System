@@ -24,5 +24,7 @@
         <TextBlock Grid.Row="0" Name="nameID" HorizontalAlignment="Left" Margin="-107,231,0,0" Text="" TextWrapping="Wrap" Foreground="GhostWhite" VerticalAlignment="Top" Height="20" Width="62"/>
         <TextBlock Grid.Row="0" HorizontalAlignment="Left" Margin="-197,251,0,0" Text="User ID:" TextWrapping="Wrap" Foreground="GhostWhite" VerticalAlignment="Top" Height="20" Width="62"/>
         <TextBlock Grid.Row="0" Name="userID" HorizontalAlignment="Left" Margin="-107,251,0,0" Text="" TextWrapping="Wrap" Foreground="GhostWhite" VerticalAlignment="Top" Height="20" Width="62"/>
+        <TextBlock Grid.Row="0" HorizontalAlignment="Left" Margin="-197,271,0,0" Text="Access:" TextWrapping="Wrap" Foreground="GhostWhite" VerticalAlignment="Top" Height="20" Width="62"/>
+        <TextBlock Grid.Row="0" Name="accessType" HorizontalAlignment="Left" Margin="-107,271,0,0" Text="" TextWrapping="Wrap" Foreground="GhostWhite" VerticalAlignment="Top" Height="20" Width="100"/>
     </Grid>
 </Page>
