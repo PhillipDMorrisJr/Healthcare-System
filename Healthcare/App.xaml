@@ -5,6 +5,6 @@
     xmlns:local="using:Healthcare">
 
     <Application.Resources>
-        <SolidColorBrush x:Key="ApplicationPageBackgroundThemeBrush" Color="#439FCB" />
+        <SolidColorBrush x:Key="ApplicationPageBackgroundThemeBrush" Color="#263961" />
     </Application.Resources>
 </Application>

@@ -9,6 +9,6 @@ namespace Healthcare.Utils
 {
     public static class AppointmentManager
     {
-        public static List<Appointment> Appointments = new List<Appointment>();
+        public static Dictionary<Patient, List<Appointment>> Appointments = new Dictionary<Patient, List<Appointment>>();
     }
 }

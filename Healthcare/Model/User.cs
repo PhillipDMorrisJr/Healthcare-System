@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.UI.Xaml.Controls;
 
 namespace Healthcare.Model
 {
@@ -30,6 +31,15 @@ namespace Healthcare.Model
         /// The identifier.
         /// </value>
         public string ID { get;}
+
+
+        /// <summary>
+        /// Gets or sets the user image.
+        /// </summary>
+        /// <value>
+        /// The user image.
+        /// </value>
+        public Image UserImage { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="User"/> class.

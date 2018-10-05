@@ -10,10 +10,6 @@
 
     <Grid Background="White" HorizontalAlignment="Center" Height="705" VerticalAlignment="Center" Width="500">
         <TextBlock HorizontalAlignment="Left" FontWeight="Bold" Margin="10,10,0,0" Text="Healthcare Services" Foreground="Gray" FontSize="50" TextAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" Height="123" Width="483"/>
-        <TextBox Name="FirstName" HorizontalAlignment="Left" Margin="35,137,0,0" VerticalAlignment="Top" Height="57" Width="434" BorderBrush="DarkGray" FontSize="25"/>
-        <TextBlock HorizontalAlignment="Left" Margin="35,112,0,0" Text="First Name:" TextWrapping="Wrap" VerticalAlignment="Top" Height="33" Width="133"/>
-        <TextBox Name="LastName" HorizontalAlignment="Left" Margin="37,237,0,0" VerticalAlignment="Top" Height="57" Width="434" BorderBrush="DarkGray" FontSize="25" />
-        <TextBlock HorizontalAlignment="Left" Margin="37,212,0,0" Text="Last Name:" TextWrapping="Wrap" VerticalAlignment="Top" Height="33" Width="133"/>
         <TextBlock HorizontalAlignment="Left" Margin="37,312,0,0" Text="Appointment Date:" TextWrapping="Wrap" VerticalAlignment="Top" Height="33" Width="133"/>
         <DatePicker Name="AppointmentDate" HorizontalAlignment="Left" Margin="37,337,0,0" VerticalAlignment="Top" Height="37" Width="432"/>
         <TextBlock HorizontalAlignment="Left" Margin="37,392,0,0" Text="Appointment Time:" TextWrapping="Wrap" VerticalAlignment="Top" Height="33" Width="133"/>
@@ -21,6 +17,7 @@
         <TextBox Name="Phone" HorizontalAlignment="Left" Margin="35,484,0,0" VerticalAlignment="Top" Height="57" Width="434" BorderBrush="DarkGray" FontSize="25" />
         <TextBlock HorizontalAlignment="Left" Margin="35,459,0,0" Text="Phone:" TextWrapping="Wrap" VerticalAlignment="Top" Height="33" Width="133"/>
         <Button Content="Register" HorizontalAlignment="Center" Margin="0,591,0,0" VerticalAlignment="Top" Height="58" Width="438" FontSize="25" Click="register_Click" />
+        <Image Name="userImage" HorizontalAlignment="Left" Height="121" Margin="31,108,0,0" VerticalAlignment="Top" Width="132"/>
 
 
 

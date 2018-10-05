@@ -14,6 +14,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Healthcare.Model;
 using Healthcare.Utils;
+using Healthcare.Views;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -68,7 +69,7 @@ namespace Healthcare
                 if (patientToRegister != null)
                 {
                     //TODO: use patient to populate listview
-                    this.databaseInformation.Items.Add(patientToRegister.Format());
+                    this.DatabasePatientInformation.Items.Add(patientToRegister.Format());
 
                 }
             }
@@ -76,7 +77,7 @@ namespace Healthcare
 
         private void onRegisterAppointment_Click(object sender, RoutedEventArgs e)
         {
-            this.Frame.Navigate(typeof(RegistrationPage));
+            
         }
 
         private void onAddPatient_Click(object sender, RoutedEventArgs e)
@@ -90,6 +91,21 @@ namespace Healthcare
         }
 
         private void onPatientDetails_Click(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void onAddAppointment_Click(object sender, RoutedEventArgs e)
+        {
+            this.Frame.Navigate(typeof(RegistrationPage));
+        }
+
+        private void onUpdateAppointment_Click(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void onAppointmentDetails_Click(object sender, RoutedEventArgs e)
         {
             throw new NotImplementedException();
         }

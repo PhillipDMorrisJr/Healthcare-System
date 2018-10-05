@@ -32,20 +32,9 @@ namespace Healthcare.Model
         /// The phone.
         /// </value>
         public string Phone { get; }
-        /// <summary>
-        /// Gets the appointment date.
-        /// </summary>
-        /// <value>
-        /// The appointment date.
-        /// </value>
-        public DateTime AppointmentDate { get; }
-        /// <summary>
-        /// Gets or sets the appointment time.
-        /// </summary>
-        /// <value>
-        /// The appointment time.
-        /// </value>
-        public TimeSpan AppointmentTime { get; set; }
+
+
+        public DateTime DOB { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Patient"/> class.
@@ -53,21 +42,20 @@ namespace Healthcare.Model
         /// <param name="name">The name.</param>
         /// <param name="phoneNumber">The phone number.</param>
         /// <param name="appointmentDateTime">The appointment date time.</param>
-        public Patient(string firstName, string lastName, string phoneNumber, DateTime appointmentDate, TimeSpan appointmentTime )
+        public Patient(string firstName, string lastName, string phoneNumber)
         {
             this.FirstName = firstName;
             this.LastName = lastName;
             this.Phone = phoneNumber;
-            this.AppointmentDate = appointmentDate;
-            this.AppointmentTime = appointmentTime;
         }
 
 
         public string Format()
         {
-            DateTime time = DateTime.Today.Add(AppointmentTime);
-            return FirstName + " " + LastName + " " + string.Format("{0:(###) ###-####}", Convert.ToInt32(Phone)) + " " + AppointmentDate.ToString("d") + " " +
-                   time.ToString("hh:mm tt");
+           // DateTime time = DateTime.Today.Add(AppointmentTime);
+            return FirstName + " " + LastName + " ";
+            //+ string.Format("{0:(###) ###-####}", Convert.ToInt32(Phone)) + " " + AppointmentDate.ToString("d") + " " +
+            // time.ToString("hh:mm tt");
         }
 
     }
