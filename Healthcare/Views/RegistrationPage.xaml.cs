@@ -36,33 +36,33 @@ namespace Healthcare
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void register_Click(object sender, RoutedEventArgs e)
         {
-            string fname = this.FirstName.Text;
-            string lname = this.LastName.Text;
-            string phone = this.Phone.Text;
+         //   string fname = this.FirstName.Text;
+        //    string lname = this.LastName.Text;
+        //    string phone = this.Phone.Text;
             DateTime date = this.AppointmentDate.Date.DateTime;
             TimeSpan time = this.AppointmentTime.Time;
             int phoneNumber;
             bool isTenDigit = false;
-            if (phone.Length == 10)
-            {
-                try
-                {
-                    phoneNumber = Convert.ToInt32(phone);
-                    isTenDigit = true;
-                }
-                catch (Exception)
-                {
+           // if (phone.Length == 10)
+           // {
+//try
+            //    {
+             //       phoneNumber = Convert.ToInt32(phone);
+             //       isTenDigit = true;
+             //   }
+             //   catch (Exception)
+              //  {
                    
-                }
+               // }
             }
 
             
-            if(!(string.IsNullOrWhiteSpace(fname) && string.IsNullOrWhiteSpace(lname) && string.IsNullOrWhiteSpace(phone)) && isTenDigit) {
-                Patient patient = new Patient(fname, lname, phone, date, time);
-                RegistrationUtility.CreateNewPatient(patient);
-                this.Frame.Navigate(typeof(MainPage));
-            }
-        }
+          //  if(!(string.IsNullOrWhiteSpace(fname) && string.IsNullOrWhiteSpace(lname) && string.IsNullOrWhiteSpace(phone)) && isTenDigit) {
+           //     Patient patient = new Patient(fname, lname, phone, date, time);
+             //   RegistrationUtility.CreateNewPatient(patient);
+             //   this.Frame.Navigate(typeof(MainPage));
+          //  }
+       // }
     }
 }
  

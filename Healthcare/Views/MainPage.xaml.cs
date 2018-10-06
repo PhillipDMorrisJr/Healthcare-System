@@ -82,7 +82,7 @@ namespace Healthcare
 
         private void onAddPatient_Click(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            this.Frame.Navigate(typeof(LoginPage));
         }
 
         private void onUpdatePatient_Click(object sender, RoutedEventArgs e)

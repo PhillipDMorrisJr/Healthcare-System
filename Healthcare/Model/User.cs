@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Controls;
+using Healthcare.Utils;
 
 namespace Healthcare.Model
 {
@@ -50,13 +51,7 @@ namespace Healthcare.Model
         {
             this.Username = username;
             this.Password = password;
-            ID = Base64Encode("test string");
-        }
-
-        static string Base64Encode(string text)
-        {
-            var bytes = System.Text.Encoding.UTF8.GetBytes(text);
-            return System.Convert.ToBase64String(bytes);            
+            ID = IdGenerator.Base64Encode(Username + password);
         }
     }
 }

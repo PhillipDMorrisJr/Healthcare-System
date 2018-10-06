@@ -9,6 +9,17 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
+        <TextBlock Foreground="GhostWhite"  HorizontalAlignment="Left" Margin="345,146,0,0" Text="First Name:" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="30"/>
+
+        <TextBlock Foreground="GhostWhite"  HorizontalAlignment="Left" Margin="345,294,0,0" Text="Last Name:" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="30"/>
+
+        <TextBlock Foreground="GhostWhite"  HorizontalAlignment="Left" Margin="345,427,0,0" Text="Phone:" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="30"/>
+
+        <TextBlock Foreground="GhostWhite"  HorizontalAlignment="Left" Margin="345,570,0,0" Text="Date Of Birth:" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="30"/>
+        <TextBox HorizontalAlignment="Left" Margin="345,191,0,0" Text="first name" VerticalAlignment="Top" Height="61" Width="455" Background="Azure" FontSize="30"/>
+        <TextBox HorizontalAlignment="Left" Margin="345,339,0,0" Text="TextBox" VerticalAlignment="Top" Height="61" Width="455" Background="Azure" FontSize="30"/>
+        <TextBox HorizontalAlignment="Left" Margin="345,472,0,0" Text="TextBox" VerticalAlignment="Top" Height="61" Width="455" Background="Azure" FontSize="30"/>
+        <DatePicker HorizontalAlignment="Left" Margin="344,615,0,0" VerticalAlignment="Top" MinHeight="33" MinWidth="455" Background="Azure" FontSize="30"/>
 
     </Grid>
 </Page>
