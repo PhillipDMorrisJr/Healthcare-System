@@ -23,15 +23,17 @@ namespace Healthcare
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
+    /// <seealso cref="Windows.UI.Xaml.Controls.Page" />
+    /// <seealso cref="Windows.UI.Xaml.Markup.IComponentConnector" />
+    /// <seealso cref="Windows.UI.Xaml.Markup.IComponentConnector2" />
     public sealed partial class MainPage : Page
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="MainPage"/> class.
+        /// Initializes a new instance of the <see cref="MainPage" /> class.
         /// </summary>
         public MainPage()
         {
             this.InitializeComponent();
-            //On load this should get you the patient registered in the registration page
             this.nameID.Text = AccessValidator.CurrentUser.Username;
             this.userID.Text = AccessValidator.CurrentUser.ID;
             this.accessType.Text = AccessValidator.Access;
@@ -42,7 +44,7 @@ namespace Healthcare
         /// Handles the Click event of the onLogout control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs" /> instance containing the event data.</param>
         private void onLogout_Click(object sender, RoutedEventArgs e)
         {
             this.Frame.Navigate(typeof(LoginPage));
@@ -52,62 +54,117 @@ namespace Healthcare
         /// Handles the Click event of the onRegister control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs" /> instance containing the event data.</param>
         private void onRegister_Click(object sender, RoutedEventArgs e)
         {
-            
+            this.Frame.Navigate(typeof(NewAppointment));
         }
 
+        /// <summary>
+        /// Handles the OnLoaded event of the MainPage control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs" /> instance containing the event data.</param>
         private void MainPage_OnLoaded(object sender, RoutedEventArgs e)
         {
 
             List<Patient> patientRegistry =  RegistrationUtility.GetPatients();
             foreach (var patientToRegister in patientRegistry)
             {
-
-
                 if (patientToRegister != null)
                 {
                     //TODO: use patient to populate listview
-                    this.DatabasePatientInformation.Items.Add(patientToRegister.Format());
+                    ListViewItem item = new ListViewItem();
+                    item.Tag = patientToRegister;
+                    item.Content = patientToRegister.Format();
+                    this.DatabasePatientInformation.Items?.Add(item);
 
                 }
             }
         }
 
-        private void onRegisterAppointment_Click(object sender, RoutedEventArgs e)
-        {
-            
-        }
-
+        /// <summary>
+        /// Handles the Click event of the onAddPatient control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs" /> instance containing the event data.</param>
         private void onAddPatient_Click(object sender, RoutedEventArgs e)
         {
-            this.Frame.Navigate(typeof(LoginPage));
+            this.Frame.Navigate(typeof(NewPatient));
         }
 
+        /// <summary>
+        /// Handles the Click event of the onUpdatePatient control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs" /> instance containing the event data.</param>
         private void onUpdatePatient_Click(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            this.Frame.Navigate(typeof(EditPatient));
         }
 
+        /// <summary>
+        /// Handles the Click event of the onPatientDetails control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs" /> instance containing the event data.</param>
         private void onPatientDetails_Click(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            this.Frame.Navigate(typeof(PatientDetails));
         }
 
+        /// <summary>
+        /// Handles the Click event of the onAddAppointment control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void onAddAppointment_Click(object sender, RoutedEventArgs e)
         {
-            this.Frame.Navigate(typeof(RegistrationPage));
+            this.Frame.Navigate(typeof(NewAppointment));
         }
 
+        /// <summary>
+        /// Handles the Click event of the onUpdateAppointment control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void onUpdateAppointment_Click(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            this.Frame.Navigate(typeof(EditAppointment));
         }
 
+        /// <summary>
+        /// Handles the Click event of the onAppointmentDetails control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void onAppointmentDetails_Click(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            this.Frame.Navigate(typeof(AppointmentDetails));
+        }
+
+        /// <summary>
+        /// Handles the OnSelectionChanged event of the DatabasePatientInformation control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="SelectionChangedEventArgs"/> instance containing the event data.</param>
+        private void DatabasePatientInformation_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            this.DatabaseAppointmentInformation.Items?.Clear();
+            Patient cp = (this.DatabasePatientInformation.SelectedItem as ListViewItem)?.Tag as Patient;
+            PatientManager.CurrentPatient = cp;
+
+            foreach (var appointment in AppointmentManager.Appointments[cp])
+            {
+                if (appointment != null)
+                {
+                    ListViewItem item = new ListViewItem();
+                    item.Tag = appointment;
+                    item.Content = appointment.Format();
+                    this.DatabaseAppointmentInformation.Items?.Add(item);
+                }
+            }
+
         }
     }
 }

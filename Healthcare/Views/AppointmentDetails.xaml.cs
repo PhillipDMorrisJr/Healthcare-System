@@ -12,6 +12,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using Healthcare.Utils;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -25,6 +26,9 @@ namespace Healthcare.Views
         public AppointmentDetails()
         {
             this.InitializeComponent();
+            this.nameID.Text = AccessValidator.CurrentUser.Username;
+            this.userID.Text = AccessValidator.CurrentUser.ID;
+            this.accessType.Text = AccessValidator.Access;
         }
     }
 }

@@ -23,6 +23,7 @@ namespace Healthcare.Utils
         public static void CreateNewPatient(Patient patient)
         {
             patients.Add(patient);
+            AppointmentManager.Appointments.Add(patient, new List<Appointment>());
         }
 
         /// <summary>

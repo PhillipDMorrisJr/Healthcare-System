@@ -70,10 +70,8 @@ namespace Healthcare.Model
 
         public string Format()
         {
-           // DateTime time = DateTime.Today.Add(AppointmentTime);
-            return FirstName + " " + LastName + " ";
-            //+ string.Format("{0:(###) ###-####}", Convert.ToInt32(Phone)) + " " + AppointmentDate.ToString("d") + " " +
-            // time.ToString("hh:mm tt");
+            return FirstName + " " + LastName ;
+
         }
 
     }

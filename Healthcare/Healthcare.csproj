@@ -95,12 +95,11 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Model\Doctor.cs" />
+    <Compile Include="Utils\DoctorManager.cs" />
     <Compile Include="Utils\IdGenerator.cs" />
     <Compile Include="Views\AppointmentDetails.xaml.cs">
       <DependentUpon>AppointmentDetails.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\DefaultTemplate.xaml.cs">
-      <DependentUpon>DefaultTemplate.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\EditAppointment.xaml.cs">
       <DependentUpon>EditAppointment.xaml</DependentUpon>
@@ -126,8 +125,8 @@
     <Compile Include="Views\PatientDetails.xaml.cs">
       <DependentUpon>PatientDetails.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\RegistrationPage.xaml.cs">
-      <DependentUpon>RegistrationPage.xaml</DependentUpon>
+    <Compile Include="Views\NewAppointment.xaml.cs">
+      <DependentUpon>NewAppointment.xaml</DependentUpon>
     </Compile>
     <Compile Include="Utils\AccessValidator.cs" />
     <Compile Include="Utils\AppointmentManager.cs" />
@@ -160,10 +159,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\DefaultTemplate.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\EditAppointment.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -188,7 +183,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\RegistrationPage.xaml">
+    <Page Include="Views\NewAppointment.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

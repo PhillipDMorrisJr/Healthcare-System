@@ -10,5 +10,7 @@ namespace Healthcare.Utils
     class PatientManager
     {
         public static List<Patient> Patients = new List<Patient>();
+        public static Patient CurrentPatient;
+
     }
 }

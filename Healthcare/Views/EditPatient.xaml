@@ -8,7 +8,17 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Grid>
+    <Grid  HorizontalAlignment="Stretch" Margin="232,10,0,0" VerticalAlignment="Stretch">
+
+        <TextBlock Grid.Row="0" Text="Healthcare Services" HorizontalAlignment="Left" Margin="-217,67,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="139" Width="254" Foreground="White" FontSize="50" TextAlignment="Center" />
+
+        <TextBlock Grid.Row="0" HorizontalAlignment="Left" Margin="-197,231,0,0" Text="Name:" TextWrapping="Wrap" Foreground="GhostWhite" VerticalAlignment="Top" Height="20" Width="62"/>
+        <TextBlock Grid.Row="0" Name="nameID" HorizontalAlignment="Left" Margin="-107,231,0,0" Text="" TextWrapping="Wrap" Foreground="GhostWhite" VerticalAlignment="Top" Height="20" Width="62"/>
+        <TextBlock Grid.Row="0" HorizontalAlignment="Left" Margin="-197,251,0,0" Text="User ID:" TextWrapping="Wrap" Foreground="GhostWhite" VerticalAlignment="Top" Height="20" Width="62"/>
+        <TextBlock Grid.Row="0" Name="userID" HorizontalAlignment="Left" Margin="-107,251,0,0" Text="" TextWrapping="Wrap" Foreground="GhostWhite" VerticalAlignment="Top" Height="20" Width="62"/>
+        <TextBlock Grid.Row="0" HorizontalAlignment="Left" Margin="-197,271,0,0" Text="Access:" TextWrapping="Wrap" Foreground="GhostWhite" VerticalAlignment="Top" Height="20" Width="62"/>
+        <TextBlock Grid.Row="0" Name="accessType" HorizontalAlignment="Left" Margin="-107,271,0,0" Text="" TextWrapping="Wrap" Foreground="GhostWhite" VerticalAlignment="Top" Height="20" Width="100"/>
+
 
     </Grid>
 </Page>

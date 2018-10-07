@@ -7,9 +7,10 @@ using Healthcare.Model;
 
 namespace Healthcare.Utils
 {
-    public static class AppointmentManager
+    public static class DoctorManager
     {
-        
-        public static Dictionary<Patient, List<Appointment>> Appointments = new Dictionary<Patient, List<Appointment>>();
+        public static List<Doctor> Doctors = new List<Doctor>() {
+            new Doctor("Jimmy", "Johnson")
+        };
     }
 }
