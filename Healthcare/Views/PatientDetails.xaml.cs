@@ -29,6 +29,14 @@ namespace Healthcare.Views
             this.nameID.Text = AccessValidator.CurrentUser.Username;
             this.userID.Text = AccessValidator.CurrentUser.ID;
             this.accessType.Text = AccessValidator.Access;
+            this.fname.Text = PatientManager.CurrentPatient.FirstName;
+            this.lname.Text = PatientManager.CurrentPatient.LastName;
+            this.bday.Date = PatientManager.CurrentPatient.DOB;
+        }
+
+        private void home_onClick(object sender, RoutedEventArgs e)
+        {
+            this.Frame.Navigate(typeof(MainPage));
         }
     }
 }

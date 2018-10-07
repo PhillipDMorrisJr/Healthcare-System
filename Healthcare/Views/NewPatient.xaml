@@ -8,29 +8,31 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Grid  HorizontalAlignment="Stretch" Margin="232,10,0,0" VerticalAlignment="Stretch">
+    <Grid Background="White" HorizontalAlignment="Center" Height="841" VerticalAlignment="Center" Width="500" Margin="0,0,0,0">
 
-        <TextBlock Grid.Row="0" Text="Healthcare Services" HorizontalAlignment="Left" Margin="-217,67,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="139" Width="254" Foreground="White" FontSize="50" TextAlignment="Center" />
+        <TextBlock Grid.Row="0" Text="Healthcare Services" HorizontalAlignment="Left" Margin="-469,21,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="139" Width="254" Foreground="White" FontSize="50" TextAlignment="Center" />
 
-        <TextBlock Grid.Row="0" HorizontalAlignment="Left" Margin="-197,231,0,0" Text="Name:" TextWrapping="Wrap" Foreground="GhostWhite" VerticalAlignment="Top" Height="20" Width="62"/>
-        <TextBlock Grid.Row="0" Name="nameID" HorizontalAlignment="Left" Margin="-107,231,0,0" Text="" TextWrapping="Wrap" Foreground="GhostWhite" VerticalAlignment="Top" Height="20" Width="62"/>
-        <TextBlock Grid.Row="0" HorizontalAlignment="Left" Margin="-197,251,0,0" Text="User ID:" TextWrapping="Wrap" Foreground="GhostWhite" VerticalAlignment="Top" Height="20" Width="62"/>
-        <TextBlock Grid.Row="0" Name="userID" HorizontalAlignment="Left" Margin="-107,251,0,0" Text="" TextWrapping="Wrap" Foreground="GhostWhite" VerticalAlignment="Top" Height="20" Width="62"/>
-        <TextBlock Grid.Row="0" HorizontalAlignment="Left" Margin="-197,271,0,0" Text="Access:" TextWrapping="Wrap" Foreground="GhostWhite" VerticalAlignment="Top" Height="20" Width="62"/>
-        <TextBlock Grid.Row="0" Name="accessType" HorizontalAlignment="Left" Margin="-107,271,0,0" Text="" TextWrapping="Wrap" Foreground="GhostWhite" VerticalAlignment="Top" Height="20" Width="100"/>
+        <TextBlock Grid.Row="0" HorizontalAlignment="Left" Margin="-469,231,0,0" Text="Name:" TextWrapping="Wrap" Foreground="GhostWhite" VerticalAlignment="Top" Height="20" Width="62"/>
+        <TextBlock Grid.Row="0" Name="nameID" HorizontalAlignment="Left" Margin="-402,231,0,0" Text="" TextWrapping="Wrap" Foreground="GhostWhite" VerticalAlignment="Top" Height="20" Width="62"/>
+        <TextBlock Grid.Row="0" HorizontalAlignment="Left" Margin="-469,251,0,0" Text="User ID:" TextWrapping="Wrap" Foreground="GhostWhite" VerticalAlignment="Top" Height="20" Width="62"/>
+        <TextBlock Grid.Row="0" Name="userID" HorizontalAlignment="Left" Margin="-402,251,0,0" Text="" TextWrapping="Wrap" Foreground="GhostWhite" VerticalAlignment="Top" Height="20" Width="62"/>
+        <TextBlock Grid.Row="0" HorizontalAlignment="Left" Margin="-469,271,0,0" Text="Access:" TextWrapping="Wrap" Foreground="GhostWhite" VerticalAlignment="Top" Height="20" Width="62"/>
+        <TextBlock Grid.Row="0" Name="accessType" HorizontalAlignment="Left" Margin="-402,271,0,0" Text="" TextWrapping="Wrap" Foreground="GhostWhite" VerticalAlignment="Top" Height="20" Width="100"/>
 
-        <TextBlock Foreground="GhostWhite"  HorizontalAlignment="Left" Margin="345,146,0,0" Text="First Name:" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="30"/>
+        <TextBlock HorizontalAlignment="Left" FontWeight="Bold" Margin="10,10,0,0" Text="Healthcare Services" Foreground="Gray" FontSize="50" TextAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" Height="123" Width="483"/>
 
-        <TextBlock Foreground="GhostWhite"  HorizontalAlignment="Left" Margin="345,294,0,0" Text="Last Name:" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="30"/>
+        <TextBlock HorizontalAlignment="Left" Margin="26,146,0,0" Text="First Name:" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="30"/>
 
-        <TextBlock Foreground="GhostWhite"  HorizontalAlignment="Left" Margin="345,427,0,0" Text="Phone:" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="30"/>
+        <TextBlock HorizontalAlignment="Left" Margin="26,294,0,0" Text="Last Name:" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="30"/>
 
-        <TextBlock Foreground="GhostWhite"  HorizontalAlignment="Left" Margin="345,570,0,0" Text="Date Of Birth:" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="30"/>
-        <TextBox Name="fname" HorizontalAlignment="Left" Margin="345,191,0,0" VerticalAlignment="Top" Height="61" Width="455" Background="Azure" FontSize="30"/>
-        <TextBox Name="lname" HorizontalAlignment="Left" Margin="345,339,0,0" VerticalAlignment="Top" Height="61" Width="455" Background="Azure" FontSize="30"/>
-        <TextBox Name="phone" HorizontalAlignment="Left" Margin="345,472,0,0" VerticalAlignment="Top" Height="61" Width="455" Background="Azure" FontSize="30"/>
-        <DatePicker Name="bday" HorizontalAlignment="Left" Margin="344,615,0,0" VerticalAlignment="Top" MinHeight="33" MinWidth="455" Background="Azure" FontSize="30"/>
-        <Button Content="Submit" HorizontalAlignment="Left" Margin="344,744,0,0" VerticalAlignment="Top" Height="61" Width="455" Click="createPatient_onClick" Background="#0178D4" BorderBrush="#3CC4EE" Foreground="Aqua"/>
+        <TextBlock HorizontalAlignment="Left" Margin="26,427,0,0" Text="Phone:" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="30"/>
+
+        <TextBlock HorizontalAlignment="Left" Margin="26,570,0,0" Text="Date Of Birth:" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="30"/>
+        <TextBox Name="fname" HorizontalAlignment="Center" Margin="0,186,0,0" VerticalAlignment="Top" Height="61" Width="455" Background="Azure" FontSize="30"/>
+        <TextBox Name="lname" HorizontalAlignment="Center" Margin="0,339,0,0" VerticalAlignment="Top" Height="61" Width="455" Background="Azure" FontSize="30"/>
+        <TextBox Name="phone" HorizontalAlignment="Center" Margin="0,472,0,0" VerticalAlignment="Top" Height="61" Width="455" Background="Azure" FontSize="30"/>
+        <DatePicker Name="bday" HorizontalAlignment="Center" Margin="0,615,0,0" VerticalAlignment="Top" MinHeight="33" MinWidth="455" Background="Azure" FontSize="30"/>
+        <Button Content="Submit" HorizontalAlignment="Center" Margin="0,744,0,0" VerticalAlignment="Top" Height="61" Width="455" Click="createPatient_onClick"/>
 
     </Grid>
 </Page>

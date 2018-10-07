@@ -30,7 +30,7 @@
         <Button Content="DETAILS" HorizontalAlignment="Left" Margin="330,843,0,0" VerticalAlignment="Top" Height="66" Width="100" Click="onPatientDetails_Click"  Background="#0178D4" BorderBrush="#3CC4EE" Foreground="Aqua"/>
 
 
-        <TextBlock HorizontalAlignment="Left" Margin="564,182,0,0" Text="Appointments" TextWrapping="Wrap" VerticalAlignment="Top" Height="38" Width="379" Foreground="Azure" FontSize="30" TextAlignment="Center"/>
+        <TextBlock HorizontalAlignment="Left" Margin="658,186,0,0" Text="Appointments" TextWrapping="Wrap" VerticalAlignment="Top" Height="38" Width="379" Foreground="Azure" FontSize="30" TextAlignment="Center"/>
 
         <ListView x:Name="DatabaseAppointmentInformation" HorizontalAlignment="Left" Height="551" VerticalAlignment="Top" Width="378" Background="White" Margin="657,231,0,0" />
         <Button Content="NEW" HorizontalAlignment="Left" Margin="658,843,0,0" VerticalAlignment="Top" Height="66" Width="95" Click="onAddAppointment_Click" Background="#0178D4" BorderBrush="#3CC4EE" Foreground="Aqua" RenderTransformOrigin="0.535,0.233"/>

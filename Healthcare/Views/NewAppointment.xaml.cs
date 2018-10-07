@@ -22,6 +22,7 @@ namespace Healthcare.Views
     public sealed partial class NewAppointment : Page
     {
         private Patient patient;
+        private Doctor doctor;
         /// <summary>
         /// Initializes a new instance of the <see cref="NewAppointment"/> class.
         /// </summary>
@@ -34,7 +35,20 @@ namespace Healthcare.Views
             this.accessType.Text = AccessValidator.Access;
             this.name.Text = this.patient.FirstName + " " + this.patient.LastName;
             this.id.Text = this.patient.ID;
-            this.phone.Text = String.Format("{0:(###) ###-####}", this.patient.Phone); 
+            this.phone.Text = String.Format("{0:(###) ###-####}", this.patient.Phone);
+
+            List<Doctor> doctors = DoctorManager.Doctors;
+            foreach (var aDoctor in doctors)
+            {
+                if (aDoctor != null)
+                {
+                    ListViewItem item = new ListViewItem();
+                    item.Tag = aDoctor;
+                    item.Content = aDoctor.FullName;
+                    this.databaseInformationDoctors.Items?.Add(item);
+                }
+            }
+
         }
         
         /// <summary>
@@ -46,9 +60,20 @@ namespace Healthcare.Views
         {
             DateTime date = this.AppointmentDate.Date.DateTime;
             TimeSpan time = this.AppointmentTime.Time;
-            Appointment appt = new Appointment(this.patient, date, time);
-            AppointmentManager.Appointments[this.patient].Add(appt);
-            this.Frame.Navigate(typeof(MainPage));
+
+            if (this.doctor != null)
+            {
+                Appointment appt = new Appointment(this.patient, this.doctor, date, time);
+                AppointmentManager.Appointments[this.patient].Add(appt);
+                this.Frame.Navigate(typeof(MainPage));
+            }
+
+
+        }
+
+        private void DatabaseInformationDoctors_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            this.doctor = (this.databaseInformationDoctors.SelectedItem as ListViewItem)?.Tag as Doctor;
         }
     }
 }

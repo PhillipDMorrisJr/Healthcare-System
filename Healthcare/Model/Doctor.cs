@@ -6,17 +6,43 @@ using System.Threading.Tasks;
 
 namespace Healthcare.Model
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class Doctor
     {
+        /// <summary>
+        /// Gets the full name.
+        /// </summary>
+        /// <value>
+        /// The full name.
+        /// </value>
+        public string FullName => "Dr. " + this.FirstName + " " + this.LastName;
+        /// <summary>
+        /// Gets the first name.
+        /// </summary>
+        /// <value>
+        /// The first name.
+        /// </value>
         public string FirstName { get; private set; }
+        /// <summary>
+        /// Gets the last name.
+        /// </summary>
+        /// <value>
+        /// The last name.
+        /// </value>
         public string LastName { get; private set; }
-        public Dictionary<DateTime, List<TimeSpan>> AvailableDates { get; }
-        
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Doctor"/> class.
+        /// </summary>
+        /// <param name="firstName">The first name.</param>
+        /// <param name="lastName">The last name.</param>
         public Doctor(string firstName, string lastName)
         {
             this.FirstName = firstName;
             this.LastName = lastName;
-            this.AvailableDates = new Dictionary<DateTime, List<TimeSpan>>();
+            
         }
 
     }

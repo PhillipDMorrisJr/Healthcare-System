@@ -16,6 +16,13 @@ namespace Healthcare.Model
         /// </value>
         public Patient Patient { get;  }
         /// <summary>
+        /// Gets the doctor.
+        /// </summary>
+        /// <value>
+        /// The doctor.
+        /// </value>
+        public Doctor Doctor { get;  }
+        /// <summary>
         /// Gets the appointment date time.
         /// </summary>
         /// <value>
@@ -29,14 +36,17 @@ namespace Healthcare.Model
         /// The appointment time.
         /// </value>
         public TimeSpan AppointmentTime { get;  }
+
+
         /// <summary>
         /// Initializes a new instance of the <see cref="Appointment"/> class.
         /// </summary>
         /// <param name="patient">The patient.</param>
         /// <param name="appointmentDateTime">The appointment date time.</param>
         /// <param name="appointmentTime">The appointment time.</param>
-        public Appointment(Patient patient, DateTime appointmentDateTime, TimeSpan appointmentTime)
+        public Appointment(Patient patient, Doctor doctor, DateTime appointmentDateTime, TimeSpan appointmentTime)
         {
+            this.Doctor = doctor;
             this.Patient = patient;
             this.AppointmentDateTime = appointmentDateTime;
             this.AppointmentTime = appointmentTime;
@@ -50,7 +60,7 @@ namespace Healthcare.Model
         {
             DateTime time = DateTime.Today.Add(this.AppointmentTime);
 
-             return AppointmentDateTime.ToString("d") + " " +  time.ToString("hh:mm tt");
+             return this.Doctor.FullName + " on " + this.AppointmentDateTime.ToString("d") + " at " +  time.ToString("hh:mm tt");
         }
 
     }

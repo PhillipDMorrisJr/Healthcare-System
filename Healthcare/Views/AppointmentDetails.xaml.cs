@@ -30,5 +30,15 @@ namespace Healthcare.Views
             this.userID.Text = AccessValidator.CurrentUser.ID;
             this.accessType.Text = AccessValidator.Access;
         }
+
+        private void checkin_Click(object sender, RoutedEventArgs e)
+        {
+            this.Frame.Navigate(typeof(Confirmation));
+        }
+
+        private void home_Click(object sender, RoutedEventArgs e)
+        {
+            this.Frame.Navigate(typeof(MainPage));
+        }
     }
 }

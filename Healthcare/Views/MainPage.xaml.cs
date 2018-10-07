@@ -51,16 +51,6 @@ namespace Healthcare
         }
 
         /// <summary>
-        /// Handles the Click event of the onRegister control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="RoutedEventArgs" /> instance containing the event data.</param>
-        private void onRegister_Click(object sender, RoutedEventArgs e)
-        {
-            this.Frame.Navigate(typeof(NewAppointment));
-        }
-
-        /// <summary>
         /// Handles the OnLoaded event of the MainPage control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
@@ -73,7 +63,6 @@ namespace Healthcare
             {
                 if (patientToRegister != null)
                 {
-                    //TODO: use patient to populate listview
                     ListViewItem item = new ListViewItem();
                     item.Tag = patientToRegister;
                     item.Content = patientToRegister.Format();
@@ -151,10 +140,10 @@ namespace Healthcare
         private void DatabasePatientInformation_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             this.DatabaseAppointmentInformation.Items?.Clear();
-            Patient cp = (this.DatabasePatientInformation.SelectedItem as ListViewItem)?.Tag as Patient;
-            PatientManager.CurrentPatient = cp;
+            Patient currentPatient = (this.DatabasePatientInformation.SelectedItem as ListViewItem)?.Tag as Patient;
+            PatientManager.CurrentPatient = currentPatient;
 
-            foreach (var appointment in AppointmentManager.Appointments[cp])
+            foreach (var appointment in AppointmentManager.Appointments[currentPatient])
             {
                 if (appointment != null)
                 {

@@ -38,13 +38,13 @@ namespace Healthcare.Views
                 string lname = this.lname.Text;
                 string phone = this.phone.Text;
             DateTime dateOFBirth = this.bday.Date.DateTime;
-            int phoneNumber;
+            uint phoneNumber;
             bool isTenDigit = false;
              if (phone.Length == 10)
              {
             try
                 {
-                   phoneNumber = Convert.ToInt32(phone);
+                   phoneNumber = Convert.ToUInt32(phone);
                    isTenDigit = true;
                }
                catch (Exception)
