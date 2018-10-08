@@ -7,6 +7,7 @@ namespace Healthcare.Utils
 {
     /// <summary>
     /// This utility is responsible for confirming that a user's identification exists within the database
+    /// Hello
     /// </summary>
     public static class AccessValidator
     {
