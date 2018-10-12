@@ -18,21 +18,21 @@ namespace Healthcare.Model
         /// <value>
         /// The first name.
         /// </value>
-        public string FirstName { get; }
+        public string FirstName { get; set; }
         /// <summary>
         /// Gets the last name.
         /// </summary>
         /// <value>
         /// The last name.
         /// </value>
-        public string LastName { get; }
+        public string LastName { get; set; }
         /// <summary>
         /// Gets the phone.
         /// </summary>
         /// <value>
         /// The phone.
         /// </value>
-        public string Phone { get; }
+        public string Phone { get; set; }
 
 
         /// <summary>
@@ -41,7 +41,7 @@ namespace Healthcare.Model
         /// <value>
         /// The dob.
         /// </value>
-        public DateTime DOB { get; set; }
+        public DateTime Dob { get; set; }
 
         /// <summary>
         /// Gets the identifier.
@@ -49,7 +49,14 @@ namespace Healthcare.Model
         /// <value>
         /// The identifier.
         /// </value>
-        public string ID { get; }
+        public string Id { get; set; }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Patient" /> class.
+        /// The default constructor has no parameters. The default constructor 
+        /// is invoked in the processing of object initializer.
+        /// </summary>
+        public Patient() {}
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Patient" /> class.
@@ -63,15 +70,14 @@ namespace Healthcare.Model
             this.FirstName = firstName;
             this.LastName = lastName;
             this.Phone = phoneNumber;
-            this.ID = IdGenerator.Base64Encode(firstName+lastName+phoneNumber).Substring(0, 9);
-            this.DOB = dob;
+            this.Dob = dob;
+            this.Id = string.Empty;
         }
 
 
         public string Format()
         {
             return FirstName + " " + LastName ;
-
         }
 
     }

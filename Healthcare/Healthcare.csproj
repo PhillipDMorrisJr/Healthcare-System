@@ -96,6 +96,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Model\Doctor.cs" />
+    <Compile Include="Utils\DatabaseManager.cs" />
     <Compile Include="Utils\DoctorManager.cs" />
     <Compile Include="Utils\IdGenerator.cs" />
     <Compile Include="Views\AppointmentDetails.xaml.cs">

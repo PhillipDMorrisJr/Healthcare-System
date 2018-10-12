@@ -31,7 +31,7 @@ namespace Healthcare.Views
             this.accessType.Text = AccessValidator.Access;
             this.fname.Text = PatientManager.CurrentPatient.FirstName;
             this.lname.Text = PatientManager.CurrentPatient.LastName;
-            this.bday.Date = PatientManager.CurrentPatient.DOB;
+            this.bday.Date = PatientManager.CurrentPatient.Dob;
         }
 
         private void home_onClick(object sender, RoutedEventArgs e)

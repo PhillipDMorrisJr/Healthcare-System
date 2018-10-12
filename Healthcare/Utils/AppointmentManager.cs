@@ -8,8 +8,7 @@ using Healthcare.Model;
 namespace Healthcare.Utils
 {
     public static class AppointmentManager
-    {
-        
+    {       
         public static Dictionary<Patient, List<Appointment>> Appointments = new Dictionary<Patient, List<Appointment>>();
     }
 }

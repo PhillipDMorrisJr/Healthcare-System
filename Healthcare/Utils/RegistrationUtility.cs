@@ -16,12 +16,17 @@ namespace Healthcare.Utils
         private static List<Patient> patients = new List<Patient>();
 
         /// <summary>
-        /// Sets the registration patient.
+        /// Adds the registration patient.
         /// </summary>
         /// <param name="patient">The patient.</param>
         /// <returns></returns>
-        public static void CreateNewPatient(Patient patient)
+        public static void AddNewPatient(Patient patient)
         {
+
+            // TODO: Fix Error Accessing database, can't read port.
+            // Add Patient to Database
+            // DatabaseManager.AddPatient(patient); 
+
             patients.Add(patient);
             AppointmentManager.Appointments.Add(patient, new List<Appointment>());
         }

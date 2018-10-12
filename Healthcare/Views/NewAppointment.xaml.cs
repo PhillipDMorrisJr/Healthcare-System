@@ -34,7 +34,7 @@ namespace Healthcare.Views
             this.userID.Text = AccessValidator.CurrentUser.ID;
             this.accessType.Text = AccessValidator.Access;
             this.name.Text = this.patient.FirstName + " " + this.patient.LastName;
-            this.id.Text = this.patient.ID;
+            this.id.Text = this.patient.Id;
             this.phone.Text = String.Format("{0:(###) ###-####}", this.patient.Phone);
 
             List<Doctor> doctors = DoctorManager.Doctors;
@@ -42,9 +42,11 @@ namespace Healthcare.Views
             {
                 if (aDoctor != null)
                 {
-                    ListViewItem item = new ListViewItem();
-                    item.Tag = aDoctor;
-                    item.Content = aDoctor.FullName;
+                    var item = new ListViewItem
+                    {
+                        Tag = aDoctor,
+                        Content = aDoctor.FullName
+                    };
                     this.databaseInformationDoctors.Items?.Add(item);
                 }
             }

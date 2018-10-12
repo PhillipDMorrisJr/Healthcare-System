@@ -37,7 +37,7 @@ namespace Healthcare.Views
                string fname = this.fname.Text;
                 string lname = this.lname.Text;
                 string phone = this.phone.Text;
-            DateTime dateOFBirth = this.bday.Date.DateTime;
+            DateTime dateOfBirth = this.bday.Date.DateTime;
             uint phoneNumber;
             bool isTenDigit = false;
              if (phone.Length == 10)
@@ -51,9 +51,18 @@ namespace Healthcare.Views
               {
 
              }
-              if(!(string.IsNullOrWhiteSpace(fname) && string.IsNullOrWhiteSpace(lname) && string.IsNullOrWhiteSpace(phone)) && isTenDigit) {
-                 Patient patient = new Patient(fname, lname, phone, dateOFBirth);
-               RegistrationUtility.CreateNewPatient(patient);
+              if(!(string.IsNullOrWhiteSpace(fname) && string.IsNullOrWhiteSpace(lname) && string.IsNullOrWhiteSpace(phone)) && isTenDigit)
+              {
+                  var patient = new Patient
+                  {
+                      FirstName = fname,
+                      LastName = lname,
+                      Phone = phone,
+                      Dob = dateOfBirth,
+                      Id = string.Empty
+                  };
+
+                  RegistrationUtility.AddNewPatient(patient);
                
                this.Frame.Navigate(typeof(MainPage));
               }
