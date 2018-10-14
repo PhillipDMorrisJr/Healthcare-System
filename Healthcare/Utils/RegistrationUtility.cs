@@ -24,7 +24,6 @@ namespace Healthcare.Utils
         {
 
             // TODO: Fix Error Accessing database, can't read port.
-            // Add Patient to Database
             // DatabaseManager.AddPatient(patient); 
 
             patients.Add(patient);

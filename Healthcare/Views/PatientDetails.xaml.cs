@@ -31,6 +31,7 @@ namespace Healthcare.Views
             this.accessType.Text = AccessValidator.Access;
             this.fname.Text = PatientManager.CurrentPatient.FirstName;
             this.lname.Text = PatientManager.CurrentPatient.LastName;
+            this.phone.Text = PatientManager.CurrentPatient.Phone;
             this.bday.Date = PatientManager.CurrentPatient.Dob;
         }
 

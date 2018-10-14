@@ -1,34 +1,39 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Healthcare.Model;
+using MySql.Data.MySqlClient;
 
 namespace Healthcare.Utils
 {
     public static class DatabaseManager
     {
-        private const string ConnectionString = "server=160.10.25.16;port=3306;database=cs3230f18i;uid=cwilli82;pwd=NPD2i:0wO@;";
-
         public static void AddPatient(Patient newPatient)
         {
-            using (var connection = new SqlConnection(ConnectionString))  
+            const string connStr = "server=160.10.25.16;port=3306;uid=cs3230f18i;pwd=OIfaWXx0jaYtAHMs;database=cs3230f18i;";
+ 
+            using (var connection = new MySqlConnection(connStr))  
             {  
                 connection.Open();
 
-                var queryString =
-                    "INSERT INTO patients (patientID, firstName, lastName, birthDate, phoneNumber) VALUES (NULL, " +
-                    newPatient.FirstName + ", " + newPatient.LastName + ", " + newPatient.Dob + ", " +
-                    newPatient.Phone + ")";
+                var cmd = new MySqlCommand
+                {
+                    Connection = connection,
+                    CommandText =
+                        "INSERT INTO 'patients' ('patientID', 'firstName', 'lastName', 'birthDate', 'phoneNumber') VALUES (?patientID, ?firstName, ?lastName, ?birthDate, ?phoneNumber)"
+                };
 
-                var command = new SqlCommand(queryString, connection);
+                cmd.Parameters.AddWithValue("?firstName", MySqlDbType.VarChar).Value = newPatient.FirstName;
+                cmd.Parameters.AddWithValue("?lastName", MySqlDbType.VarChar).Value = newPatient.LastName;
+                cmd.Parameters.AddWithValue("?birthDate", MySqlDbType.DateTime).Value = newPatient.Dob;
+                cmd.Parameters.AddWithValue("?phoneNumber", MySqlDbType.VarChar).Value = newPatient.Phone;
 
-                command.ExecuteNonQuery();
-
-                connection.Close();
-            }  
+                cmd.ExecuteNonQuery();
+            }
         }
     }
 }

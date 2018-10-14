@@ -204,9 +204,6 @@
     <PackageReference Include="MySql.Data">
       <Version>8.0.12</Version>
     </PackageReference>
-    <PackageReference Include="MySqlConnector">
-      <Version>0.34.0</Version>
-    </PackageReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
