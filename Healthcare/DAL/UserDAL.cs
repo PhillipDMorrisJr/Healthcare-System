@@ -10,13 +10,13 @@ using MySql.Data.MySqlClient;
 
 namespace Healthcare.DAL
 {
-    class UserDAL
+    static class UserDAL
     {
         private enum Attributes
         {
             Userid = 0, Username, Isadmin, Password 
         }
-        public User GetUser(string username, string password)
+        public static User GetUser(string username, string password)
         {
             try
             {
@@ -37,18 +37,19 @@ namespace Healthcare.DAL
                             if (reader.GetBoolean((int)Attributes.Isadmin))
                             {
                                 Administrator admin = new Administrator(username, password, id);
-
+                                conn.Close();
                                 return admin;
                             }
                             else
                             {
                                 Nurse nurse = new Nurse(username, password, id);
+                                conn.Close();
                                 return nurse;
                             }
                             
 
                         }
-  
+                        conn.Close();
                         return null;
                     }
 
@@ -57,6 +58,7 @@ namespace Healthcare.DAL
             }
             catch (Exception)
             {
+                DbConnection.GetConnection().Close();
                 return null;
             }
         }

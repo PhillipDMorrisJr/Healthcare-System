@@ -96,6 +96,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="DAL\DbConnection.cs" />
+    <Compile Include="DAL\PatientDAL.cs" />
     <Compile Include="DAL\UserDAL.cs" />
     <Compile Include="Model\Doctor.cs" />
     <Compile Include="Utils\DoctorManager.cs" />

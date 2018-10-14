@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Healthcare.DAL;
 using Healthcare.Model;
 
 namespace Healthcare.Utils
@@ -13,7 +14,7 @@ namespace Healthcare.Utils
     public static class RegistrationUtility 
     {
         private static Patient currentPatient= null;
-        private static List<Patient> patients = new List<Patient>();
+        private static List<Patient> patients = PatientDAL.GetPatients();
 
         /// <summary>
         /// Sets the registration patient.

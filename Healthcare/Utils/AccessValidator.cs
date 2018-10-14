@@ -28,10 +28,7 @@ namespace Healthcare.Utils
         public static bool ConfirmUserAccess(String username, string password)
         {
             bool validInput = ValidateThatUsernameAndPasswordAreNotEmpty(username, password);
-
-    
-            UserDAL dal = new UserDAL();
-            CurrentUser = dal.GetUser(username, password);
+            CurrentUser = UserDAL.GetUser(username, password);
 
             bool isValid = !IsUserNull() && validInput;
 
