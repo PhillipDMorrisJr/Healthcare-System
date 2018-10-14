@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Windows.UI.Notifications;
+using Healthcare.DAL;
 using Healthcare.Model;
 
 namespace Healthcare.Utils
@@ -13,22 +14,6 @@ namespace Healthcare.Utils
     public static class AccessValidator
     {
         
-        private static List<Nurse> nurses = new List<Nurse>()
-        {
-            (new Nurse("Caviaye", "Password0")),
-            (new Nurse("Dr. Yang", "Password")),
-            (new Nurse("1", "1")),
-            (new Nurse("2", "2")),
-            (new Nurse("2", "2")),
-        };
-
-
-        private static List<Administrator> admins = new List<Administrator>()
-        {
-            new Administrator("Phillip", "Phillycheeze101"),
-            new Administrator("3", "3"),
-        };
-
         public static User CurrentUser;
         private static String access;
         public static String Access => access;
@@ -43,9 +28,10 @@ namespace Healthcare.Utils
         public static bool ConfirmUserAccess(String username, string password)
         {
             bool validInput = ValidateThatUsernameAndPasswordAreNotEmpty(username, password);
-            Nurse nurse = nurses.Find(user => user.Username == username && user.Password == password);
-            Administrator administrator = admins.Find(user => user.Username == username && user.Password == password);
-            CurrentUser = administrator ?? (User) nurse;
+
+    
+            UserDAL dal = new UserDAL();
+            CurrentUser = dal.GetUser(username, password);
 
             bool isValid = !IsUserNull() && validInput;
 
