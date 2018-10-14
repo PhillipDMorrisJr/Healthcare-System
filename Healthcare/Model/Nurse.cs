@@ -8,7 +8,7 @@ namespace Healthcare.Model
 {
     class Nurse : User
     {
-        public Nurse(string username, string password) : base(username, password)
+        public Nurse(string username, string password, int id) : base(username, password, id)
         {
         }
     }

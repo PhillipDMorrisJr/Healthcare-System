@@ -39,5 +39,6 @@ namespace Healthcare.Views
                 this.Frame.Navigate(typeof(MainPage));
             }
         }
+
     }
 }

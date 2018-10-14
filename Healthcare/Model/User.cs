@@ -31,7 +31,7 @@ namespace Healthcare.Model
         /// <value>
         /// The identifier.
         /// </value>
-        public string ID { get;}
+        public string ID { get; set; }
 
 
         /// <summary>
@@ -47,11 +47,12 @@ namespace Healthcare.Model
         /// </summary>
         /// <param name="username">The username.</param>
         /// <param name="password">The password.</param>
-        public User(string username, string password)
+        /// <param name="id"> the id</param>
+        public User(string username, string password, int id)
         {
             this.Username = username;
             this.Password = password;
-            ID = IdGenerator.Base64Encode(Username + password);
+            this.ID = id.ToString().PadLeft(7, '0');;
         }
     }
 }

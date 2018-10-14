@@ -9,7 +9,7 @@ namespace Healthcare.Model
     class Administrator : User
     {
         
-        public Administrator(string username, string password) : base(username, password)
+        public Administrator(string username, string password, int id) : base(username, password, id)
         {
 
         }
