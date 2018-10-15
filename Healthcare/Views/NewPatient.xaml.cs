@@ -34,30 +34,18 @@ namespace Healthcare.Views
 
         private void createPatient_onClick(object sender, RoutedEventArgs e)
         {
-               string fname = this.fname.Text;
-                string lname = this.lname.Text;
-                string phone = this.phone.Text;
-            DateTime dateOFBirth = this.bday.Date.DateTime;
-            uint phoneNumber;
-            bool isTenDigit = false;
-             if (phone.Length == 10)
-             {
-            try
-                {
-                   phoneNumber = Convert.ToUInt32(phone);
-                   isTenDigit = true;
-               }
-               catch (Exception)
-              {
+            string fname = this.fname.Text;
+            string lname = this.lname.Text;
+            string phone = this.phone.Text;
+            DateTime dateOfBirth = this.bday.Date.DateTime;
 
-             }
-              if(!(string.IsNullOrWhiteSpace(fname) && string.IsNullOrWhiteSpace(lname) && string.IsNullOrWhiteSpace(phone)) && isTenDigit) {
-                 Patient patient = new Patient(fname, lname, phone, dateOFBirth);
-               RegistrationUtility.CreateNewPatient(patient);
-               
-               this.Frame.Navigate(typeof(MainPage));
-              }
-             }
+            bool isTenDigit = phone.Length == 10;
+
+            if(!(string.IsNullOrWhiteSpace(fname) && string.IsNullOrWhiteSpace(lname) && string.IsNullOrWhiteSpace(phone)) && isTenDigit) {
+            RegistrationUtility.CreateNewPatient(fname, lname, phone, dateOfBirth);
+
+            this.Frame.Navigate(typeof(MainPage));
+            }
         }
     }
 }

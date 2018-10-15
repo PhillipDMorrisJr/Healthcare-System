@@ -32,6 +32,7 @@ namespace Healthcare.Views
             this.fname.Text = PatientManager.CurrentPatient.FirstName;
             this.lname.Text = PatientManager.CurrentPatient.LastName;
             this.bday.Date = PatientManager.CurrentPatient.DOB;
+            this.phone.Text = PatientManager.CurrentPatient.Phone;
         }
 
         private void home_onClick(object sender, RoutedEventArgs e)

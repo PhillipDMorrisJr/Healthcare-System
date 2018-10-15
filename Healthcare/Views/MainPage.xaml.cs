@@ -142,7 +142,12 @@ namespace Healthcare
             this.DatabaseAppointmentInformation.Items?.Clear();
             Patient currentPatient = (this.DatabasePatientInformation.SelectedItem as ListViewItem)?.Tag as Patient;
             PatientManager.CurrentPatient = currentPatient;
-
+            List<Appointment> appointments;
+            AppointmentManager.Appointments.TryGetValue(currentPatient, out appointments);
+            if (appointments == null)
+            {
+                AppointmentManager.Appointments.Add(currentPatient, new List<Appointment>());
+            }
             foreach (var appointment in AppointmentManager.Appointments[currentPatient])
             {
                 if (appointment != null)
