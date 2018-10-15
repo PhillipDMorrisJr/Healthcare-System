@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Healthcare.DAL;
 using Healthcare.Model;
 
 namespace Healthcare.Utils
@@ -13,17 +14,27 @@ namespace Healthcare.Utils
     public static class RegistrationUtility 
     {
         private static Patient currentPatient= null;
-        private static List<Patient> patients = new List<Patient>();
+        private static readonly List<Patient> Patients = PatientDAL.GetPatients();
+
+
 
         /// <summary>
         /// Sets the registration patient.
         /// </summary>
-        /// <param name="patient">The patient.</param>
-        /// <returns></returns>
-        public static void CreateNewPatient(Patient patient)
+        /// <param name="firstName">The first name.</param>
+        /// <param name="lastName">The last name.</param>
+        /// <param name="phoneNumber">The phone number.</param>
+        /// <param name="dob">The dob.</param>
+        public static void CreateNewPatient(string firstName, string lastName, string phoneNumber, DateTime dob)
         {
-            patients.Add(patient);
-            AppointmentManager.Appointments.Add(patient, new List<Appointment>());
+            Patient patient = PatientDAL.AddPatient(firstName, lastName, phoneNumber, dob);
+            if (patient != null)
+            {
+                Patients.Add(patient);
+                AppointmentManager.Appointments.Add(patient, new List<Appointment>());
+            }
+            
+            
         }
 
         /// <summary>
@@ -33,7 +44,6 @@ namespace Healthcare.Utils
         /// <returns></returns>
         public static List<Patient> GetPatients()
         {
-            return RegistrationUtility.patients;
-        }
-    }
+            return RegistrationUtility.Patients;
+        } }
 }
