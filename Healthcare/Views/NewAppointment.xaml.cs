@@ -12,6 +12,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using Healthcare.DAL;
 using Healthcare.Model;
 using Healthcare.Utils;
 
@@ -37,7 +38,9 @@ namespace Healthcare.Views
             this.id.Text = this.patient.ID;
             this.phone.Text = String.Format("{0:(###) ###-####}", this.patient.Phone);
 
-            List<Doctor> doctors = DoctorManager.Doctors;
+            DoctorDAL dal = new DoctorDAL();
+            List<Doctor> doctors = dal.GetDoctors();
+
             foreach (var aDoctor in doctors)
             {
                 if (aDoctor != null)
@@ -67,8 +70,6 @@ namespace Healthcare.Views
                 AppointmentManager.Appointments[this.patient].Add(appt);
                 this.Frame.Navigate(typeof(MainPage));
             }
-
-
         }
 
         private void DatabaseInformationDoctors_OnSelectionChanged(object sender, SelectionChangedEventArgs e)

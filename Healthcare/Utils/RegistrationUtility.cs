@@ -34,5 +34,6 @@ namespace Healthcare.Utils
         public static List<Patient> GetPatients()
         {
             return RegistrationUtility.patients;
-        } }
+        }
+    }
 }

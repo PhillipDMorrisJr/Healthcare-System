@@ -11,6 +11,5 @@ namespace Healthcare.Utils
     {
         public static List<Patient> Patients = new List<Patient>();
         public static Patient CurrentPatient;
-
     }
 }
