@@ -52,6 +52,14 @@ namespace Healthcare.Model
         public string ID { get; set; }
 
         /// <summary>
+        /// Gets the identification number.
+        /// </summary>
+        /// <value>
+        /// The identification number.
+        /// </value>
+        public int IdentificationNumber { get; } 
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="Patient" /> class.
         /// </summary>
         /// <param name="firstName">The first name.</param>
@@ -63,15 +71,8 @@ namespace Healthcare.Model
             this.FirstName = firstName;
             this.LastName = lastName;
             this.Phone = phoneNumber;
+            this.IdentificationNumber = id;
             this.ID = id.ToString("D4");
-            this.DOB = dob;
-        }
-
-        public Patient(string firstName, string lastName, string phoneNumber, DateTime dob)
-        {
-            this.FirstName = firstName;
-            this.LastName = lastName;
-            this.Phone = phoneNumber;
             this.DOB = dob;
         }
 

@@ -12,6 +12,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using Healthcare.DAL;
 using Healthcare.Model;
 using Healthcare.Utils;
 using Healthcare.Views;
@@ -142,12 +143,25 @@ namespace Healthcare
             this.DatabaseAppointmentInformation.Items?.Clear();
             Patient currentPatient = (this.DatabasePatientInformation.SelectedItem as ListViewItem)?.Tag as Patient;
             PatientManager.CurrentPatient = currentPatient;
-            List<Appointment> appointments;
-            AppointmentManager.Appointments.TryGetValue(currentPatient, out appointments);
+            List<Appointment> appointments = AppointmentDAL.GetAppointments(currentPatient);
+            
             if (appointments == null)
             {
                 AppointmentManager.Appointments.Add(currentPatient, new List<Appointment>());
             }
+            else
+            {
+                try
+                {
+                    AppointmentManager.Appointments.Add(currentPatient, appointments);
+                }
+                catch (Exception)
+                {
+                    // ignored
+                }
+            }
+
+
             foreach (var appointment in AppointmentManager.Appointments[currentPatient])
             {
                 if (appointment != null)
@@ -159,6 +173,12 @@ namespace Healthcare
                 }
             }
 
+        }
+
+        private void DatabaseAppointmentInformation_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Appointment currentAppointment = (this.DatabaseAppointmentInformation.SelectedItem as ListViewItem)?.Tag as Appointment;
+            AppointmentManager.CurrentAppointment = currentAppointment;
         }
     }
 }

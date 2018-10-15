@@ -13,7 +13,7 @@ namespace Healthcare.Utils
     /// </summary>
     public static class RegistrationUtility 
     {
-        private static Patient currentPatient= null;
+        private static Patient currentPatient = null;
         private static readonly List<Patient> Patients = PatientDAL.GetPatients();
 
 

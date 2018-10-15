@@ -8,7 +8,7 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Grid Background="White" HorizontalAlignment="Center" Height="705" VerticalAlignment="Center" Width="500">
+    <Grid Background="White" HorizontalAlignment="Center" Height="845" VerticalAlignment="Center" Width="500">
         <TextBlock Grid.Row="0" Text="Healthcare Services" HorizontalAlignment="Left" Margin="-469,21,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="139" Width="254" Foreground="White" FontSize="50" TextAlignment="Center" />
         <TextBlock Grid.Row="0" HorizontalAlignment="Left" Margin="-469,231,0,0" Text="Name:" TextWrapping="Wrap" Foreground="GhostWhite" VerticalAlignment="Top" Height="20" Width="62"/>
         <TextBlock Grid.Row="0" Name="nameID" HorizontalAlignment="Left" Margin="-402,231,0,0" Text="" TextWrapping="Wrap" Foreground="GhostWhite" VerticalAlignment="Top" Height="20" Width="62"/>
@@ -24,7 +24,7 @@
         <DatePicker Name="AppointmentDate" HorizontalAlignment="Left" Margin="31,368,0,0" VerticalAlignment="Top" Height="37" Width="432"/>
         <TextBlock HorizontalAlignment="Left" Margin="36,410,0,0" Text="Appointment Time:" TextWrapping="Wrap" VerticalAlignment="Top" Height="33" Width="133"/>
         <TimePicker Name="AppointmentTime" HorizontalAlignment="Left" Margin="37,435,0,0" VerticalAlignment="Top" Height="37" Width="432"/>
-        <Button Content="Check-In" HorizontalAlignment="Center" Margin="0,591,0,0" VerticalAlignment="Top" Height="58" Width="438" FontSize="25" Click="checkin_Click" />
+        <Button Content="Check-In" HorizontalAlignment="Center" Margin="0,711,0,0" VerticalAlignment="Top" Height="58" Width="438" FontSize="25" Click="checkin_Click" />
         <Image Name="userImage" Source="../Images/noimage.png" HorizontalAlignment="Left" Height="126" Margin="36,116,0,0" VerticalAlignment="Top" Width="81"/>
 
 
@@ -38,11 +38,13 @@
         <TextBlock HorizontalAlignment="Left" Margin="253,154,0,0" Name="phone" TextWrapping="Wrap" VerticalAlignment="Top"/>
         <TextBlock HorizontalAlignment="Left" Margin="253,174,0,0" Name="id" TextWrapping="Wrap" VerticalAlignment="Top"/>
         <TextBlock HorizontalAlignment="Left" Margin="37,281,0,0" Text="Doctor:" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <TextBlock HorizontalAlignment="Left" Text="The Doctor" TextWrapping="Wrap" VerticalAlignment="Top" Margin="101,281,0,0"/>
-        <Button Content="Home" HorizontalAlignment="Center" Margin="0,528,0,0" VerticalAlignment="Top" Height="58" Width="438" FontSize="25" Click="home_Click" />
+        <TextBlock HorizontalAlignment="Left" Name="doctor" TextWrapping="Wrap" VerticalAlignment="Top" Margin="101,281,0,0"/>
+        <Button Content="Home" HorizontalAlignment="Center" Margin="0,641,0,0" VerticalAlignment="Top" Height="58" Width="438" FontSize="25" Click="home_Click" />
+
+        <TextBlock HorizontalAlignment="Left" Margin="38,477,0,0" Text="Description:" TextWrapping="Wrap" VerticalAlignment="Top" Height="33" Width="133"/>
 
 
-
+        <TextBlock HorizontalAlignment="Left" Name="description" VerticalAlignment="Top" Margin="36,502,0,0" Height="98" Width="438"/>
 
 
 

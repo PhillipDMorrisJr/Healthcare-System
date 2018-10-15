@@ -37,19 +37,24 @@ namespace Healthcare.Model
         /// </value>
         public TimeSpan AppointmentTime { get;  }
 
+        public string Description;
+
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Appointment"/> class.
+        /// Initializes a new instance of the <see cref="Appointment" /> class.
         /// </summary>
         /// <param name="patient">The patient.</param>
+        /// <param name="doctor">The doctor.</param>
         /// <param name="appointmentDateTime">The appointment date time.</param>
         /// <param name="appointmentTime">The appointment time.</param>
-        public Appointment(Patient patient, Doctor doctor, DateTime appointmentDateTime, TimeSpan appointmentTime)
+        /// <param name="description">The description.</param>
+        public Appointment(Patient patient, Doctor doctor, DateTime appointmentDateTime, TimeSpan appointmentTime, string description)
         {
             this.Doctor = doctor;
             this.Patient = patient;
             this.AppointmentDateTime = appointmentDateTime;
             this.AppointmentTime = appointmentTime;
+            this.Description = description;
         }
 
         /// <summary>
