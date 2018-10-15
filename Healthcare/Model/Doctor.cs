@@ -32,18 +32,25 @@ namespace Healthcare.Model
         /// The last name.
         /// </value>
         public string LastName { get; private set; }
+        /// <summary>
+        /// Gets the doctor id.
+        /// </summary>
+        /// <value>
+        /// The doctor id.
+        /// </value>
+        public string Id { get; private set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Doctor"/> class.
         /// </summary>
+        /// <param name="id">The doctor id.</param>
         /// <param name="firstName">The first name.</param>
         /// <param name="lastName">The last name.</param>
-        public Doctor(string firstName, string lastName)
+        public Doctor(string id, string firstName, string lastName)
         {
             this.FirstName = firstName;
             this.LastName = lastName;
-            
+            this.Id = id;
         }
-
     }
 }

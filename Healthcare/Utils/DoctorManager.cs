@@ -9,8 +9,6 @@ namespace Healthcare.Utils
 {
     public static class DoctorManager
     {
-        public static List<Doctor> Doctors = new List<Doctor>() {
-            new Doctor("Jimmy", "Johnson")
-        };
+        public static List<Doctor> Doctors = new List<Doctor>();
     }
 }
