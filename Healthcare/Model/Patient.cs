@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.ApplicationModel.Contacts;
 using Healthcare.Utils;
 
 namespace Healthcare.Model
@@ -19,6 +20,7 @@ namespace Healthcare.Model
         /// The first name.
         /// </value>
         public string FirstName { get; }
+
         /// <summary>
         /// Gets the last name.
         /// </summary>
@@ -41,7 +43,7 @@ namespace Healthcare.Model
         /// <value>
         /// The dob.
         /// </value>
-        public DateTime DOB { get; set; }
+        public DateTime DOB { get; }
 
         /// <summary>
         /// Gets the identifier.
@@ -49,15 +51,10 @@ namespace Healthcare.Model
         /// <value>
         /// The identifier.
         /// </value>
-        public string ID { get; set; }
+        public string SSN { get; set; }
 
-        /// <summary>
-        /// Gets the identification number.
-        /// </summary>
-        /// <value>
-        /// The identification number.
-        /// </value>
-        public int IdentificationNumber { get; } 
+        public string FullAddress { get; private set; }
+
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Patient" /> class.
@@ -66,13 +63,13 @@ namespace Healthcare.Model
         /// <param name="lastName">The last name.</param>
         /// <param name="phoneNumber">The phone number.</param>
         /// <param name="dob">The date of birth.</param>
-        public Patient(string firstName, string lastName, string phoneNumber, DateTime dob, int id)
+        public Patient(string firstName, string lastName, string phoneNumber, DateTime dob, string ssn, string fullAddress)
         {
             this.FirstName = firstName;
             this.LastName = lastName;
             this.Phone = phoneNumber;
-            this.IdentificationNumber = id;
-            this.ID = id.ToString("D4");
+            this.FullAddress = fullAddress;
+            this.SSN = ssn;
             this.DOB = dob;
         }
 

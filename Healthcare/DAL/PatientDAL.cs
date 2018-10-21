@@ -39,7 +39,7 @@ namespace Healthcare.DAL
                             string phone = reader.GetString((int) Attributes.Phone);
                             DateTime bdate = reader.GetDateTime((int) Attributes.BirthDate);
 
-                            Patient patient = new Patient(fname,lname,phone,bdate, id);
+                            Patient patient = new Patient(fname,lname,phone,bdate, "", "");
                             patients.Add(patient);
                         }
                         conn.Close();
@@ -92,7 +92,7 @@ namespace Healthcare.DAL
                         lastIndexReader.Read();
                       int id =  lastIndexReader.GetInt32((int) Attributes.PatientId);
                       conn.Close();
-                      return new Patient(firstName,lastName,phoneNumber,dob,id);
+                      return new Patient(firstName,lastName,phoneNumber,dob, "", "");
                     }
                 }
             }
