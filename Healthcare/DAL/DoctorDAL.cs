@@ -8,9 +8,9 @@ using MySql.Data.MySqlClient;
 
 namespace Healthcare.DAL
 {
-    static class DoctorDAL
+    class DoctorDAL
     {
-        public static List<Doctor> GetDoctors()
+        public List<Doctor> GetDoctors()
         {
             var doctors = new List<Doctor>();
 

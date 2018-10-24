@@ -38,7 +38,8 @@ namespace Healthcare.Views
             this.id.Text = this.patient.SSN;
             this.phone.Text = String.Format("{0:(###) ###-####}", this.patient.Phone);
 
-            List<Doctor> doctors = DoctorManager.Doctors;
+            DoctorDAL dal = new DoctorDAL();
+            List<Doctor> doctors = dal.GetDoctors();
 
             foreach (var aDoctor in doctors)
             {
@@ -62,13 +63,11 @@ namespace Healthcare.Views
         {
             DateTime date = this.AppointmentDate.Date.DateTime;
             TimeSpan time = this.AppointmentTime.Time;
-            string apptDescription = this.description.Text;
 
             if (this.doctor != null)
             {
-                Appointment appointment = new Appointment(this.patient, this.doctor, date, time, apptDescription);
-                AppointmentDAL.AddAppointment(this.patient, this.doctor, date, time, apptDescription);
-                AppointmentManager.AddAppointment(appointment, this.patient);
+                Appointment appt = new Appointment(this.patient, this.doctor, date, time);
+                AppointmentManager.Appointments[this.patient].Add(appt);
                 this.Frame.Navigate(typeof(MainPage));
             }
         }

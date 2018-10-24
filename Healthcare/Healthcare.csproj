@@ -95,7 +95,6 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="DAL\AppointmentDAL.cs" />
     <Compile Include="DAL\DbConnection.cs" />
     <Compile Include="DAL\DoctorDAL.cs" />
     <Compile Include="DAL\PatientDAL.cs" />
