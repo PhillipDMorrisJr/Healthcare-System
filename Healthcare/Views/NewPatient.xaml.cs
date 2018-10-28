@@ -37,12 +37,15 @@ namespace Healthcare.Views
             string fname = this.fname.Text;
             string lname = this.lname.Text;
             string phone = this.phone.Text;
+            string ssn = this.ssn.Text;
+            string address = this.address.Text + ", " + this.state.Text + " " + this.zip.Text;
             DateTime dateOfBirth = this.bday.Date.DateTime;
 
-            bool isTenDigit = phone.Length == 10;
+            bool isPhoneTenDigit = phone.Length == 10;
+            bool isSSNNineDigit = ssn.Length == 9;
 
-            if(!(string.IsNullOrWhiteSpace(fname) && string.IsNullOrWhiteSpace(lname) && string.IsNullOrWhiteSpace(phone)) && isTenDigit) {
-            RegistrationUtility.CreateNewPatient(fname, lname, phone, dateOfBirth);
+            if(!(string.IsNullOrWhiteSpace(fname) && string.IsNullOrWhiteSpace(lname) && string.IsNullOrWhiteSpace(phone)) && isPhoneTenDigit && isSSNNineDigit) {
+            RegistrationUtility.CreateNewPatient(fname, lname, phone, dateOfBirth,ssn,address);
 
             this.Frame.Navigate(typeof(MainPage));
             }

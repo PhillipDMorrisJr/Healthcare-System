@@ -25,10 +25,10 @@ namespace Healthcare.DAL
                 using (MySqlConnection conn = DbConnection.GetConnection())
                 {
                     conn.Open();
-                    var selectQuery = "select * from appointments Where patientID=@patientID";
+                    var selectQuery = "select * from appointments Where ssn=@ssn";
                     using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
                     {
-                        cmd.Parameters.AddWithValue("@patientID", patient.SSN);
+                        cmd.Parameters.AddWithValue("@ssn", patient.SSN);
                         MySqlDataReader reader = cmd.ExecuteReader();
 
                         while (reader.Read())
@@ -66,11 +66,11 @@ namespace Healthcare.DAL
                     conn.Open();
 
                     var insertQuery =
-                        "INSERT INTO `appointments` (`doctorID`, `patientID`, `apptDay`, `apptTime`, `description`) VALUES (@doctorID, @patientID, @apptDay, @apptTime, @description)";
+                        "INSERT INTO `appointments` (`doctorID`, `ssn`, `apptDay`, `apptTime`, `description`) VALUES (@doctorID, @ssn, @apptDay, @apptTime, @description)";
                     using (MySqlCommand cmd = new MySqlCommand(insertQuery, conn))
                     {
                         cmd.Parameters.AddWithValue("@doctorID", doctor.Id);
-                        cmd.Parameters.AddWithValue("@patientID", patient.SSN);
+                        cmd.Parameters.AddWithValue("@ssn", patient.SSN);
                         cmd.Parameters.AddWithValue("@apptDay", appointmentDateTime.Date.ToString("yyyy-MM-dd"));
                         cmd.Parameters.AddWithValue("@apptTime", appointmentTime.ToString());
                         cmd.Parameters.AddWithValue("@description", description);

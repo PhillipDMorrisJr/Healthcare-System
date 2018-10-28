@@ -7,10 +7,10 @@
     xmlns:Custom="using:Windows.UI.Xaml.Controls.Maps"
     x:Class="Healthcare.Views.NewPatient"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Height="1316">
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Height="1501">
 
 
-    <Grid Background="White" HorizontalAlignment="Center" Height="935" VerticalAlignment="Center" Width="550">
+    <Grid Background="White" HorizontalAlignment="Center" Height="1305" VerticalAlignment="Center" Width="550" Margin="0,0,0,0">
 
         <TextBlock Grid.Row="0" Text="Healthcare Services" HorizontalAlignment="Left" Margin="-469,21,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="139" Width="254" Foreground="White" FontSize="50" TextAlignment="Center" />
 
@@ -37,7 +37,7 @@
                 <TextBox x:Name="phone" HorizontalAlignment="Center" Margin="0,472,0,0" VerticalAlignment="Top" Height="61" Width="455" Background="Azure" FontSize="30"/>
                 <DatePicker x:Name="bday" HorizontalAlignment="Center" Margin="0,615,0,0" VerticalAlignment="Top" MinHeight="33" MinWidth="455" Background="Azure" FontSize="30"/>
                 <Button Content="Submit" HorizontalAlignment="Left" Margin="26,1315,0,0" VerticalAlignment="Top" Height="61" Width="456" Click="createPatient_onClick"/>
-                <PasswordBox x:Name="ssn" HorizontalAlignment="Center" Margin="0,740,0,0" VerticalAlignment="Top" Height="61" Width="455" Background="Azure" FontSize="30"/>
+                <TextBox x:Name="ssn" HorizontalAlignment="Center" Margin="0,740,0,0" VerticalAlignment="Top" Height="61" Width="455" Background="Azure" FontSize="30"/>
                 <TextBox x:Name="address" HorizontalAlignment="Center" Margin="0,866,0,0" VerticalAlignment="Top" Height="61" Width="455" Background="Azure" FontSize="30"/>
                 <TextBlock HorizontalAlignment="Left" Margin="26,826,0,0" Text="Street Address:" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="30"/>
                 <TextBlock HorizontalAlignment="Left" Margin="26,952,0,0" Text="State:" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="30"/>

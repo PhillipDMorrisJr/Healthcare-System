@@ -25,9 +25,9 @@ namespace Healthcare.Utils
         /// <param name="lastName">The last name.</param>
         /// <param name="phoneNumber">The phone number.</param>
         /// <param name="dob">The dob.</param>
-        public static void CreateNewPatient(string firstName, string lastName, string phoneNumber, DateTime dob)
+        public static void CreateNewPatient(string firstName, string lastName, string phoneNumber, DateTime dob, string ssn, string address)
         {
-            Patient patient = PatientDAL.AddPatient(firstName, lastName, phoneNumber, dob);
+            Patient patient = PatientDAL.AddPatient(firstName, lastName, phoneNumber, dob, ssn, address);
             if (patient != null)
             {
                 Patients.Add(patient);
