@@ -35,7 +35,7 @@ namespace Healthcare.Views
             this.userID.Text = AccessValidator.CurrentUser.ID;
             this.accessType.Text = AccessValidator.Access;
             this.name.Text = this.patient.FirstName + " " + this.patient.LastName;
-            this.id.Text = this.patient.SSN;
+            this.id.Text = this.patient.SSN.ToString();
             this.phone.Text = String.Format("{0:(###) ###-####}", this.patient.Phone);
 
             DoctorDAL dal = new DoctorDAL();

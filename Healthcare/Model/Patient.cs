@@ -52,27 +52,55 @@ namespace Healthcare.Model
         public string ID { get; set; }
 
         /// <summary>
+        /// Gets the Social Security Number.
+        /// </summary>
+        /// <value>
+        /// The Social Security Number.
+        /// </value>
+        public int SSN { get; set; }
+
+        /// <summary>
+        /// Gets the gender.
+        /// </summary>
+        /// <value>
+        /// The gender.
+        /// </value>
+        public string Gender { get; }
+        /// <summary>
+        /// Gets the address.
+        /// </summary>
+        /// <value>
+        /// The address.
+        /// </value>
+        public string Address { get; set; }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="Patient" /> class.
         /// </summary>
         /// <param name="firstName">The first name.</param>
         /// <param name="lastName">The last name.</param>
         /// <param name="phoneNumber">The phone number.</param>
         /// <param name="dob">The date of birth.</param>
-        public Patient(string firstName, string lastName, string phoneNumber, DateTime dob, int id)
+        public Patient(int ssn, string firstName, string lastName, string phoneNumber, DateTime dob, string gender, string address, int id)
         {
             this.FirstName = firstName;
             this.LastName = lastName;
             this.Phone = phoneNumber;
             this.ID = id.ToString("D4");
             this.DOB = dob;
+            this.SSN = ssn;
+            this.Gender = gender;
+            this.Address = address;
         }
 
-        public Patient(string firstName, string lastName, string phoneNumber, DateTime dob)
+        public Patient(string firstName, string lastName, string phoneNumber, DateTime dob, string gender, string address)
         {
             this.FirstName = firstName;
             this.LastName = lastName;
             this.Phone = phoneNumber;
             this.DOB = dob;
+            this.Gender = gender;
+            this.Address = address;
         }
 
         public string Format()
