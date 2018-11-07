@@ -13,10 +13,7 @@ namespace Healthcare.Utils
     /// </summary>
     public static class RegistrationUtility 
     {
-        private static Patient currentPatient= null;
         private static readonly List<Patient> Patients = PatientDAL.GetPatients();
-
-
 
         /// <summary>
         /// Sets the registration patient.
@@ -25,16 +22,26 @@ namespace Healthcare.Utils
         /// <param name="lastName">The last name.</param>
         /// <param name="phoneNumber">The phone number.</param>
         /// <param name="dob">The dob.</param>
-        public static void CreateNewPatient(string firstName, string lastName, string phoneNumber, DateTime dob)
+        public static void CreateNewPatient(int ssn, string firstName, string lastName, string phoneNumber, DateTime dob, string gender, string address)
         {
-            Patient patient = PatientDAL.AddPatient(firstName, lastName, phoneNumber, dob);
+            Patient patient = PatientDAL.AddPatient(ssn, firstName, lastName, phoneNumber, dob, gender, address);
             if (patient != null)
             {
                 Patients.Add(patient);
                 AppointmentManager.Appointments.Add(patient, new List<Appointment>());
-            }
-            
-            
+            }          
+        }
+
+        /// <summary>
+        /// Edits a registered patient.
+        /// </summary>
+        /// <param name="firstName">The first name.</param>
+        /// <param name="lastName">The last name.</param>
+        /// <param name="phoneNumber">The phone number.</param>
+        /// <param name="dob">The dob.</param>
+        public static void EditPatient(int ssn, string firstName, string lastName, string phoneNumber, DateTime dob, string gender, string address)
+        {
+            //Patient patient = PatientDAL.UpdatePatient(ssn, firstName, lastName, phoneNumber, dob, gender, address);
         }
 
         /// <summary>
@@ -45,5 +52,6 @@ namespace Healthcare.Utils
         public static List<Patient> GetPatients()
         {
             return RegistrationUtility.Patients;
-        } }
+        }
+    }
 }

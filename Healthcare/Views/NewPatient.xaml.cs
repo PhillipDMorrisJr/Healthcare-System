@@ -34,18 +34,26 @@ namespace Healthcare.Views
 
         private void createPatient_onClick(object sender, RoutedEventArgs e)
         {
+            string ssn = this.ssn.Password.ToString();
             string fname = this.fname.Text;
             string lname = this.lname.Text;
             string phone = this.phone.Text;
             DateTime dateOfBirth = this.bday.Date.DateTime;
+            //string gender = this.gender.SelectedItem.Value(); // create dropdown list 
+            string address = this.address.Text;
+            string state = this.state.Text;
+            string zip = this.zip.Text;
 
             bool isTenDigit = phone.Length == 10;
+            bool isSsnTenDigit = ssn.ToString().Length == 10;
 
-            if(!(string.IsNullOrWhiteSpace(fname) && string.IsNullOrWhiteSpace(lname) && string.IsNullOrWhiteSpace(phone)) && isTenDigit) {
-            RegistrationUtility.CreateNewPatient(fname, lname, phone, dateOfBirth);
+            if (!(string.IsNullOrWhiteSpace(address) && string.IsNullOrWhiteSpace(state) && string.IsNullOrWhiteSpace(zip) && string.IsNullOrWhiteSpace(fname) && string.IsNullOrWhiteSpace(lname) && string.IsNullOrWhiteSpace(phone) && string.IsNullOrWhiteSpace(address)) && isTenDigit && isSsnTenDigit)
+            {
+                string fullAddress = address + ", " + state + ", " + zip;
+                //RegistrationUtility.CreateNewPatient(Convert.ToInt32(ssn), fname, lname, phone, dateOfBirth, gender, fullAddress);               
+            }
 
             this.Frame.Navigate(typeof(MainPage));
-            }
         }
     }
 }

@@ -34,7 +34,6 @@ namespace Healthcare.Model
         /// </value>
         public string Phone { get; }
 
-
         /// <summary>
         /// Gets or sets the dob.
         /// </summary>
@@ -42,14 +41,6 @@ namespace Healthcare.Model
         /// The dob.
         /// </value>
         public DateTime DOB { get; set; }
-
-        /// <summary>
-        /// Gets the identifier.
-        /// </summary>
-        /// <value>
-        /// The identifier.
-        /// </value>
-        public string ID { get; set; }
 
         /// <summary>
         /// Gets the Social Security Number.
@@ -77,30 +68,22 @@ namespace Healthcare.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="Patient" /> class.
         /// </summary>
+        /// <param name="ssn">The social security number.</param>
         /// <param name="firstName">The first name.</param>
         /// <param name="lastName">The last name.</param>
         /// <param name="phoneNumber">The phone number.</param>
         /// <param name="dob">The date of birth.</param>
-        public Patient(int ssn, string firstName, string lastName, string phoneNumber, DateTime dob, string gender, string address, int id)
+        /// <param name="gender">The gender.</param>
+        /// <param name="address">The address.</param>
+        public Patient(int ssn, string firstName, string lastName, string phoneNumber, DateTime dob, string gender, string address)
         {
             this.FirstName = firstName;
             this.LastName = lastName;
             this.Phone = phoneNumber;
-            this.ID = id.ToString("D4");
             this.DOB = dob;
+            this.Gender = gender;
+            this.Address = address;
             this.SSN = ssn;
-            this.Gender = gender;
-            this.Address = address;
-        }
-
-        public Patient(string firstName, string lastName, string phoneNumber, DateTime dob, string gender, string address)
-        {
-            this.FirstName = firstName;
-            this.LastName = lastName;
-            this.Phone = phoneNumber;
-            this.DOB = dob;
-            this.Gender = gender;
-            this.Address = address;
         }
 
         public string Format()

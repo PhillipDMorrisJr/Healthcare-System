@@ -57,7 +57,6 @@ namespace Healthcare
         /// <param name="e">The <see cref="RoutedEventArgs" /> instance containing the event data.</param>
         private void MainPage_OnLoaded(object sender, RoutedEventArgs e)
         {
-
             List<Patient> patientRegistry =  RegistrationUtility.GetPatients();
             foreach (var patientToRegister in patientRegistry)
             {
@@ -67,7 +66,6 @@ namespace Healthcare
                     item.Tag = patientToRegister;
                     item.Content = patientToRegister.Format();
                     this.DatabasePatientInformation.Items?.Add(item);
-
                 }
             }
         }
