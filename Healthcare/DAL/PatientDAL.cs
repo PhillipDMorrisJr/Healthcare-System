@@ -12,7 +12,7 @@ namespace Healthcare.DAL
     static class PatientDAL {
         private enum Attributes
         {
-            PatientSSN, FirstName, LastName, BirthDate, Phone, Address, Gender
+            PatientId, PatientSsn, FirstName, LastName, BirthDate, Phone, Address, Gender
         }
 
         /// <summary>
@@ -34,7 +34,8 @@ namespace Healthcare.DAL
 
                         while (reader.Read())
                         {
-                            int ssn = reader.GetInt32((int)Attributes.PatientSSN);
+                            int id = reader.GetInt32((int)Attributes.PatientId);
+                            int ssn = reader.GetInt32((int)Attributes.PatientSsn);
                             string fname = reader.GetString((int) Attributes.FirstName);
                             string lname = reader.GetString((int) Attributes.LastName);
                             string phone = reader.GetString((int) Attributes.Phone);
@@ -42,7 +43,7 @@ namespace Healthcare.DAL
                             string address = reader.GetString((int) Attributes.Address);
                             string gender = reader.GetString((int)Attributes.Gender);
 
-                            Patient patient = new Patient(ssn, fname, lname, phone, bdate, gender, address);
+                            Patient patient = new Patient(ssn, fname, lname, phone, bdate, gender, address) {Id = id};
                             patients.Add(patient);
                         }
                         conn.Close();
@@ -77,7 +78,7 @@ namespace Healthcare.DAL
                     conn.Open();
 
                     var insertQuery =
-                        "INSERT INTO `patients` (`ssn`, `firstName`, `lastName`, `birthDate`, `phoneNumber`, `address`, `gender`) VALUES (@ssn, @firstName, @lastName, @dob, @phoneNumber, @address, @gender)";
+                        "INSERT INTO `patients` (`ssn`, `firstName`, `lastName`, `birthDate`, `gender`, `phoneNumber`, `address`) VALUES (@ssn, @firstName, @lastName, @dob, @gender, @phoneNumber, @address)";
                     using (MySqlCommand cmd = new MySqlCommand(insertQuery, conn))
                     {
                         cmd.Parameters.AddWithValue("@ssn", ssn);
@@ -90,15 +91,15 @@ namespace Healthcare.DAL
                         cmd.ExecuteNonQuery();
                     }
 
-                    var selectQuery = "select LAST_INSERT_SSN()";
+                    var selectQuery = "select LAST_INSERT_ID()";
 
                     using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
                     {
                       MySqlDataReader lastIndexReader =  cmd.ExecuteReader();
                         lastIndexReader.Read();
-                      int ssnNumber =  lastIndexReader.GetInt32((int) Attributes.PatientSSN);
+                      int id =  lastIndexReader.GetInt32((int) Attributes.PatientId);
                       conn.Close();
-                      return new Patient(ssnNumber, firstName, lastName, phoneNumber, dob, gender, address);
+                      return new Patient(ssn, firstName, lastName, phoneNumber, dob, gender, address) {Id = id};
                     }
                 }
             }
@@ -110,7 +111,7 @@ namespace Healthcare.DAL
             }
         }
 
-        public static List<Patient> SelectPatientByName(string fname, string lname)
+        public static List<Patient> SelectPatientsByName(string fname, string lname)
         {
             List<Patient> patients = new List<Patient>();
             try
@@ -118,17 +119,18 @@ namespace Healthcare.DAL
                 using (MySqlConnection conn = DbConnection.GetConnection())
                 {
                     conn.Open();
-                    var selectQuery = "select * from patients WHERE fname = @fname AND lname = @lname";
+                    var selectQuery = "select * from patients WHERE firstName = @firstName AND lastName = @lastName";
                     using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
                     {
-                        cmd.Parameters.Add("fname", (DbType)MySqlDbType.VarChar).Value = fname;
-                        cmd.Parameters.Add("lname", (DbType)MySqlDbType.VarChar).Value = lname;
+                        cmd.Parameters.AddWithValue("@firstName", fname);
+                        cmd.Parameters.AddWithValue("@lastName", lname);
                         MySqlDataReader reader = cmd.ExecuteReader();
 
                         while (reader.HasRows)
                         {
                             reader.Read();
-                            int ssn = reader.GetInt32((int)Attributes.PatientSSN);
+                            int id = reader.GetInt32((int)Attributes.PatientId);
+                            int ssn = reader.GetInt32((int)Attributes.PatientSsn);
                             string firstName = reader.GetString((int)Attributes.FirstName);
                             string lastName = reader.GetString((int)Attributes.LastName);
                             string phone = reader.GetString((int)Attributes.Phone);
@@ -136,7 +138,7 @@ namespace Healthcare.DAL
                             string address = reader.GetString((int)Attributes.Address);
                             string gender = reader.GetString((int)Attributes.Gender);
 
-                            Patient patient = new Patient(ssn, firstName, lastName, phone, bdate, gender, address);
+                            Patient patient = new Patient(ssn, firstName, lastName, phone, bdate, gender, address) {Id = id};
                             patients.Add(patient);                          
                         }
                         conn.Close();
@@ -150,6 +152,92 @@ namespace Healthcare.DAL
                 return null;
             }
         }
+
+        public static List<Patient> SelectPatientsByDob(DateTime dob)
+        {
+            List<Patient> patients = new List<Patient>();
+            try
+            {
+                using (MySqlConnection conn = DbConnection.GetConnection())
+                {
+                    conn.Open();
+                    var selectQuery = "select * from patients WHERE CAST(birthDate AS DATE) = @dob";
+                    using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@dob", dob.ToString("yyyy-MM-dd"));
+                        MySqlDataReader reader = cmd.ExecuteReader();
+
+                        while (reader.HasRows)
+                        {
+                            reader.Read();
+                            int id = reader.GetInt32((int)Attributes.PatientId);
+                            int ssn = reader.GetInt32((int)Attributes.PatientSsn);
+                            string firstName = reader.GetString((int)Attributes.FirstName);
+                            string lastName = reader.GetString((int)Attributes.LastName);
+                            string phone = reader.GetString((int)Attributes.Phone);
+                            DateTime bdate = reader.GetDateTime((int)Attributes.BirthDate);
+                            string address = reader.GetString((int)Attributes.Address);
+                            string gender = reader.GetString((int)Attributes.Gender);
+
+                            Patient patient = new Patient(ssn, firstName, lastName, phone, bdate, gender, address) {Id = id};
+                            patients.Add(patient);                          
+                        }
+                        conn.Close();
+                        return patients;
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                DbConnection.GetConnection().Close();
+                return null;
+            }
+        }
+
+        public static List<Patient> SelectPatientsByNameAndDob(string fname, string lname, DateTime dob)
+        {
+            List<Patient> patients = new List<Patient>();
+            try
+            {
+                using (MySqlConnection conn = DbConnection.GetConnection())
+                {
+                    conn.Open();
+                    var selectQuery = "select * from patients WHERE firstName = @firstName AND lastName = @lastName AND CAST(birthDate AS DATE) = @dob";
+                    using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@firstName", fname);
+                        cmd.Parameters.AddWithValue("@lastName", lname);
+                        cmd.Parameters.AddWithValue("@dob", dob.ToString("yyyy-MM-dd"));
+                        MySqlDataReader reader = cmd.ExecuteReader();
+
+                        while (reader.HasRows)
+                        {
+                            reader.Read();
+                            int id = reader.GetInt32((int)Attributes.PatientId);
+                            int ssn = reader.GetInt32((int)Attributes.PatientSsn);
+                            string firstName = reader.GetString((int)Attributes.FirstName);
+                            string lastName = reader.GetString((int)Attributes.LastName);
+                            string phone = reader.GetString((int)Attributes.Phone);
+                            DateTime bdate = reader.GetDateTime((int)Attributes.BirthDate);
+                            string address = reader.GetString((int)Attributes.Address);
+                            string gender = reader.GetString((int)Attributes.Gender);
+
+                            Patient patient = new Patient(ssn, firstName, lastName, phone, bdate, gender, address) {Id = id};
+                            patients.Add(patient);                          
+                        }
+                        conn.Close();
+                        return patients;
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                DbConnection.GetConnection().Close();
+                return null;
+            }
+        }
+
+        //TODO: Add UPDATE PATIENT QUERY
     }
 }
 

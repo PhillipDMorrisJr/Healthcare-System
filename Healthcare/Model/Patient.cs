@@ -18,21 +18,23 @@ namespace Healthcare.Model
         /// <value>
         /// The first name.
         /// </value>
-        public string FirstName { get; }
+        public string FirstName { get; set; }
+
         /// <summary>
         /// Gets the last name.
         /// </summary>
         /// <value>
         /// The last name.
         /// </value>
-        public string LastName { get; }
+        public string LastName { get; set; }
+
         /// <summary>
         /// Gets the phone.
         /// </summary>
         /// <value>
         /// The phone.
         /// </value>
-        public string Phone { get; }
+        public string Phone { get; set; }
 
         /// <summary>
         /// Gets or sets the dob.
@@ -40,7 +42,7 @@ namespace Healthcare.Model
         /// <value>
         /// The dob.
         /// </value>
-        public DateTime DOB { get; set; }
+        public DateTime Dob { get; set; }
 
         /// <summary>
         /// Gets the Social Security Number.
@@ -48,7 +50,7 @@ namespace Healthcare.Model
         /// <value>
         /// The Social Security Number.
         /// </value>
-        public int SSN { get; set; }
+        public int Ssn { get; set; }
 
         /// <summary>
         /// Gets the gender.
@@ -56,7 +58,8 @@ namespace Healthcare.Model
         /// <value>
         /// The gender.
         /// </value>
-        public string Gender { get; }
+        public string Gender { get; set; }
+
         /// <summary>
         /// Gets the address.
         /// </summary>
@@ -64,6 +67,14 @@ namespace Healthcare.Model
         /// The address.
         /// </value>
         public string Address { get; set; }
+
+        /// <summary>
+        /// Gets the id
+        /// </summary>
+        /// <value>
+        /// The id.
+        /// </value>
+        public int Id { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Patient" /> class.
@@ -80,10 +91,10 @@ namespace Healthcare.Model
             this.FirstName = firstName;
             this.LastName = lastName;
             this.Phone = phoneNumber;
-            this.DOB = dob;
+            this.Dob = dob;
             this.Gender = gender;
             this.Address = address;
-            this.SSN = ssn;
+            this.Ssn = ssn;
         }
 
         public string Format()
@@ -91,6 +102,5 @@ namespace Healthcare.Model
             return FirstName + " " + LastName ;
 
         }
-
     }
 }

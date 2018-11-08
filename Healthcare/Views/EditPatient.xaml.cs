@@ -31,10 +31,10 @@ namespace Healthcare.Views
             this.accessType.Text = AccessValidator.Access;
 
             string[] fullAddress = PatientManager.CurrentPatient.Address.Split(",");
-            this.ssn.Password = PatientManager.CurrentPatient.SSN.ToString();
+            this.ssn.Password = PatientManager.CurrentPatient.Ssn.ToString();
             this.fname.Text = PatientManager.CurrentPatient.FirstName;
             this.lname.Text = PatientManager.CurrentPatient.LastName;
-            this.bday.Date = PatientManager.CurrentPatient.DOB;
+            this.bday.Date = PatientManager.CurrentPatient.Dob;
             this.phone.Text = PatientManager.CurrentPatient.Phone;
             this.address.Text = fullAddress[0].Trim();
             this.state.Text = fullAddress[1].Trim();
@@ -44,9 +44,9 @@ namespace Healthcare.Views
 
         private void updatePatient_onClick(object sender, RoutedEventArgs e)
         {
-            string ssn = this.ssn.Password.ToString();
-            string fname = this.fname.Text;
-            string lname = this.lname.Text;
+            string ssn = this.ssn.Password;
+            string firstName = this.fname.Text;
+            string lastName = this.lname.Text;
             string phone = this.phone.Text;
             DateTime dateOfBirth = this.bday.Date.DateTime;
             //string gender = this.gender.SelectedItem.Value(); //create dropdown list 
@@ -55,12 +55,12 @@ namespace Healthcare.Views
             string zip = this.zip.Text;
 
             bool isTenDigit = phone.Length == 10;
-            bool isSsnTenDigit = ssn.ToString().Length == 10;
+            bool isSsnNineDigit = ssn.Length == 9;
 
-            if (!(string.IsNullOrWhiteSpace(address) && string.IsNullOrWhiteSpace(state) && string.IsNullOrWhiteSpace(zip) && string.IsNullOrWhiteSpace(fname) && string.IsNullOrWhiteSpace(lname) && string.IsNullOrWhiteSpace(phone) && string.IsNullOrWhiteSpace(address)) && isTenDigit && isSsnTenDigit)
+            if (!(string.IsNullOrWhiteSpace(address) && string.IsNullOrWhiteSpace(state) && string.IsNullOrWhiteSpace(zip) && string.IsNullOrWhiteSpace(firstName) && string.IsNullOrWhiteSpace(lastName) && string.IsNullOrWhiteSpace(phone) && string.IsNullOrWhiteSpace(address)) && isTenDigit && isSsnNineDigit)
             {
                 string fullAddress = address + ", " + state + ", " + zip;
-                //RegistrationUtility.EditPatient(Convert.ToInt32(ssn), fname, lname, phone, dateOfBirth, gender, fullAddress);
+                //RegistrationUtility.EditPatient(Convert.ToInt32(ssn), firstName, lastName, phone, dateOfBirth, gender, fullAddress);
             }
 
             this.Frame.Navigate(typeof(MainPage));

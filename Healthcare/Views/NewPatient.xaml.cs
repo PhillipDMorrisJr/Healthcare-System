@@ -34,9 +34,9 @@ namespace Healthcare.Views
 
         private void createPatient_onClick(object sender, RoutedEventArgs e)
         {
-            string ssn = this.ssn.Password.ToString();
-            string fname = this.fname.Text;
-            string lname = this.lname.Text;
+            string ssn = this.ssn.Password;
+            string firstName = this.fname.Text;
+            string lastName = this.lname.Text;
             string phone = this.phone.Text;
             DateTime dateOfBirth = this.bday.Date.DateTime;
             //string gender = this.gender.SelectedItem.Value(); // create dropdown list 
@@ -45,12 +45,12 @@ namespace Healthcare.Views
             string zip = this.zip.Text;
 
             bool isTenDigit = phone.Length == 10;
-            bool isSsnTenDigit = ssn.ToString().Length == 10;
+            bool isSsnNineDigit = ssn.Length == 9;
 
-            if (!(string.IsNullOrWhiteSpace(address) && string.IsNullOrWhiteSpace(state) && string.IsNullOrWhiteSpace(zip) && string.IsNullOrWhiteSpace(fname) && string.IsNullOrWhiteSpace(lname) && string.IsNullOrWhiteSpace(phone) && string.IsNullOrWhiteSpace(address)) && isTenDigit && isSsnTenDigit)
+            if (!(string.IsNullOrWhiteSpace(address) && string.IsNullOrWhiteSpace(state) && string.IsNullOrWhiteSpace(zip) && string.IsNullOrWhiteSpace(firstName) && string.IsNullOrWhiteSpace(lastName) && string.IsNullOrWhiteSpace(phone) && string.IsNullOrWhiteSpace(address)) && isTenDigit && isSsnNineDigit)
             {
                 string fullAddress = address + ", " + state + ", " + zip;
-                //RegistrationUtility.CreateNewPatient(Convert.ToInt32(ssn), fname, lname, phone, dateOfBirth, gender, fullAddress);               
+                //RegistrationUtility.CreateNewPatient(Convert.ToInt32(ssn), firstName, lastName, phone, dateOfBirth, gender, fullAddress);               
             }
 
             this.Frame.Navigate(typeof(MainPage));

@@ -28,6 +28,8 @@ namespace Healthcare
     /// <seealso cref="Windows.UI.Xaml.Markup.IComponentConnector2" />
     public sealed partial class MainPage : Page
     {
+        private static int findValue;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="MainPage" /> class.
         /// </summary>
@@ -57,14 +59,19 @@ namespace Healthcare
         /// <param name="e">The <see cref="RoutedEventArgs" /> instance containing the event data.</param>
         private void MainPage_OnLoaded(object sender, RoutedEventArgs e)
         {
+            findValue = 1;
+
+            this.DatabasePatientInformation.Items?.Clear();
+
             List<Patient> patientRegistry =  RegistrationUtility.GetPatients();
             foreach (var patientToRegister in patientRegistry)
             {
                 if (patientToRegister != null)
                 {
-                    ListViewItem item = new ListViewItem();
-                    item.Tag = patientToRegister;
-                    item.Content = patientToRegister.Format();
+                    ListViewItem item = new ListViewItem
+                    {
+                        Tag = patientToRegister, Content = patientToRegister.Format()
+                    };
                     this.DatabasePatientInformation.Items?.Add(item);
                 }
             }
@@ -156,7 +163,98 @@ namespace Healthcare
                     this.DatabaseAppointmentInformation.Items?.Add(item);
                 }
             }
+        }
 
+        private void RefreshButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.DatabasePatientInformation.Items?.Clear();
+
+            List<Patient> patientRegistry =  RegistrationUtility.GetPatients();
+            foreach (var patientToRegister in patientRegistry)
+            {
+                if (patientToRegister != null)
+                {
+                    ListViewItem item = new ListViewItem
+                    {
+                        Tag = patientToRegister, Content = patientToRegister.Format()
+                    };
+                    this.DatabasePatientInformation.Items?.Add(item);
+                }
+            }
+        }
+
+        private void FindButton_Click(object sender, RoutedEventArgs e)
+        {
+            switch (findValue)
+            {
+                case 1:
+                    this.HandleSearchByName();
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    break;
+            }
+        }
+
+        private void HandleSearchByName()
+        {
+            var firstName = this.firstName.Text;
+            var lastName = this.firstName.Text;
+
+            if (string.IsNullOrWhiteSpace(firstName) && string.IsNullOrWhiteSpace(lastName)) return;
+
+            var foundPatients = RegistrationUtility.FindPatientByName(firstName, lastName);
+
+            if (foundPatients.Count == 0)
+            {
+                return;
+            }
+
+            this.DatabasePatientInformation.Items?.Clear();
+
+            var size = 0;
+
+            List<Patient> patientRegistry = RegistrationUtility.GetPatients();
+
+            foreach(Patient patient in patientRegistry)
+            {
+                if (patient == null) continue;
+
+                var patientFirstName = patient.FirstName;
+                var patientLastName = patient.LastName;
+
+                if (size < foundPatients.Count)
+                {
+                    var foundPatient = foundPatients[size];
+
+                    if (patientFirstName.Equals(foundPatient.FirstName) && patientLastName.Equals(foundPatient.LastName))
+                    {
+                        ListViewItem item = new ListViewItem {Tag = patient, Content = patient.Format()};
+                        this.DatabasePatientInformation.Items?.Add(item);
+                    }
+                }
+                else
+                {
+                    return;
+                }
+                size++;
+            }
+        }
+
+        private void SearchNameRadioButton_Checked(object sender, RoutedEventArgs e)
+        {
+            findValue = 1;
+        }
+
+        private void SearchDateRadioButton_Checked(object sender, RoutedEventArgs e)
+        {
+            findValue = 2;
+        }
+
+        private void SearchBothRadioButton_Checked(object sender, RoutedEventArgs e)
+        {
+            findValue = 3;
         }
     }
 }

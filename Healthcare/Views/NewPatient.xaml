@@ -7,7 +7,7 @@
     xmlns:Custom="using:Windows.UI.Xaml.Controls.Maps"
     x:Class="Healthcare.Views.NewPatient"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Height="1316">
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Height="1316" Width="1524">
 
 
     <Grid Background="White" HorizontalAlignment="Center" Height="1251" VerticalAlignment="Center" Width="550">
