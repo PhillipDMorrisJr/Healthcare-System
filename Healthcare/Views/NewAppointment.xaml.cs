@@ -31,14 +31,19 @@ namespace Healthcare.Views
         public NewAppointment()
         {
             this.InitializeComponent();
-            this.patient = PatientManager.CurrentPatient;
             this.nameID.Text = AccessValidator.CurrentUser.Username;
             this.userID.Text = AccessValidator.CurrentUser.ID;
             this.accessType.Text = AccessValidator.Access;
-            this.name.Text = this.patient.FirstName + " " + this.patient.LastName;
-            this.id.Text = this.patient.Id.ToString();
-            //this.ssn.Text = this.patient.Ssn.ToString();
-            this.phone.Text = String.Format("{0:(###) ###-####}", this.patient.Phone);
+
+            this.patient = PatientManager.CurrentPatient;
+
+            if (this.patient != null)
+            {
+                this.name.Text = this.patient.FirstName + " " + this.patient.LastName;
+                this.id.Text = this.patient.Id.ToString();
+                //this.ssn.Text = this.patient.Ssn.ToString();
+                this.phone.Text = String.Format("{0:(###) ###-####}", this.patient.Phone);
+            }
 
             DoctorDAL dal = new DoctorDAL();
             List<Doctor> doctors = dal.GetDoctors();
@@ -77,6 +82,11 @@ namespace Healthcare.Views
         private void DatabaseInformationDoctors_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             this.doctor = (this.databaseInformationDoctors.SelectedItem as ListViewItem)?.Tag as Doctor;
+        }
+
+        private void homeButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.Frame.Navigate(typeof(MainPage));
         }
     }
 }

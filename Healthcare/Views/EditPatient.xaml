@@ -6,9 +6,9 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Height="1344.528" Width="1516.23">
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Grid Background="White" HorizontalAlignment="Center" Height="1105" VerticalAlignment="Center" Width="540">
+    <Grid Background="White" HorizontalAlignment="Center" Height="850" VerticalAlignment="Center" Width="540">
 
         <TextBlock Grid.Row="0" Text="Healthcare Services" HorizontalAlignment="Left" Margin="-469,21,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="139" Width="254" Foreground="White" FontSize="50" TextAlignment="Center" />
 

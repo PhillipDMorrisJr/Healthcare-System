@@ -7,9 +7,9 @@
     xmlns:Custom="using:Windows.UI.Xaml.Controls.Maps"
     x:Class="Healthcare.Views.NewPatient"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Height="1287.5" Width="1524">
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Grid Background="White" HorizontalAlignment="Center" Height="1107" VerticalAlignment="Center" Width="550">
+    <Grid Background="White" HorizontalAlignment="Center" Height="850" VerticalAlignment="Center" Width="550">
 
         <TextBlock Grid.Row="0" Text="Healthcare Services" HorizontalAlignment="Left" Margin="-469,21,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="139" Width="254" Foreground="White" FontSize="50" TextAlignment="Center" />
 

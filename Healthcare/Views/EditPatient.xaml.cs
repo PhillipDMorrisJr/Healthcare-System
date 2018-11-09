@@ -33,16 +33,19 @@ namespace Healthcare.Views
             List<string> genders = new List<string> {"Male", "Female"};
             this.genderCmbox.ItemsSource = genders;
 
-            string[] fullAddress = PatientManager.CurrentPatient.Address.Split(",");
-            this.ssn.Password = PatientManager.CurrentPatient.Ssn.ToString();
-            this.fname.Text = PatientManager.CurrentPatient.FirstName;
-            this.lname.Text = PatientManager.CurrentPatient.LastName;
-            this.bday.Date = PatientManager.CurrentPatient.Dob;
-            this.phone.Text = PatientManager.CurrentPatient.Phone;
-            this.address.Text = fullAddress[0].Trim();
-            this.state.Text = fullAddress[1].Trim();
-            this.zip.Text = fullAddress[2].Trim();
-            this.genderCmbox.SelectedItem = PatientManager.CurrentPatient.Gender;
+            if (PatientManager.CurrentPatient != null)
+            {
+                string[] fullAddress = PatientManager.CurrentPatient.Address.Split(",");
+                this.ssn.Password = PatientManager.CurrentPatient.Ssn.ToString();
+                this.fname.Text = PatientManager.CurrentPatient.FirstName;
+                this.lname.Text = PatientManager.CurrentPatient.LastName;
+                this.bday.Date = PatientManager.CurrentPatient.Dob;
+                this.phone.Text = PatientManager.CurrentPatient.Phone;
+                this.address.Text = fullAddress[0].Trim();
+                this.state.Text = fullAddress[1].Trim();
+                this.zip.Text = fullAddress[2].Trim();
+                this.genderCmbox.SelectedItem = PatientManager.CurrentPatient.Gender;
+            }           
         }
 
 

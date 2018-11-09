@@ -208,6 +208,11 @@ namespace Healthcare
 
             var foundPatients = RegistrationUtility.FindPatientsByName(fName, lName);
 
+            if (foundPatients == null)
+            {
+                return;
+            }
+
             if (foundPatients.Count == 0)
             {
                 return;
@@ -249,6 +254,11 @@ namespace Healthcare
             var dob = this.datePicker.Date.DateTime;
 
             var foundPatients = RegistrationUtility.FindPatientsByDob(dob);
+
+            if (foundPatients == null)
+            {
+                return;
+            }
 
             if (foundPatients.Count == 0)
             {
@@ -294,6 +304,11 @@ namespace Healthcare
             if (string.IsNullOrWhiteSpace(fName) && string.IsNullOrWhiteSpace(lName)) return;
 
             var foundPatients = RegistrationUtility.FindPatientsByNameAndDob(fName, lName, dob);
+
+            if (foundPatients == null)
+            {
+                return;
+            }
 
             if (foundPatients.Count == 0)
             {

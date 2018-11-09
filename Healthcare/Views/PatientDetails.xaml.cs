@@ -30,14 +30,17 @@ namespace Healthcare.Views
             this.userID.Text = AccessValidator.CurrentUser.ID;
             this.accessType.Text = AccessValidator.Access;
 
-            this.fname.Text = PatientManager.CurrentPatient.FirstName;
-            this.lname.Text = PatientManager.CurrentPatient.LastName;
-            this.bday.Date = PatientManager.CurrentPatient.Dob;
-            this.phone.Text = PatientManager.CurrentPatient.Phone;
-            this.gender.Text = PatientManager.CurrentPatient.Gender;
+            if (PatientManager.CurrentPatient != null)
+            {
+                this.fname.Text = PatientManager.CurrentPatient.FirstName;
+                this.lname.Text = PatientManager.CurrentPatient.LastName;
+                this.bday.Date = PatientManager.CurrentPatient.Dob;
+                this.phone.Text = PatientManager.CurrentPatient.Phone;
+                this.gender.Text = PatientManager.CurrentPatient.Gender;
 
-            var social = "***-**-" + PatientManager.CurrentPatient.Ssn.ToString().Substring(5);
-            this.ssn.Text = social;
+                var social = "***-**-" + PatientManager.CurrentPatient.Ssn.ToString().Substring(5);
+                this.ssn.Text = social;
+            }
         }
 
         private void home_onClick(object sender, RoutedEventArgs e)
