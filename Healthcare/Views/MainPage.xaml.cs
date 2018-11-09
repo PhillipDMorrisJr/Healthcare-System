@@ -188,23 +188,25 @@ namespace Healthcare
             switch (findValue)
             {
                 case 1:
-                    this.HandleSearchByName();
+                    HandleSearchByName();
                     break;
                 case 2:
+                    HandleSearchByDob();
                     break;
                 case 3:
+                    HandleSearchByBoth();
                     break;
             }
         }
 
         private void HandleSearchByName()
         {
-            var firstName = this.firstName.Text;
-            var lastName = this.firstName.Text;
+            var fName = this.firstName.Text;
+            var lName = this.lastName.Text;
 
-            if (string.IsNullOrWhiteSpace(firstName) && string.IsNullOrWhiteSpace(lastName)) return;
+            if (string.IsNullOrWhiteSpace(fName) && string.IsNullOrWhiteSpace(lName)) return;
 
-            var foundPatients = RegistrationUtility.FindPatientByName(firstName, lastName);
+            var foundPatients = RegistrationUtility.FindPatientsByName(fName, lName);
 
             if (foundPatients.Count == 0)
             {
@@ -229,6 +231,94 @@ namespace Healthcare
                     var foundPatient = foundPatients[size];
 
                     if (patientFirstName.Equals(foundPatient.FirstName) && patientLastName.Equals(foundPatient.LastName))
+                    {
+                        ListViewItem item = new ListViewItem {Tag = patient, Content = patient.Format()};
+                        this.DatabasePatientInformation.Items?.Add(item);
+                    }
+                }
+                else
+                {
+                    return;
+                }
+                size++;
+            }
+        }
+
+        private void HandleSearchByDob()
+        {
+            var dob = this.datePicker.Date.DateTime;
+
+            var foundPatients = RegistrationUtility.FindPatientsByDob(dob);
+
+            if (foundPatients.Count == 0)
+            {
+                return;
+            }
+
+            this.DatabasePatientInformation.Items?.Clear();
+
+            var size = 0;
+
+            List<Patient> patientRegistry = RegistrationUtility.GetPatients();
+
+            foreach(Patient patient in patientRegistry)
+            {
+                if (patient == null) continue;
+
+                var patientDob = patient.Dob;
+
+                if (size < foundPatients.Count)
+                {
+                    var foundPatient = foundPatients[size];
+
+                    if (patientDob.ToString("yyyy-MM-dd").Equals(foundPatient.Dob.ToString("yyyy-MM-dd")))
+                    {
+                        ListViewItem item = new ListViewItem {Tag = patient, Content = patient.Format()};
+                        this.DatabasePatientInformation.Items?.Add(item);
+                    }
+                }
+                else
+                {
+                    return;
+                }
+                size++;
+            }
+        }
+
+        private void HandleSearchByBoth()
+        {
+            var dob = this.datePicker.Date.DateTime;
+            var fName = this.firstName.Text;
+            var lName = this.lastName.Text;
+
+            if (string.IsNullOrWhiteSpace(fName) && string.IsNullOrWhiteSpace(lName)) return;
+
+            var foundPatients = RegistrationUtility.FindPatientsByNameAndDob(fName, lName, dob);
+
+            if (foundPatients.Count == 0)
+            {
+                return;
+            }
+
+            this.DatabasePatientInformation.Items?.Clear();
+
+            var size = 0;
+
+            List<Patient> patientRegistry = RegistrationUtility.GetPatients();
+
+            foreach(Patient patient in patientRegistry)
+            {
+                if (patient == null) continue;
+
+                var patientFirstName = patient.FirstName;
+                var patientLastName = patient.LastName;
+                var patientDob = patient.Dob;
+
+                if (size < foundPatients.Count)
+                {
+                    var foundPatient = foundPatients[size];
+
+                    if (patientDob.ToString("yyyy-MM-dd").Equals(foundPatient.Dob.ToString("yyyy-MM-dd")) && patientFirstName.Equals(foundPatient.FirstName) && patientLastName.Equals(foundPatient.LastName))
                     {
                         ListViewItem item = new ListViewItem {Tag = patient, Content = patient.Format()};
                         this.DatabasePatientInformation.Items?.Add(item);

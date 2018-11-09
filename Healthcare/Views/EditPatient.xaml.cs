@@ -30,6 +30,9 @@ namespace Healthcare.Views
             this.userID.Text = AccessValidator.CurrentUser.ID;
             this.accessType.Text = AccessValidator.Access;
 
+            List<string> genders = new List<string> {"Male", "Female"};
+            this.genderCmbox.ItemsSource = genders;
+
             string[] fullAddress = PatientManager.CurrentPatient.Address.Split(",");
             this.ssn.Password = PatientManager.CurrentPatient.Ssn.ToString();
             this.fname.Text = PatientManager.CurrentPatient.FirstName;
@@ -39,8 +42,9 @@ namespace Healthcare.Views
             this.address.Text = fullAddress[0].Trim();
             this.state.Text = fullAddress[1].Trim();
             this.zip.Text = fullAddress[2].Trim();
-            //this.gender.SelectedItem = PatientManager.CurrentPatient.Gender;
+            this.genderCmbox.SelectedItem = PatientManager.CurrentPatient.Gender;
         }
+
 
         private void updatePatient_onClick(object sender, RoutedEventArgs e)
         {
@@ -49,7 +53,14 @@ namespace Healthcare.Views
             string lastName = this.lname.Text;
             string phone = this.phone.Text;
             DateTime dateOfBirth = this.bday.Date.DateTime;
-            //string gender = this.gender.SelectedItem.Value(); //create dropdown list 
+            string gender = string.Empty;
+
+            var genderCmboxSelectedItem = this.genderCmbox.SelectedItem;
+            if (genderCmboxSelectedItem != null)
+            {
+                gender = genderCmboxSelectedItem.ToString();
+            }
+
             string address = this.address.Text;
             string state = this.state.Text;
             string zip = this.zip.Text;
@@ -60,7 +71,7 @@ namespace Healthcare.Views
             if (!(string.IsNullOrWhiteSpace(address) && string.IsNullOrWhiteSpace(state) && string.IsNullOrWhiteSpace(zip) && string.IsNullOrWhiteSpace(firstName) && string.IsNullOrWhiteSpace(lastName) && string.IsNullOrWhiteSpace(phone) && string.IsNullOrWhiteSpace(address)) && isTenDigit && isSsnNineDigit)
             {
                 string fullAddress = address + ", " + state + ", " + zip;
-                //RegistrationUtility.EditPatient(Convert.ToInt32(ssn), firstName, lastName, phone, dateOfBirth, gender, fullAddress);
+                RegistrationUtility.EditPatient(PatientManager.CurrentPatient.Id, Convert.ToInt32(ssn), firstName, lastName, phone, dateOfBirth, gender, fullAddress);
             }
 
             this.Frame.Navigate(typeof(MainPage));

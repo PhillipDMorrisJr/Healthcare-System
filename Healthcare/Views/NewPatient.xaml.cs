@@ -30,6 +30,10 @@ namespace Healthcare.Views
             this.nameID.Text = AccessValidator.CurrentUser.Username;
             this.userID.Text = AccessValidator.CurrentUser.ID;
             this.accessType.Text = AccessValidator.Access;
+
+            List<string> genders = new List<string> {"Male", "Female"};
+            this.genderCmbox.ItemsSource = genders;
+            this.genderCmbox.SelectedItem = "Male";
         }
 
         private void createPatient_onClick(object sender, RoutedEventArgs e)
@@ -39,7 +43,14 @@ namespace Healthcare.Views
             string lastName = this.lname.Text;
             string phone = this.phone.Text;
             DateTime dateOfBirth = this.bday.Date.DateTime;
-            //string gender = this.gender.SelectedItem.Value(); // create dropdown list 
+
+            string gender = string.Empty;
+            
+            var genderCmboxSelectedItem = this.genderCmbox.SelectedItem;
+            if (genderCmboxSelectedItem != null)
+            {
+                gender = genderCmboxSelectedItem.ToString();
+            }
             string address = this.address.Text;
             string state = this.state.Text;
             string zip = this.zip.Text;
@@ -50,7 +61,7 @@ namespace Healthcare.Views
             if (!(string.IsNullOrWhiteSpace(address) && string.IsNullOrWhiteSpace(state) && string.IsNullOrWhiteSpace(zip) && string.IsNullOrWhiteSpace(firstName) && string.IsNullOrWhiteSpace(lastName) && string.IsNullOrWhiteSpace(phone) && string.IsNullOrWhiteSpace(address)) && isTenDigit && isSsnNineDigit)
             {
                 string fullAddress = address + ", " + state + ", " + zip;
-                //RegistrationUtility.CreateNewPatient(Convert.ToInt32(ssn), firstName, lastName, phone, dateOfBirth, gender, fullAddress);               
+                RegistrationUtility.CreateNewPatient(Convert.ToInt32(ssn), firstName, lastName, phone, dateOfBirth, gender, fullAddress);               
             }
 
             this.Frame.Navigate(typeof(MainPage));

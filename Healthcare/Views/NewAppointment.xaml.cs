@@ -24,6 +24,7 @@ namespace Healthcare.Views
     {
         private Patient patient;
         private Doctor doctor;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="NewAppointment"/> class.
         /// </summary>

@@ -12,7 +12,7 @@ namespace Healthcare.DAL
     static class PatientDAL {
         private enum Attributes
         {
-            PatientId, PatientSsn, FirstName, LastName, BirthDate, Phone, Address, Gender
+            PatientId, PatientSsn, FirstName, LastName, BirthDate, Gender, Phone, Address
         }
 
         /// <summary>
@@ -237,7 +237,62 @@ namespace Healthcare.DAL
             }
         }
 
-        //TODO: Add UPDATE PATIENT QUERY
+        public static Patient UpdatePatient(int id, int ssn, string firstName, string lastName, string phoneNumber,
+            DateTime dob, string gender, string address)
+        {
+            try
+            {
+                using (MySqlConnection conn = DbConnection.GetConnection())
+                {
+                    conn.Open();
+                    var updateQuery =
+                        "UPDATE `patients` SET ssn = @ssn, firstName = @firstName, lastName = @lastName, birthDate = @dob, gender = @gender, phoneNumber = @phoneNumber, address = @address WHERE patientID = @id";
+                    using (MySqlCommand cmd = new MySqlCommand(updateQuery, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@id", id);
+                        cmd.Parameters.AddWithValue("@ssn", ssn);
+                        cmd.Parameters.AddWithValue("@firstName", firstName);
+                        cmd.Parameters.AddWithValue("@lastName", lastName);
+                        cmd.Parameters.AddWithValue("@dob", dob.ToString("yyyy-MM-dd"));
+                        cmd.Parameters.AddWithValue("@gender", gender);
+                        cmd.Parameters.AddWithValue("@phoneNumber", phoneNumber);
+                        cmd.Parameters.AddWithValue("@address", address);
+                        cmd.ExecuteReader();
+                    }
+
+                    var selectQuery = "select * from patients WHERE patientID = @id";
+
+                    using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@id", id);
+                        MySqlDataReader reader = cmd.ExecuteReader();
+                        Patient patient = null;
+
+                        while (reader.Read())
+                        {
+                            int patientId = reader.GetInt32((int)Attributes.PatientId);
+                            int patientSsn = reader.GetInt32((int)Attributes.PatientSsn);
+                            string patientFirstName = reader.GetString((int) Attributes.FirstName);
+                            string patientLastName = reader.GetString((int) Attributes.LastName);
+                            string patientPhone = reader.GetString((int) Attributes.Phone);
+                            DateTime patientBirthdate = reader.GetDateTime((int) Attributes.BirthDate);
+                            string patientAddress = reader.GetString((int) Attributes.Address);
+                            string patientGender = reader.GetString((int)Attributes.Gender);
+
+                            patient = new Patient(patientSsn, patientFirstName, patientLastName, patientPhone, patientBirthdate, patientGender, patientAddress) {Id = patientId};
+                            conn.Close();
+                        }
+
+                        return patient;
+                    }
+                }
+            }      
+            catch (Exception)
+            {
+                DbConnection.GetConnection().Close();
+                return null;
+            }
+        }
     }
 }
 

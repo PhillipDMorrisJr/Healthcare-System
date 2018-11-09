@@ -6,9 +6,9 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Height="1207.504">
 
-    <Grid Background="White" HorizontalAlignment="Center" Height="936" VerticalAlignment="Center" Width="500">
+    <Grid Background="White" HorizontalAlignment="Center" Height="1131" VerticalAlignment="Center" Width="500" Margin="0,0,0,0">
 
         <TextBlock Grid.Row="0" Text="Healthcare Services" HorizontalAlignment="Left" Margin="-469,21,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="139" Width="254" Foreground="White" FontSize="50" TextAlignment="Center" />
 
@@ -27,15 +27,17 @@
 
         <TextBlock HorizontalAlignment="Left" Margin="26,427,0,0" Text="Phone:" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="30"/>
 
-        <TextBlock HorizontalAlignment="Left" Margin="26,701,0,0" Text="Date Of Birth:" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="30"/>
+        <TextBlock HorizontalAlignment="Left" Margin="26,852,0,0" Text="Date Of Birth:" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="30"/>
         <TextBlock Name="fname" HorizontalAlignment="Center" Margin="0,186,0,0" VerticalAlignment="Top" Height="61" Width="455" FontSize="30"/>
         <TextBlock Name="lname" HorizontalAlignment="Center" Margin="0,339,0,0" VerticalAlignment="Top" Height="61" Width="455" FontSize="30"/>
         <TextBlock Name="phone" HorizontalAlignment="Center" Margin="0,472,0,0" VerticalAlignment="Top" Height="61" Width="455" FontSize="30"/>
-        <DatePicker Name="bday" IsEnabled="False" HorizontalAlignment="Center" Margin="0,746,0,0" VerticalAlignment="Top" MinHeight="33" MinWidth="455" FontSize="30"/>
-        <Button Content="HOME" HorizontalAlignment="Center" Margin="0,836,0,0" VerticalAlignment="Top" Height="61" Width="455" FontSize="30" Click="home_onClick"/>
+        <DatePicker Name="bday" IsEnabled="False" HorizontalAlignment="Center" Margin="0,936,0,0" VerticalAlignment="Top" MinHeight="33" MinWidth="455" FontSize="30"/>
+        <Button Content="HOME" HorizontalAlignment="Center" Margin="0,1039,0,0" VerticalAlignment="Top" Height="61" Width="455" FontSize="30" Click="home_onClick"/>
         <TextBlock HorizontalAlignment="Left" Margin="26,558,0,0" Text="Ssn:" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="30"/>
 
         <TextBlock x:Name="ssn" HorizontalAlignment="Left" Margin="26,603,0,0" VerticalAlignment="Top" Height="61" Width="455" FontSize="30"/>
+        <TextBlock HorizontalAlignment="Left" Margin="26,688,0,0" Text="Gender:" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="30"/>
+        <TextBlock x:Name="gender" HorizontalAlignment="Left" Margin="26,733,0,0" VerticalAlignment="Top" Height="61" Width="455" FontSize="30"/>
 
     </Grid>
 </Page>

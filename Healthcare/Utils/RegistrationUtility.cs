@@ -39,6 +39,7 @@ namespace Healthcare.Utils
         /// <summary>
         /// Edits a registered patient.
         /// </summary>
+        /// <param name="id">The id.</param>
         /// <param name="ssn">The ssn.</param>
         /// <param name="firstName">The first name.</param>
         /// <param name="lastName">The last name.</param>
@@ -46,9 +47,40 @@ namespace Healthcare.Utils
         /// <param name="dob">The dob.</param>
         /// <param name="gender"> The gender.</param>
         /// <param name="address">The address.</param>
-        public static void EditPatient(int ssn, string firstName, string lastName, string phoneNumber, DateTime dob, string gender, string address)
+        public static void EditPatient(int id, int ssn, string firstName, string lastName, string phoneNumber, DateTime dob, string gender, string address)
         {
-            //Patient patient = PatientDAL.UpdatePatient(ssn, firstName, lastName, phoneNumber, dob, gender, address);
+            Patient patient = PatientDAL.UpdatePatient(id, ssn, firstName, lastName, phoneNumber, dob, gender, address);
+            Patient updatedPatient = null;
+            List<Appointment> appointments = null;
+
+            if (patient == null) return;
+
+            foreach (Patient registryPatient in Patients)
+            {
+                if (registryPatient.Id != patient.Id) continue;
+
+                registryPatient.Ssn = patient.Ssn;
+                registryPatient.FirstName = patient.FirstName;
+                registryPatient.LastName = patient.LastName;
+                registryPatient.Phone = patient.Phone;
+                registryPatient.Dob = patient.Dob;
+                registryPatient.Gender = patient.Gender;
+                registryPatient.Address = patient.Address;
+                updatedPatient = registryPatient;
+            }
+
+            if (updatedPatient == null) return;
+
+            foreach (var entry in AppointmentManager.Appointments)
+            {                      
+                if (entry.Key.Id == updatedPatient.Id)
+                {
+                    appointments = entry.Value;
+                }
+            }
+
+            AppointmentManager.Appointments.Remove(updatedPatient);
+            AppointmentManager.Appointments.Add(updatedPatient, appointments);
         }
 
         /// <summary>
@@ -57,7 +89,7 @@ namespace Healthcare.Utils
         /// <param name="firstName">The first name.</param>
         /// <param name="lastName">The last name.</param>
         /// <returns>List of all found patients.</returns>
-        public static List<Patient> FindPatientByName(string firstName, string lastName)
+        public static List<Patient> FindPatientsByName(string firstName, string lastName)
         {
             return PatientDAL.SelectPatientsByName(firstName, lastName);
         }
@@ -67,7 +99,7 @@ namespace Healthcare.Utils
         /// </summary>
         /// <param name="dob">The date.</param>
         /// <returns>List of all found patients.</returns>
-        public static List<Patient> FindPatientByDob(DateTime dob)
+        public static List<Patient> FindPatientsByDob(DateTime dob)
         {
             return PatientDAL.SelectPatientsByDob(dob);
         }
@@ -79,7 +111,7 @@ namespace Healthcare.Utils
         /// <param name="lastName">The last name.</param>
         /// <param name="dob">The date.</param>
         /// <returns>List of all found patients.</returns>
-        public static List<Patient> FindPatientByNameAndDob(string firstName, string lastName, DateTime dob)
+        public static List<Patient> FindPatientsByNameAndDob(string firstName, string lastName, DateTime dob)
         {
             return PatientDAL.SelectPatientsByNameAndDob(firstName, lastName, dob);
         }
