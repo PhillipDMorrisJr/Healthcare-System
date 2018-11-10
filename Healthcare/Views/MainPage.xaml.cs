@@ -12,6 +12,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using Healthcare.DAL;
 using Healthcare.Model;
 using Healthcare.Utils;
 using Healthcare.Views;
@@ -37,7 +38,7 @@ namespace Healthcare
         {
             this.InitializeComponent();
             this.nameID.Text = AccessValidator.CurrentUser.Username;
-            this.userID.Text = AccessValidator.CurrentUser.ID;
+            this.userID.Text = AccessValidator.CurrentUser.Id;
             this.accessType.Text = AccessValidator.Access;
 
         }
@@ -60,8 +61,6 @@ namespace Healthcare
         private void MainPage_OnLoaded(object sender, RoutedEventArgs e)
         {
             findValue = 1;
-
-            this.DatabasePatientInformation.Items?.Clear();
 
             List<Patient> patientRegistry =  RegistrationUtility.GetPatients();
             foreach (var patientToRegister in patientRegistry)
@@ -144,24 +143,39 @@ namespace Healthcare
         /// <param name="e">The <see cref="SelectionChangedEventArgs"/> instance containing the event data.</param>
         private void DatabasePatientInformation_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            this.DatabaseAppointmentInformation.Items?.Clear();
             Patient currentPatient = (this.DatabasePatientInformation.SelectedItem as ListViewItem)?.Tag as Patient;
+
+            if (currentPatient == null)
+            {
+                return;
+            }
+
             PatientManager.CurrentPatient = currentPatient;
             List<Appointment> appointments;
-            AppointmentManager.Appointments.TryGetValue(currentPatient, out appointments);
+
+            AppointmentManager.Appointments.TryGetValue(currentPatient, out appointments);            
+
             if (appointments == null)
             {
                 AppointmentManager.Appointments.Add(currentPatient, new List<Appointment>());
             }
-            foreach (var appointment in AppointmentManager.Appointments[currentPatient])
+
+            int count = 0;
+
+            foreach (var entry in AppointmentManager.Appointments)
             {
-                if (appointment != null)
+                if (entry.Key.Id == currentPatient.Id)
                 {
-                    ListViewItem item = new ListViewItem();
-                    item.Tag = appointment;
-                    item.Content = appointment.Format();
-                    this.DatabaseAppointmentInformation.Items?.Add(item);
+                    if (entry.Value != null && entry.Value.Count > 0)
+                    {
+                        ListViewItem item = new ListViewItem();
+                        item.Tag = entry.Value[count];
+                        item.Content = entry.Value[count].Format();
+                        this.DatabaseAppointmentInformation.Items?.Add(item);
+                    }
                 }
+
+                count++;
             }
         }
 
@@ -169,8 +183,9 @@ namespace Healthcare
         {
             this.DatabasePatientInformation.Items?.Clear();
 
-            List<Patient> patientRegistry =  RegistrationUtility.GetPatients();
-            foreach (var patientToRegister in patientRegistry)
+            var patients = RegistrationUtility.GetRefreshedPatients();
+           
+            foreach (var patientToRegister in patients)
             {
                 if (patientToRegister != null)
                 {
@@ -206,92 +221,45 @@ namespace Healthcare
 
             if (string.IsNullOrWhiteSpace(fName) && string.IsNullOrWhiteSpace(lName)) return;
 
-            var foundPatients = RegistrationUtility.FindPatientsByName(fName, lName);
-
-            if (foundPatients == null)
-            {
-                return;
-            }
-
-            if (foundPatients.Count == 0)
-            {
-                return;
-            }
+            RegistrationUtility.FindPatientsByName(fName, lName);
+            
+            var patients = RegistrationUtility.GetPatients();
 
             this.DatabasePatientInformation.Items?.Clear();
-
-            var size = 0;
-
-            List<Patient> patientRegistry = RegistrationUtility.GetPatients();
-
-            foreach(Patient patient in patientRegistry)
+           
+            foreach (var patientToRegister in patients)
             {
-                if (patient == null) continue;
-
-                var patientFirstName = patient.FirstName;
-                var patientLastName = patient.LastName;
-
-                if (size < foundPatients.Count)
+                if (patientToRegister != null)
                 {
-                    var foundPatient = foundPatients[size];
-
-                    if (patientFirstName.Equals(foundPatient.FirstName) && patientLastName.Equals(foundPatient.LastName))
+                    ListViewItem item = new ListViewItem
                     {
-                        ListViewItem item = new ListViewItem {Tag = patient, Content = patient.Format()};
-                        this.DatabasePatientInformation.Items?.Add(item);
-                    }
+                        Tag = patientToRegister, Content = patientToRegister.Format()
+                    };
+                    this.DatabasePatientInformation.Items?.Add(item);
                 }
-                else
-                {
-                    return;
-                }
-                size++;
-            }
+            }            
         }
 
         private void HandleSearchByDob()
         {
             var dob = this.datePicker.Date.DateTime;
 
-            var foundPatients = RegistrationUtility.FindPatientsByDob(dob);
+            RegistrationUtility.FindPatientsByDob(dob);
 
-            if (foundPatients == null)
-            {
-                return;
-            }
-
-            if (foundPatients.Count == 0)
-            {
-                return;
-            }
+            var patients = RegistrationUtility.GetPatients();
 
             this.DatabasePatientInformation.Items?.Clear();
-
-            var size = 0;
-
-            List<Patient> patientRegistry = RegistrationUtility.GetPatients();
-
-            foreach(Patient patient in patientRegistry)
+           
+            foreach (var patientToRegister in patients)
             {
-                if (patient == null) continue;
-
-                var patientDob = patient.Dob;
-
-                if (size < foundPatients.Count)
+                if (patientToRegister != null)
                 {
-                    var foundPatient = foundPatients[size];
-
-                    if (patientDob.ToString("yyyy-MM-dd").Equals(foundPatient.Dob.ToString("yyyy-MM-dd")))
+                    ListViewItem item = new ListViewItem
                     {
-                        ListViewItem item = new ListViewItem {Tag = patient, Content = patient.Format()};
-                        this.DatabasePatientInformation.Items?.Add(item);
-                    }
+                        Tag = patientToRegister, Content = patientToRegister.Format()
+                    };
+                    this.DatabasePatientInformation.Items?.Add(item);
                 }
-                else
-                {
-                    return;
-                }
-                size++;
             }
         }
 
@@ -303,47 +271,22 @@ namespace Healthcare
 
             if (string.IsNullOrWhiteSpace(fName) && string.IsNullOrWhiteSpace(lName)) return;
 
-            var foundPatients = RegistrationUtility.FindPatientsByNameAndDob(fName, lName, dob);
-
-            if (foundPatients == null)
-            {
-                return;
-            }
-
-            if (foundPatients.Count == 0)
-            {
-                return;
-            }
+            RegistrationUtility.FindPatientsByNameAndDob(fName, lName, dob);
+            
+            var patients = RegistrationUtility.GetPatients();
 
             this.DatabasePatientInformation.Items?.Clear();
-
-            var size = 0;
-
-            List<Patient> patientRegistry = RegistrationUtility.GetPatients();
-
-            foreach(Patient patient in patientRegistry)
+           
+            foreach (var patientToRegister in patients)
             {
-                if (patient == null) continue;
-
-                var patientFirstName = patient.FirstName;
-                var patientLastName = patient.LastName;
-                var patientDob = patient.Dob;
-
-                if (size < foundPatients.Count)
+                if (patientToRegister != null)
                 {
-                    var foundPatient = foundPatients[size];
-
-                    if (patientDob.ToString("yyyy-MM-dd").Equals(foundPatient.Dob.ToString("yyyy-MM-dd")) && patientFirstName.Equals(foundPatient.FirstName) && patientLastName.Equals(foundPatient.LastName))
+                    ListViewItem item = new ListViewItem
                     {
-                        ListViewItem item = new ListViewItem {Tag = patient, Content = patient.Format()};
-                        this.DatabasePatientInformation.Items?.Add(item);
-                    }
+                        Tag = patientToRegister, Content = patientToRegister.Format()
+                    };
+                    this.DatabasePatientInformation.Items?.Add(item);
                 }
-                else
-                {
-                    return;
-                }
-                size++;
             }
         }
 

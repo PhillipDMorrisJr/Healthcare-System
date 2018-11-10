@@ -27,7 +27,7 @@ namespace Healthcare.Views
         {
             this.InitializeComponent();
             this.nameID.Text = AccessValidator.CurrentUser.Username;
-            this.userID.Text = AccessValidator.CurrentUser.ID;
+            this.userID.Text = AccessValidator.CurrentUser.Id;
             this.accessType.Text = AccessValidator.Access;
 
             List<string> genders = new List<string> {"Male", "Female"};
@@ -35,15 +35,20 @@ namespace Healthcare.Views
 
             if (PatientManager.CurrentPatient != null)
             {
-                string[] fullAddress = PatientManager.CurrentPatient.Address.Split(",");
+                var currentAddress = PatientManager.GetAddressById(PatientManager.CurrentPatient.AddressId);
+
+                if (currentAddress != null)
+                {
+                    this.street.Text = currentAddress.Street;
+                    this.state.Text = currentAddress.State;
+                    this.zip.Text = currentAddress.Zip.ToString();
+                }
+
                 this.ssn.Password = PatientManager.CurrentPatient.Ssn.ToString();
                 this.fname.Text = PatientManager.CurrentPatient.FirstName;
                 this.lname.Text = PatientManager.CurrentPatient.LastName;
                 this.bday.Date = PatientManager.CurrentPatient.Dob;
                 this.phone.Text = PatientManager.CurrentPatient.Phone;
-                this.address.Text = fullAddress[0].Trim();
-                this.state.Text = fullAddress[1].Trim();
-                this.zip.Text = fullAddress[2].Trim();
                 this.genderCmbox.SelectedItem = PatientManager.CurrentPatient.Gender;
             }           
         }
@@ -64,17 +69,17 @@ namespace Healthcare.Views
                 gender = genderCmboxSelectedItem.ToString();
             }
 
-            string address = this.address.Text;
+            string street = this.street.Text;
             string state = this.state.Text;
             string zip = this.zip.Text;
 
             bool isTenDigit = phone.Length == 10;
             bool isSsnNineDigit = ssn.Length == 9;
 
-            if (!(string.IsNullOrWhiteSpace(address) && string.IsNullOrWhiteSpace(state) && string.IsNullOrWhiteSpace(zip) && string.IsNullOrWhiteSpace(firstName) && string.IsNullOrWhiteSpace(lastName) && string.IsNullOrWhiteSpace(phone) && string.IsNullOrWhiteSpace(address)) && isTenDigit && isSsnNineDigit)
+            if (!(string.IsNullOrWhiteSpace(street) && string.IsNullOrWhiteSpace(state) && string.IsNullOrWhiteSpace(zip) && string.IsNullOrWhiteSpace(firstName) && string.IsNullOrWhiteSpace(lastName) && string.IsNullOrWhiteSpace(phone)) && isTenDigit && isSsnNineDigit)
             {
-                string fullAddress = address + ", " + state + ", " + zip;
-                RegistrationUtility.EditPatient(PatientManager.CurrentPatient.Id, Convert.ToInt32(ssn), firstName, lastName, phone, dateOfBirth, gender, fullAddress);
+                string fullAddress = street + ", " + state + ", " + zip;
+                RegistrationUtility.EditPatient(PatientManager.CurrentPatient.Id, Convert.ToInt32(ssn), firstName, lastName, phone, dateOfBirth, gender, fullAddress, PatientManager.CurrentPatient.AddressId);
             }
 
             this.Frame.Navigate(typeof(MainPage));

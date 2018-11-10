@@ -8,7 +8,7 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Grid Background="White" HorizontalAlignment="Center" Height="850" VerticalAlignment="Center" Width="520">
+    <Grid Background="White" HorizontalAlignment="Center" Height="850" VerticalAlignment="Bottom" Width="520" Margin="0,0,0,75" RenderTransformOrigin="0.486,0.59">
 
         <TextBlock Grid.Row="0" Text="Healthcare Services" HorizontalAlignment="Left" Margin="-469,21,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="139" Width="254" Foreground="White" FontSize="50" TextAlignment="Center" />
 
@@ -19,7 +19,7 @@
         <TextBlock Grid.Row="0" HorizontalAlignment="Left" Margin="-469,271,0,0" Text="Access:" TextWrapping="Wrap" Foreground="GhostWhite" VerticalAlignment="Top" Height="20" Width="62"/>
         <TextBlock Grid.Row="0" Name="accessType" HorizontalAlignment="Left" Margin="-402,271,0,0" Text="" TextWrapping="Wrap" Foreground="GhostWhite" VerticalAlignment="Top" Height="20" Width="100"/>
         <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Margin="10,21,10,10" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-        <Grid Height="1500">
+            <Grid Height="1500">
                 <TextBlock HorizontalAlignment="Left" FontWeight="Bold" Margin="10,10,0,0" Text="Healthcare Services" Foreground="Gray" FontSize="50" TextAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" Height="123" Width="483"/>
 
                 <TextBlock HorizontalAlignment="Left" Margin="26,146,0,0" Text="First Name:" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="30"/>
@@ -28,17 +28,23 @@
 
                 <TextBlock HorizontalAlignment="Left" Margin="26,427,0,0" Text="Phone:" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="30"/>
 
-                <TextBlock HorizontalAlignment="Left" Margin="26,852,0,0" Text="Date Of Birth:" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="30"/>
+                <TextBlock HorizontalAlignment="Left" Margin="23,1218,0,0" Text="Date Of Birth:" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="30"/>
                 <TextBlock Name="fname" HorizontalAlignment="Center" Margin="0,186,0,0" VerticalAlignment="Top" Height="61" Width="455" FontSize="30"/>
                 <TextBlock Name="lname" HorizontalAlignment="Center" Margin="0,339,0,0" VerticalAlignment="Top" Height="61" Width="455" FontSize="30"/>
                 <TextBlock Name="phone" HorizontalAlignment="Center" Margin="0,472,0,0" VerticalAlignment="Top" Height="61" Width="455" FontSize="30"/>
-                <DatePicker Name="bday" IsEnabled="False" HorizontalAlignment="Center" Margin="0,936,0,0" VerticalAlignment="Top" MinHeight="33" MinWidth="455" FontSize="30"/>
-                <Button Content="HOME" HorizontalAlignment="Center" Margin="0,1039,0,0" VerticalAlignment="Top" Height="61" Width="455" FontSize="30" Click="home_onClick"/>
+                <DatePicker Name="bday" IsEnabled="False" HorizontalAlignment="Center" Margin="0,1263,0,0" VerticalAlignment="Top" MinHeight="33" MinWidth="455" FontSize="30"/>
+                <Button Content="HOME" HorizontalAlignment="Center" Margin="0,1381,0,58" VerticalAlignment="Stretch" Width="455" FontSize="30" Click="home_onClick"/>
                 <TextBlock HorizontalAlignment="Left" Margin="26,558,0,0" Text="Ssn:" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="30"/>
 
                 <TextBlock x:Name="ssn" HorizontalAlignment="Left" Margin="26,603,0,0" VerticalAlignment="Top" Height="61" Width="455" FontSize="30"/>
                 <TextBlock HorizontalAlignment="Left" Margin="26,688,0,0" Text="Gender:" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="30"/>
                 <TextBlock x:Name="gender" HorizontalAlignment="Left" Margin="26,733,0,0" VerticalAlignment="Top" Height="61" Width="455" FontSize="30"/>
+                <TextBlock HorizontalAlignment="Left" Margin="23,826,0,0" Text="Street:" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="30"/>
+                <TextBlock x:Name="street" HorizontalAlignment="Left" Margin="26,871,0,0" VerticalAlignment="Top" Height="61" Width="455" FontSize="30"/>
+                <TextBlock HorizontalAlignment="Left" Margin="23,1092,0,0" Text="State:" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="30" RenderTransformOrigin="0.758,0"/>
+                <TextBlock x:Name="state" HorizontalAlignment="Center" Margin="0,1137,0,0" VerticalAlignment="Top" Height="61" Width="455" FontSize="30"/>
+                <TextBlock HorizontalAlignment="Left" Margin="23,964,0,0" Text="Zip:" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="30"/>
+                <TextBlock x:Name="zip" HorizontalAlignment="Left" Margin="26,1009,0,0" VerticalAlignment="Top" Height="61" Width="455" FontSize="30"/>
             </Grid>
         </ScrollViewer>
     </Grid>

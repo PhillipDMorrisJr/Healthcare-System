@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using Healthcare.DAL;
@@ -13,7 +14,7 @@ namespace Healthcare.Utils
     /// </summary>
     public static class RegistrationUtility 
     {
-        private static readonly List<Patient> Patients = PatientDAL.GetPatients();
+       private static List<Patient> Patients = PatientDAL.GetPatients();
 
         /// <summary>
         /// Sets the registration patient.
@@ -47,40 +48,35 @@ namespace Healthcare.Utils
         /// <param name="dob">The dob.</param>
         /// <param name="gender"> The gender.</param>
         /// <param name="address">The address.</param>
-        public static void EditPatient(int id, int ssn, string firstName, string lastName, string phoneNumber, DateTime dob, string gender, string address)
+        /// <param name="addressId">The id for address.</param>
+        public static void EditPatient(int id, int ssn, string firstName, string lastName, string phoneNumber, DateTime dob, string gender, string address, int addressId)
         {
-            Patient patient = PatientDAL.UpdatePatient(id, ssn, firstName, lastName, phoneNumber, dob, gender, address);
-            Patient updatedPatient = null;
-            List<Appointment> appointments = null;
+            Patient patient = PatientDAL.UpdatePatient(id, ssn, firstName, lastName, phoneNumber, dob, gender, address, addressId);
+            Patient matchedPatient = null;
+            List<Appointment> appointments = new List<Appointment>();
 
             if (patient == null) return;
 
             foreach (Patient registryPatient in Patients)
             {
                 if (registryPatient.Id != patient.Id) continue;
-
-                registryPatient.Ssn = patient.Ssn;
-                registryPatient.FirstName = patient.FirstName;
-                registryPatient.LastName = patient.LastName;
-                registryPatient.Phone = patient.Phone;
-                registryPatient.Dob = patient.Dob;
-                registryPatient.Gender = patient.Gender;
-                registryPatient.Address = patient.Address;
-                updatedPatient = registryPatient;
+                matchedPatient = registryPatient;
             }
 
-            if (updatedPatient == null) return;
+            if (matchedPatient == null) return;
 
             foreach (var entry in AppointmentManager.Appointments)
             {                      
-                if (entry.Key.Id == updatedPatient.Id)
+                if (entry.Key.Id == matchedPatient.Id)
                 {
                     appointments = entry.Value;
                 }
             }
 
-            AppointmentManager.Appointments.Remove(updatedPatient);
-            AppointmentManager.Appointments.Add(updatedPatient, appointments);
+            Patients.Remove(matchedPatient);
+            Patients.Add(patient);
+            AppointmentManager.Appointments.Remove(matchedPatient);
+            AppointmentManager.Appointments.Add(patient, appointments);
         }
 
         /// <summary>
@@ -89,9 +85,32 @@ namespace Healthcare.Utils
         /// <param name="firstName">The first name.</param>
         /// <param name="lastName">The last name.</param>
         /// <returns>List of all found patients.</returns>
-        public static List<Patient> FindPatientsByName(string firstName, string lastName)
+        public static void FindPatientsByName(string firstName, string lastName)
         {
-            return PatientDAL.SelectPatientsByName(firstName, lastName);
+            List<Patient> foundPatients = PatientDAL.SelectPatientsByName(firstName, lastName);
+
+            if (foundPatients == null || foundPatients.Count == 0)
+            {
+                return;
+            }
+
+            List<Appointment> appointments = new List<Appointment>();
+            Patients.Clear();
+          
+            foreach (var patient in foundPatients)
+            {
+                foreach (var entry in AppointmentManager.Appointments)
+                {                      
+                    if (entry.Key.Id == patient.Id)
+                    {
+                        appointments = entry.Value;
+                    }
+                }
+
+                Patients.Add(patient);
+                AppointmentManager.Appointments.Remove(patient);
+                AppointmentManager.Appointments.Add(patient, appointments);
+            }
         }
 
         /// <summary>
@@ -99,9 +118,32 @@ namespace Healthcare.Utils
         /// </summary>
         /// <param name="dob">The date.</param>
         /// <returns>List of all found patients.</returns>
-        public static List<Patient> FindPatientsByDob(DateTime dob)
+        public static void FindPatientsByDob(DateTime dob)
         {
-            return PatientDAL.SelectPatientsByDob(dob);
+            List<Patient> foundPatients =  PatientDAL.SelectPatientsByDob(dob);
+
+            if (foundPatients == null || foundPatients.Count == 0)
+            {
+                return;
+            }
+
+            List<Appointment> appointments = new List<Appointment>();
+            Patients.Clear();
+          
+            foreach (var patient in foundPatients)
+            {
+                foreach (var entry in AppointmentManager.Appointments)
+                {                      
+                    if (entry.Key.Id == patient.Id)
+                    {
+                        appointments = entry.Value;
+                    }
+                }
+
+                Patients.Add(patient);
+                AppointmentManager.Appointments.Remove(patient);
+                AppointmentManager.Appointments.Add(patient, appointments);
+            }
         }
 
         /// <summary>
@@ -111,9 +153,32 @@ namespace Healthcare.Utils
         /// <param name="lastName">The last name.</param>
         /// <param name="dob">The date.</param>
         /// <returns>List of all found patients.</returns>
-        public static List<Patient> FindPatientsByNameAndDob(string firstName, string lastName, DateTime dob)
+        public static void FindPatientsByNameAndDob(string firstName, string lastName, DateTime dob)
         {
-            return PatientDAL.SelectPatientsByNameAndDob(firstName, lastName, dob);
+            List<Patient> foundPatients = PatientDAL.SelectPatientsByNameAndDob(firstName, lastName, dob);
+
+            if (foundPatients == null || foundPatients.Count == 0)
+            {
+                return;
+            }
+
+            List<Appointment> appointments = new List<Appointment>();
+            Patients.Clear();
+          
+            foreach (var patient in foundPatients)
+            {
+                foreach (var entry in AppointmentManager.Appointments)
+                {                      
+                    if (entry.Key.Id == patient.Id)
+                    {
+                        appointments = entry.Value;
+                    }
+                }
+
+                Patients.Add(patient);
+                AppointmentManager.Appointments.Remove(patient);
+                AppointmentManager.Appointments.Add(patient, appointments);
+            }
         }
 
         /// <summary>
@@ -122,6 +187,13 @@ namespace Healthcare.Utils
         /// <returns>List of all patients available.</returns>
         public static List<Patient> GetPatients()
         {
+            return RegistrationUtility.Patients;
+        }
+
+
+        public static List<Patient> GetRefreshedPatients()
+        {
+            RegistrationUtility.Patients = PatientDAL.GetPatients();
             return RegistrationUtility.Patients;
         }
     }

@@ -41,8 +41,8 @@
                 <DatePicker x:Name="bday" HorizontalAlignment="Center" Margin="0,615,0,0" VerticalAlignment="Top" MinHeight="33" MinWidth="455" Background="Azure" FontSize="30" Grid.ColumnSpan="2"/>
                 <Button Content="Submit" HorizontalAlignment="Center" Margin="0,1493,0,0" VerticalAlignment="Top" Height="61" Width="456" Click="updatePatient_onClick" Grid.ColumnSpan="2"/>
                 <PasswordBox x:Name="ssn" HorizontalAlignment="Center" Margin="0,740,0,1065" Width="455" Background="Azure" FontSize="30" Grid.ColumnSpan="2"/>
-                <TextBox x:Name="address" HorizontalAlignment="Center" Margin="0,866,0,0" VerticalAlignment="Top" Height="61" Width="455" Background="Azure" FontSize="30" Grid.ColumnSpan="2"/>
-                <TextBlock HorizontalAlignment="Left" Margin="26,826,0,0" Text="Street Address:" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="30" Grid.ColumnSpan="2"/>
+                <TextBox x:Name="street" HorizontalAlignment="Center" Margin="0,866,0,0" VerticalAlignment="Top" Height="61" Width="455" Background="Azure" FontSize="30" Grid.ColumnSpan="2"/>
+                <TextBlock HorizontalAlignment="Left" Margin="26,826,0,0" Text="Street:" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="30" Grid.ColumnSpan="2"/>
                 <TextBlock HorizontalAlignment="Left" Margin="26,952,0,0" Text="State:" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="30"/>
                 <TextBox x:Name="state" HorizontalAlignment="Left" Margin="37,997,0,0" VerticalAlignment="Top" Height="61" Width="139" Background="Azure" FontSize="30" Grid.ColumnSpan="2"/>
                 <TextBlock HorizontalAlignment="Left" Margin="26,1104,0,0" Text="Zip:" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="30"/>

@@ -61,12 +61,12 @@ namespace Healthcare.Model
         public string Gender { get; set; }
 
         /// <summary>
-        /// Gets the address.
+        /// Gets the addressId.
         /// </summary>
         /// <value>
-        /// The address.
+        /// The addressId.
         /// </value>
-        public string Address { get; set; }
+        public int AddressId { get; set; }
 
         /// <summary>
         /// Gets the id
@@ -85,15 +85,15 @@ namespace Healthcare.Model
         /// <param name="phoneNumber">The phone number.</param>
         /// <param name="dob">The date of birth.</param>
         /// <param name="gender">The gender.</param>
-        /// <param name="address">The address.</param>
-        public Patient(int ssn, string firstName, string lastName, string phoneNumber, DateTime dob, string gender, string address)
+        /// <param name="addressId">The addressId.</param>
+        public Patient(int ssn, string firstName, string lastName, string phoneNumber, DateTime dob, string gender, int addressId)
         {
             this.FirstName = firstName;
             this.LastName = lastName;
             this.Phone = phoneNumber;
             this.Dob = dob;
             this.Gender = gender;
-            this.Address = address;
+            this.AddressId = addressId;
             this.Ssn = ssn;
         }
 
