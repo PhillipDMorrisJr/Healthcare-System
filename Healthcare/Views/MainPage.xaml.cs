@@ -12,6 +12,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using Healthcare.DAL;
 using Healthcare.Model;
 using Healthcare.Utils;
 using Healthcare.Views;
@@ -28,6 +29,8 @@ namespace Healthcare
     /// <seealso cref="Windows.UI.Xaml.Markup.IComponentConnector2" />
     public sealed partial class MainPage : Page
     {
+        private static int findValue;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="MainPage" /> class.
         /// </summary>
@@ -35,7 +38,7 @@ namespace Healthcare
         {
             this.InitializeComponent();
             this.nameID.Text = AccessValidator.CurrentUser.Username;
-            this.userID.Text = AccessValidator.CurrentUser.ID;
+            this.userID.Text = AccessValidator.CurrentUser.Id;
             this.accessType.Text = AccessValidator.Access;
 
         }
@@ -57,17 +60,18 @@ namespace Healthcare
         /// <param name="e">The <see cref="RoutedEventArgs" /> instance containing the event data.</param>
         private void MainPage_OnLoaded(object sender, RoutedEventArgs e)
         {
+            findValue = 1;
 
             List<Patient> patientRegistry =  RegistrationUtility.GetPatients();
             foreach (var patientToRegister in patientRegistry)
             {
                 if (patientToRegister != null)
                 {
-                    ListViewItem item = new ListViewItem();
-                    item.Tag = patientToRegister;
-                    item.Content = patientToRegister.Format();
+                    ListViewItem item = new ListViewItem
+                    {
+                        Tag = patientToRegister, Content = patientToRegister.Format()
+                    };
                     this.DatabasePatientInformation.Items?.Add(item);
-
                 }
             }
         }
@@ -139,26 +143,166 @@ namespace Healthcare
         /// <param name="e">The <see cref="SelectionChangedEventArgs"/> instance containing the event data.</param>
         private void DatabasePatientInformation_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            this.DatabaseAppointmentInformation.Items?.Clear();
             Patient currentPatient = (this.DatabasePatientInformation.SelectedItem as ListViewItem)?.Tag as Patient;
+
+            if (currentPatient == null)
+            {
+                return;
+            }
+
             PatientManager.CurrentPatient = currentPatient;
             List<Appointment> appointments;
-            AppointmentManager.Appointments.TryGetValue(currentPatient, out appointments);
+
+            AppointmentManager.Appointments.TryGetValue(currentPatient, out appointments);            
+
             if (appointments == null)
             {
                 AppointmentManager.Appointments.Add(currentPatient, new List<Appointment>());
             }
-            foreach (var appointment in AppointmentManager.Appointments[currentPatient])
+
+            int count = 0;
+
+            foreach (var entry in AppointmentManager.Appointments)
             {
-                if (appointment != null)
+                if (entry.Key.Id == currentPatient.Id)
                 {
-                    ListViewItem item = new ListViewItem();
-                    item.Tag = appointment;
-                    item.Content = appointment.Format();
-                    this.DatabaseAppointmentInformation.Items?.Add(item);
+                    if (entry.Value != null && entry.Value.Count > 0)
+                    {
+                        ListViewItem item = new ListViewItem();
+                        item.Tag = entry.Value[count];
+                        item.Content = entry.Value[count].Format();
+                        this.DatabaseAppointmentInformation.Items?.Add(item);
+                    }
+                }
+
+                count++;
+            }
+        }
+
+        private void RefreshButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.DatabasePatientInformation.Items?.Clear();
+
+            var patients = RegistrationUtility.GetRefreshedPatients();
+           
+            foreach (var patientToRegister in patients)
+            {
+                if (patientToRegister != null)
+                {
+                    ListViewItem item = new ListViewItem
+                    {
+                        Tag = patientToRegister, Content = patientToRegister.Format()
+                    };
+                    this.DatabasePatientInformation.Items?.Add(item);
                 }
             }
+        }
 
+        private void FindButton_Click(object sender, RoutedEventArgs e)
+        {
+            switch (findValue)
+            {
+                case 1:
+                    HandleSearchByName();
+                    break;
+                case 2:
+                    HandleSearchByDob();
+                    break;
+                case 3:
+                    HandleSearchByBoth();
+                    break;
+            }
+        }
+
+        private void HandleSearchByName()
+        {
+            var fName = this.firstName.Text;
+            var lName = this.lastName.Text;
+
+            if (string.IsNullOrWhiteSpace(fName) && string.IsNullOrWhiteSpace(lName)) return;
+
+            RegistrationUtility.FindPatientsByName(fName, lName);
+            
+            var patients = RegistrationUtility.GetPatients();
+
+            this.DatabasePatientInformation.Items?.Clear();
+           
+            foreach (var patientToRegister in patients)
+            {
+                if (patientToRegister != null)
+                {
+                    ListViewItem item = new ListViewItem
+                    {
+                        Tag = patientToRegister, Content = patientToRegister.Format()
+                    };
+                    this.DatabasePatientInformation.Items?.Add(item);
+                }
+            }            
+        }
+
+        private void HandleSearchByDob()
+        {
+            var dob = this.datePicker.Date.DateTime;
+
+            RegistrationUtility.FindPatientsByDob(dob);
+
+            var patients = RegistrationUtility.GetPatients();
+
+            this.DatabasePatientInformation.Items?.Clear();
+           
+            foreach (var patientToRegister in patients)
+            {
+                if (patientToRegister != null)
+                {
+                    ListViewItem item = new ListViewItem
+                    {
+                        Tag = patientToRegister, Content = patientToRegister.Format()
+                    };
+                    this.DatabasePatientInformation.Items?.Add(item);
+                }
+            }
+        }
+
+        private void HandleSearchByBoth()
+        {
+            var dob = this.datePicker.Date.DateTime;
+            var fName = this.firstName.Text;
+            var lName = this.lastName.Text;
+
+            if (string.IsNullOrWhiteSpace(fName) && string.IsNullOrWhiteSpace(lName)) return;
+
+            RegistrationUtility.FindPatientsByNameAndDob(fName, lName, dob);
+            
+            var patients = RegistrationUtility.GetPatients();
+
+            this.DatabasePatientInformation.Items?.Clear();
+           
+            foreach (var patientToRegister in patients)
+            {
+                if (patientToRegister != null)
+                {
+                    ListViewItem item = new ListViewItem
+                    {
+                        Tag = patientToRegister, Content = patientToRegister.Format()
+                    };
+                    this.DatabasePatientInformation.Items?.Add(item);
+                }
+            }
+        }
+
+        private void SearchNameRadioButton_Checked(object sender, RoutedEventArgs e)
+        {
+            findValue = 1;
+        }
+
+        private void SearchDateRadioButton_Checked(object sender, RoutedEventArgs e)
+        {
+            findValue = 2;
+        }
+
+        private void SearchBothRadioButton_Checked(object sender, RoutedEventArgs e)
+        {
+            findValue = 3;
         }
     }
 }

@@ -99,6 +99,7 @@
     <Compile Include="DAL\DoctorDAL.cs" />
     <Compile Include="DAL\PatientDAL.cs" />
     <Compile Include="DAL\UserDAL.cs" />
+    <Compile Include="Model\Address.cs" />
     <Compile Include="Model\Doctor.cs" />
     <Compile Include="Utils\DoctorManager.cs" />
     <Compile Include="Utils\IdGenerator.cs" />
