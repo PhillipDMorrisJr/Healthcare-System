@@ -29,7 +29,7 @@
 
         <TextBlock HorizontalAlignment="Left" Margin="191,134,0,0" Text="Name: " TextWrapping="Wrap" VerticalAlignment="Top"/>
         <TextBlock HorizontalAlignment="Left" Margin="191,154,0,0" Text="Phone: " TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <TextBlock HorizontalAlignment="Left" Margin="191,174,0,0" Text="SSN: " TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Left" Margin="191,174,0,0" Text="ID#: " TextWrapping="Wrap" VerticalAlignment="Top"/>
 
         <TextBlock HorizontalAlignment="Left" Margin="253,134,0,0" Name="name" TextWrapping="Wrap" VerticalAlignment="Top"/>
         <TextBlock HorizontalAlignment="Left" Margin="253,154,0,0" Name="phone" TextWrapping="Wrap" VerticalAlignment="Top"/>
@@ -39,7 +39,7 @@
         <TextBlock HorizontalAlignment="Left" Margin="35,239,0,0" Text="Doctor:" TextWrapping="Wrap" VerticalAlignment="Top"/>
         <TextBlock HorizontalAlignment="Left" Name="doctor" TextWrapping="Wrap" VerticalAlignment="Top" Margin="92,239,0,0"/>
         <Button Content="Home" HorizontalAlignment="Left" Margin="36,545,0,0" VerticalAlignment="Top" Height="58" Width="438" FontSize="25" Click="home_Click" />
-        <TextBox Name="description" Header="Description" HorizontalAlignment="Left" Margin="34,395,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Height="134" Width="440" Background="Azure"/>
+        <TextBox IsEnabled="False" Name="description" Header="Description" HorizontalAlignment="Left" Margin="34,395,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Height="134" Width="440" Background="Azure"/>
 
 
 

@@ -5,7 +5,7 @@
     xmlns:local="using:Healthcare.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Height="1269.3" HorizontalAlignment="Stretch" Margin="0,0,0,0" VerticalAlignment="Stretch">
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
 
     <Grid Background="White" HorizontalAlignment="Center" Height="946" VerticalAlignment="Center" Width="550">
@@ -13,7 +13,7 @@
         <Image Source="../Images/noimage.png" HorizontalAlignment="Left" Height="126" Margin="36,116,0,0" VerticalAlignment="Top" Width="81"/>
         <TextBlock HorizontalAlignment="Left" Margin="191,134,0,0" Text="Name: " TextWrapping="Wrap" VerticalAlignment="Top"/>
         <TextBlock HorizontalAlignment="Left" Margin="191,154,0,0" Text="Phone: " TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <TextBlock HorizontalAlignment="Left" Margin="191,174,0,0" Text="SSN: " TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Left" Margin="191,174,0,0" Text="ID#: " TextWrapping="Wrap" VerticalAlignment="Top"/>
         <TextBlock Grid.Row="0" Text="Healthcare Services" HorizontalAlignment="Left" Margin="-469,21,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="139" Width="254" Foreground="White" FontSize="50" TextAlignment="Center" />
         <TextBlock Grid.Row="0" HorizontalAlignment="Left" Margin="-469,231,0,0" Text="Name:" TextWrapping="Wrap" Foreground="GhostWhite" VerticalAlignment="Top" Height="20" Width="62"/>
         <TextBlock Grid.Row="0" Name="nameID" HorizontalAlignment="Left" Margin="-402,231,0,0" Text="" TextWrapping="Wrap" Foreground="GhostWhite" VerticalAlignment="Top" Height="20" Width="62"/>
