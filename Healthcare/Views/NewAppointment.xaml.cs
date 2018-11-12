@@ -54,9 +54,14 @@ namespace Healthcare.Views
         }
 
         private void displayTimes()
-        {
+        {            
+            if (doctor == null)
+            {
+                return;
+            }
             this.AppointmentTimes.Items?.Clear();
-            List<TimeSpan> usedSlots = AppointmentManager.retrieveUsedTimeSlots(this.AppointmentDate.Date.Date);
+
+            List<TimeSpan> usedSlots = AppointmentManager.retrieveUsedTimeSlots(this.AppointmentDate.Date.Date, doctor, patient);
 
             if (!(this.AppointmentDate.Date.DayOfWeek == DayOfWeek.Saturday ||
                 this.AppointmentDate.Date.DayOfWeek == DayOfWeek.Sunday))
@@ -116,8 +121,6 @@ namespace Healthcare.Views
                 Appointment appointment = new Appointment(this.patient, this.doctor, date, time, description.Text,false);
                 AppointmentDAL.AddAppointment(this.patient, this.doctor, date, time,description.Text, false);
                 AppointmentManager.AddAppointment(appointment, this.patient);
-                Appointment appt = new Appointment(this.patient, this.doctor, date, time, description.Text, false);
-                AppointmentManager.Appointments[this.patient].Add(appt);
                 this.Frame.Navigate(typeof(MainPage));
             }
         }
@@ -125,6 +128,7 @@ namespace Healthcare.Views
         private void Doctors_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             this.doctor = (this.Doctors.SelectedItem as ListViewItem)?.Tag as Doctor;
+            this.displayTimes();
         }
 
         private void homeButton_Click(object sender, RoutedEventArgs e)

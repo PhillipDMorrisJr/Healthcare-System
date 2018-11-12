@@ -90,18 +90,20 @@ namespace Healthcare.DAL
        
         }
 
-        public List<TimeSpan> GetTimeSlots( DateTime date)
+        public List<TimeSpan> GetTimeSlots( DateTime date, Doctor doctor, Patient patient)
         {
             var slots = new List<TimeSpan>();
 
             using (MySqlConnection conn = DbConnection.GetConnection())
             {
                 conn.Open();
-                const string selectQuery = "select apptTime from appointments WHERE apptDay=@date";
+                const string selectQuery = "select apptTime from appointments WHERE apptDay=@date AND doctorID=@dID OR patientID=@pID AND apptDay=@date";
 
                 using (var cmd = new MySqlCommand(selectQuery, conn))
                 {
                     cmd.Parameters.Add("@date", (DbType) MySqlDbType.Date).Value = date.ToString("yyyy-MM-dd");
+                    cmd.Parameters.Add("@dID", (DbType) MySqlDbType.Date).Value = doctor.Id;
+                    cmd.Parameters.Add("@pID", (DbType) MySqlDbType.Date).Value = patient.Id;
                     var reader = cmd.ExecuteReader();
 
                     if (!reader.HasRows) return slots;
