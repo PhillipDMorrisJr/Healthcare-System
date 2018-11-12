@@ -24,6 +24,7 @@ namespace Healthcare.Views
     {
         private Patient patient;
         private Doctor doctor;
+        private TimeSpan? time;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="NewAppointment"/> class.
@@ -48,6 +49,39 @@ namespace Healthcare.Views
             DoctorDAL dal = new DoctorDAL();
             List<Doctor> doctors = dal.GetDoctors();
 
+            displayDoctors(doctors);
+            displayTimes();
+
+        }
+
+        private void displayTimes()
+        {
+            if (!(this.AppointmentDate.Date.DayOfWeek == DayOfWeek.Saturday ||
+                this.AppointmentDate.Date.DayOfWeek == DayOfWeek.Sunday))
+            {
+                TimeSpan slot = new TimeSpan(7,0,0);
+                List<TimeSpan> timeSlots = new List<TimeSpan>();
+                timeSlots.Add(slot);
+                for (int i = 0; i < 20; i++)
+                {
+                    slot += TimeSpan.FromMinutes(30);
+                    timeSlots.Add(slot);
+                }
+                foreach (var currentSlot in timeSlots)
+                {
+                        ListViewItem item = new ListViewItem();
+                        item.Tag = currentSlot;
+                        item.Content = currentSlot.ToString("hh:mm tt");
+                        this.AppointmentTimes.Items?.Add(item);
+                    
+                }
+
+            }
+
+        }
+
+        private void displayDoctors(List<Doctor> doctors)
+        {
             foreach (var aDoctor in doctors)
             {
                 if (aDoctor != null)
@@ -55,12 +89,11 @@ namespace Healthcare.Views
                     ListViewItem item = new ListViewItem();
                     item.Tag = aDoctor;
                     item.Content = aDoctor.FullName;
-                    this.databaseInformationDoctors.Items?.Add(item);
+                    this.Doctors.Items?.Add(item);
                 }
             }
-
         }
-        
+
         /// <summary>
         /// Handles the Click event of the schedule control.
         /// </summary>
@@ -69,24 +102,34 @@ namespace Healthcare.Views
         private void schedule_Click(object sender, RoutedEventArgs e)
         {
             DateTime date = this.AppointmentDate.Date.DateTime;
-            TimeSpan time = this.AppointmentTime.Time;
+            
 
-            if (this.doctor != null)
+            if (this.doctor != null && this.time != null)
             {
-                Appointment appt = new Appointment(this.patient, this.doctor, date, time);
+                Appointment appt = new Appointment(this.patient, this.doctor, date, time, description.Text, false);
                 AppointmentManager.Appointments[this.patient].Add(appt);
                 this.Frame.Navigate(typeof(MainPage));
             }
         }
 
-        private void DatabaseInformationDoctors_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void Doctors_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            this.doctor = (this.databaseInformationDoctors.SelectedItem as ListViewItem)?.Tag as Doctor;
+            this.doctor = (this.Doctors.SelectedItem as ListViewItem)?.Tag as Doctor;
         }
 
         private void homeButton_Click(object sender, RoutedEventArgs e)
         {
             this.Frame.Navigate(typeof(MainPage));
+        }
+
+        private void AppointmentDate_DateChanged(object sender, DatePickerValueChangedEventArgs e)
+        {
+            displayTimes();
+        }
+
+        private void Times_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            this.time = (TimeSpan) (this.AppointmentTimes.SelectedItem as ListViewItem)?.Tag;
         }
     }
 }
