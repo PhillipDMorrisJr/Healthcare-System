@@ -24,7 +24,7 @@ namespace Healthcare.Views
     {
         private Patient patient;
         private Doctor doctor;
-        private TimeSpan? time;
+        private TimeSpan time;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="NewAppointment"/> class.
@@ -46,8 +46,7 @@ namespace Healthcare.Views
                 this.phone.Text = String.Format("{0:(###) ###-####}", this.patient.Phone);
             }
 
-            DoctorDAL dal = new DoctorDAL();
-            List<Doctor> doctors = dal.GetDoctors();
+            List<Doctor> doctors = DoctorManager.Doctors;
 
             displayDoctors(doctors);
             displayTimes();
@@ -56,6 +55,9 @@ namespace Healthcare.Views
 
         private void displayTimes()
         {
+            this.AppointmentTimes.Items?.Clear();
+            List<TimeSpan> usedSlots = AppointmentManager.retrieveUsedTimeSlots(this.AppointmentDate.Date.Date);
+
             if (!(this.AppointmentDate.Date.DayOfWeek == DayOfWeek.Saturday ||
                 this.AppointmentDate.Date.DayOfWeek == DayOfWeek.Sunday))
             {
@@ -69,14 +71,19 @@ namespace Healthcare.Views
                 }
                 foreach (var currentSlot in timeSlots)
                 {
+                    if (!usedSlots.Contains(currentSlot))
+                    {
                         ListViewItem item = new ListViewItem();
                         item.Tag = currentSlot;
-                        item.Content = currentSlot.ToString("hh:mm tt");
-                        this.AppointmentTimes.Items?.Add(item);
-                    
-                }
+                        string formattedTime = DateTime.Today.Add(currentSlot).ToString("hh:mm tt");
 
+                        item.Content = formattedTime;
+                        this.AppointmentTimes.Items?.Add(item);
+                    }
+                }
             }
+
+
 
         }
 
@@ -102,10 +109,13 @@ namespace Healthcare.Views
         private void schedule_Click(object sender, RoutedEventArgs e)
         {
             DateTime date = this.AppointmentDate.Date.DateTime;
-            
+
 
             if (this.doctor != null && this.time != null)
             {
+                Appointment appointment = new Appointment(this.patient, this.doctor, date, time, description.Text,false);
+                AppointmentDAL.AddAppointment(this.patient, this.doctor, date, time,description.Text, false);
+                AppointmentManager.AddAppointment(appointment, this.patient);
                 Appointment appt = new Appointment(this.patient, this.doctor, date, time, description.Text, false);
                 AppointmentManager.Appointments[this.patient].Add(appt);
                 this.Frame.Navigate(typeof(MainPage));

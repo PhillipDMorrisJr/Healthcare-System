@@ -29,6 +29,11 @@ namespace Healthcare.Views
             this.nameID.Text = AccessValidator.CurrentUser.Username;
             this.userID.Text = AccessValidator.CurrentUser.Id;
             this.accessType.Text = AccessValidator.Access;
+
+            this.AppointmentDate.Date = AppointmentManager.CurrentAppointment.AppointmentDateTime;
+            this.description.Text = AppointmentManager.CurrentAppointment.Description;
+            this.AppointmentTime.Time = AppointmentManager.CurrentAppointment.AppointmentTime;
+            this.doctor.Text = AppointmentManager.CurrentAppointment.Doctor.FullName;
         }
 
         private void checkin_Click(object sender, RoutedEventArgs e)

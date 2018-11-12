@@ -144,38 +144,43 @@ namespace Healthcare
         private void DatabasePatientInformation_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             Patient currentPatient = (this.DatabasePatientInformation.SelectedItem as ListViewItem)?.Tag as Patient;
-
+            this.DatabaseAppointmentInformation.Items?.Clear();
             if (currentPatient == null)
             {
                 return;
             }
 
             PatientManager.CurrentPatient = currentPatient;
-            List<Appointment> appointments;
-
-            AppointmentManager.Appointments.TryGetValue(currentPatient, out appointments);            
+            List<Appointment> appointments = AppointmentDAL.GetAppointments(currentPatient);  
+       
 
             if (appointments == null)
             {
                 AppointmentManager.Appointments.Add(currentPatient, new List<Appointment>());
             }
+            else
+            {
+                try
+                {
+                     AppointmentManager.Appointments.Add(currentPatient, appointments);
+                }
+                    catch (Exception)
+                {
+                    // ignored
+                }
+            }
 
             int count = 0;
 
-            foreach (var entry in AppointmentManager.Appointments)
+            foreach (var appointment in AppointmentManager.Appointments[currentPatient])
             {
-                if (entry.Key.Id == currentPatient.Id)
+                if (appointment != null)
                 {
-                    if (entry.Value != null && entry.Value.Count > 0)
-                    {
-                        ListViewItem item = new ListViewItem();
-                        item.Tag = entry.Value[count];
-                        item.Content = entry.Value[count].Format();
-                        this.DatabaseAppointmentInformation.Items?.Add(item);
-                    }
+                    ListViewItem item = new ListViewItem();
+                    item.Tag = appointment;
+                    item.Content = appointment.Format();
+                    this.DatabaseAppointmentInformation.Items?.Add(item);
                 }
-
-                count++;
             }
         }
 
@@ -303,6 +308,12 @@ namespace Healthcare
         private void SearchBothRadioButton_Checked(object sender, RoutedEventArgs e)
         {
             findValue = 3;
+        }
+
+        private void DatabaseAppointmentInformation_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Appointment currentAppointment = (this.DatabaseAppointmentInformation.SelectedItem as ListViewItem)?.Tag as Appointment;
+            AppointmentManager.CurrentAppointment = currentAppointment;
         }
     }
 }

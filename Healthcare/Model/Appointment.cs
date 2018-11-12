@@ -45,6 +45,8 @@ namespace Healthcare.Model
         /// </value>
         public bool IsCheckedIn { get; private set; }
 
+        public string Description { get; set; }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="Appointment" /> class.
         /// </summary>
@@ -60,6 +62,7 @@ namespace Healthcare.Model
             this.AppointmentDateTime = appointmentDateTime;
             this.AppointmentTime = appointmentTime;
             this.IsCheckedIn = checkedIn;
+            this.Description = description;
         }
 
         public void CheckIn()
