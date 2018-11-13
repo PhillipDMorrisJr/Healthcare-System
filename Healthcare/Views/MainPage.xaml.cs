@@ -37,6 +37,8 @@ namespace Healthcare
         public MainPage()
         {
             this.InitializeComponent();
+            AppointmentManager.Appointments = null;
+            PatientManager.CurrentPatient = null;
             this.nameID.Text = AccessValidator.CurrentUser.Username;
             this.userID.Text = AccessValidator.CurrentUser.Id;
             this.accessType.Text = AccessValidator.Access;
