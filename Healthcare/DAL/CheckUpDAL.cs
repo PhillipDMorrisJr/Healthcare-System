@@ -70,7 +70,7 @@ namespace Healthcare.DAL
                 {
                     conn.Open();
                     var checkInQuery =
-                        "UPDATE `appointment` SET isCheckedIn = @status WHERE appointmentID = @aID AND patientID = @pID";
+                        "UPDATE `appointments` SET `isCheckedIn` = @status WHERE appointmentID = @aID AND patientID = @pID";
                     using (MySqlCommand checkInCommand = new MySqlCommand(checkInQuery, conn))
                     {
 

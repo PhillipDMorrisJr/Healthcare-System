@@ -151,7 +151,7 @@ namespace Healthcare
         /// <exception cref="NotImplementedException"></exception>
         private void onCheckUp_Click(object sender, RoutedEventArgs e)
         {
-            if (currentAppointment != null && AccessValidator.Access.Equals("Nurse"))
+            if (currentAppointment != null && AccessValidator.Access.Equals("Nurse") && !currentAppointment.IsCheckedIn)
             {
                 this.Frame.Navigate(typeof(RoutineCheckUp));
             }
