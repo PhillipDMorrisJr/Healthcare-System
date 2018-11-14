@@ -13,6 +13,8 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using Healthcare.Model;
+using Healthcare.Utils;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -26,45 +28,48 @@ namespace Healthcare.Views
         public RoutineCheckUp()
         {
             this.InitializeComponent();
+           
         }
 
         private void checkup_Click(object sender, RoutedEventArgs e)
         {
-            bool hasNull = systolic.Text == null || diastolic.Text == null || temperature.Text == null ||
-                           pulse.Text == null || weight.Text == null;
-            if (!hasNull)
+            if (!this.hasNullOrEmpty())
             {
                 this.Frame.Navigate(typeof(MainPage));
             }
         }
 
+        private bool hasNullOrEmpty()
+        {
+            return string.IsNullOrEmpty(systolic.Text) || string.IsNullOrEmpty(diastolic.Text) || string.IsNullOrEmpty(temperature.Text) ||
+                                                                               string.IsNullOrEmpty(pulse.Text) || string.IsNullOrEmpty(weight.Text);
+        }
+
         private void home_Click(object sender, RoutedEventArgs e)
         {
-            bool hasNull = systolic.Text == null || diastolic.Text == null || temperature.Text == null ||
-                           pulse.Text == null || weight.Text == null;
-            if (!hasNull)
+            if (!this.hasNullOrEmpty())
             {
-this.Frame.Navigate(typeof(MainPage));
+                this.Frame.Navigate(typeof(MainPage));
             }
             
         }
 
         private void systolic_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (isThreeDigits(systolic.Text))
+            if (isNotThreeDigitsNorHasChars(systolic.Text))
             {
                 systolic.Text = "";
             }
         }
 
-        private bool isThreeDigits(string text)
+        private bool isNotThreeDigitsNorHasChars(string text)
         {
             return !Regex.IsMatch(text, "^(.*[^0-9]|)(1000|[1-9]\\d{0,2})([^0-9].*|)$") || text.Any(character => char.IsLetter(character));
         }
 
         private void diastolic_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (isThreeDigits(diastolic.Text))
+            if (isNotThreeDigitsNorHasChars(diastolic.Text))
             {
                 diastolic.Text = "";
             }
@@ -72,7 +77,7 @@ this.Frame.Navigate(typeof(MainPage));
 
         private void weight_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (isThreeDigits(weight.Text))
+            if (isNotThreeDigitsNorHasChars(weight.Text))
             {
                 weight.Text = "";
             }
@@ -80,7 +85,7 @@ this.Frame.Navigate(typeof(MainPage));
 
         private void pulse_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (isThreeDigits(pulse.Text))
+            if (isNotThreeDigitsNorHasChars(pulse.Text))
             {
                 pulse.Text = "";
             }
@@ -88,9 +93,9 @@ this.Frame.Navigate(typeof(MainPage));
 
         private void temperature_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (isThreeDigits(temperature.Text))
+            if (isNotThreeDigitsNorHasChars(temperature.Text))
             {
-                int temp = Int32.Parse(temperature.Text);
+                int temp = int.Parse(temperature.Text);
                 if (temp > 0 && temp < 200)
                 {
                     temperature.Text = "";
@@ -107,6 +112,22 @@ this.Frame.Navigate(typeof(MainPage));
         private void removeSymptom_Click(object sender, RoutedEventArgs e)
         {
            
+        }
+
+        private void knownSymptoms_Loaded(object sender, RoutedEventArgs e)
+        {
+            List<Symptom> symptoms =  SymptomManager.Symptoms;
+            foreach (var symptom in symptoms)
+            {
+                if (symptom != null)
+                {
+                    ListViewItem item = new ListViewItem
+                    {
+                        Tag = symptom, Content = symptom.Name
+                    };
+                    this.knownSymptoms.Items?.Add(item);
+                }
+            }
         }
     }
 }

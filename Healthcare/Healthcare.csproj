@@ -96,16 +96,20 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="DAL\AppointmentDAL.cs" />
+    <Compile Include="DAL\CheckUpDAL.cs" />
     <Compile Include="DAL\DbConnection.cs" />
     <Compile Include="DAL\DoctorDAL.cs" />
     <Compile Include="DAL\PatientDAL.cs" />
+    <Compile Include="DAL\SymptomDAL.cs" />
     <Compile Include="DAL\UserDAL.cs" />
     <Compile Include="Model\Address.cs" />
     <Compile Include="Model\CheckUp.cs" />
     <Compile Include="Model\Doctor.cs" />
+    <Compile Include="Model\Symptom.cs" />
     <Compile Include="Utils\CheckUpManager.cs" />
     <Compile Include="Utils\DoctorManager.cs" />
     <Compile Include="Utils\IdGenerator.cs" />
+    <Compile Include="Utils\SymptomManager.cs" />
     <Compile Include="Views\AppointmentDetails.xaml.cs">
       <DependentUpon>AppointmentDetails.xaml</DependentUpon>
     </Compile>
