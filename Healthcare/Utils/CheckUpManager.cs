@@ -4,12 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Healthcare.Model
+namespace Healthcare.Utils
 {
-    public class Nurse : User
+    public static class CheckUpManager
     {
-        public Nurse(string username, string password, int id) : base(username, password, id)
+        public static void Execute()
         {
+
         }
     }
 }

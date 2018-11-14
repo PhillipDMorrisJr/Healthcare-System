@@ -101,7 +101,9 @@
     <Compile Include="DAL\PatientDAL.cs" />
     <Compile Include="DAL\UserDAL.cs" />
     <Compile Include="Model\Address.cs" />
+    <Compile Include="Model\CheckUp.cs" />
     <Compile Include="Model\Doctor.cs" />
+    <Compile Include="Utils\CheckUpManager.cs" />
     <Compile Include="Utils\DoctorManager.cs" />
     <Compile Include="Utils\IdGenerator.cs" />
     <Compile Include="Views\AppointmentDetails.xaml.cs">
@@ -141,6 +143,9 @@
     <Compile Include="Utils\AppointmentManager.cs" />
     <Compile Include="Utils\PatientManager.cs" />
     <Compile Include="Utils\RegistrationUtility.cs" />
+    <Compile Include="Views\RoutineCheckUp.xaml.cs">
+      <DependentUpon>RoutineCheckUp.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -197,6 +202,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\NewAppointment.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\RoutineCheckUp.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -61,7 +61,7 @@ namespace Healthcare.Views
             }
             this.AppointmentTimes.Items?.Clear();
 
-            List<TimeSpan> usedSlots = AppointmentManager.retrieveUsedTimeSlots(this.AppointmentDate.Date.Date, doctor, patient);
+            List<TimeSpan> usedSlots = AppointmentManager.RetrieveUsedTimeSlots(this.AppointmentDate.Date.Date, doctor, patient);
 
             if (!(this.AppointmentDate.Date.DayOfWeek == DayOfWeek.Saturday ||
                 this.AppointmentDate.Date.DayOfWeek == DayOfWeek.Sunday))
