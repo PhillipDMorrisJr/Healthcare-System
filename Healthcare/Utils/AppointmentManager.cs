@@ -16,10 +16,10 @@ namespace Healthcare.Utils
        {
            AppointmentManager.Appointments[patient].Add(appt);
        }
-        public static List<TimeSpan> retrieveUsedTimeSlots(DateTime date, Doctor doctor, Patient patient)
+        public static List<TimeSpan> RetrieveUsedTimeSlots(DateTime date, Doctor doctor, Patient patient)
         {
-            AppointmentDAL apptd = new AppointmentDAL();
-            return apptd.GetTimeSlots(date, doctor, patient);
+            AppointmentDAL apptDal = new AppointmentDAL();
+            return apptDal.GetTimeSlots(date, doctor, patient);
         } 
     }
 }

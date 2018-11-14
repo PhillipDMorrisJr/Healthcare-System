@@ -1,0 +1,66 @@
+﻿<Page
+    x:Class="Healthcare.Views.RoutineCheckUp"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Healthcare.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid Background="White" HorizontalAlignment="Center" Height="705" VerticalAlignment="Center" Width="500">
+        <TextBlock Grid.Row="0" Text="Healthcare Services" HorizontalAlignment="Left" Margin="-469,21,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="139" Width="254" Foreground="White" FontSize="50" TextAlignment="Center" />
+        <TextBlock Grid.Row="0" HorizontalAlignment="Left" Margin="-469,231,0,0" Text="Name:" TextWrapping="Wrap" Foreground="GhostWhite" VerticalAlignment="Top" Height="20" Width="62"/>
+        <TextBlock Grid.Row="0" Name="nameID" HorizontalAlignment="Left" Margin="-402,231,0,0" Text="" TextWrapping="Wrap" Foreground="GhostWhite" VerticalAlignment="Top" Height="20" Width="62"/>
+        <TextBlock Grid.Row="0" HorizontalAlignment="Left" Margin="-469,251,0,0" Text="User SSN:" TextWrapping="Wrap" Foreground="GhostWhite" VerticalAlignment="Top" Height="20" Width="62"/>
+        <TextBlock Grid.Row="0" Name="userID" HorizontalAlignment="Left" Margin="-402,251,0,0" Text="" TextWrapping="Wrap" Foreground="GhostWhite" VerticalAlignment="Top" Height="20" Width="62"/>
+        <TextBlock Grid.Row="0" HorizontalAlignment="Left" Margin="-469,271,0,0" Text="Access:" TextWrapping="Wrap" Foreground="GhostWhite" VerticalAlignment="Top" Height="20" Width="62"/>
+        <TextBlock Grid.Row="0" Name="accessType" HorizontalAlignment="Left" Margin="-402,271,0,0" Text="" TextWrapping="Wrap" Foreground="GhostWhite" VerticalAlignment="Top" Height="20" Width="100"/>
+
+        <TextBlock HorizontalAlignment="Left" FontWeight="Bold" Margin="10,10,0,0" Text="Healthcare Services" Foreground="Gray" FontSize="50" TextAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" Height="123" Width="483"/>
+        <TextBlock HorizontalAlignment="Left" Margin="37,220,0,0" Text="Arrival Time:" TextWrapping="Wrap" VerticalAlignment="Top" Height="33" Width="133"/>
+        <TimePicker Name="AppointmentTime" HorizontalAlignment="Left" Margin="36,244,0,0" VerticalAlignment="Top" Height="37" Width="419"/>
+        <Button Content="Check-Up" HorizontalAlignment="Left" Margin="34,622,0,0" VerticalAlignment="Top" Height="44" Width="438" FontSize="25" Click="checkup_Click" />
+        <Image Name="userImage" Source="../Images/noimage.png" HorizontalAlignment="Left" Height="126" Margin="23,87,0,0" VerticalAlignment="Top" Width="81"/>
+
+        <TextBlock HorizontalAlignment="Left" Margin="191,134,0,0" Text="Name: " TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Left" Margin="191,154,0,0" Text="Phone: " TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Left" Margin="191,174,0,0" Text="ID#: " TextWrapping="Wrap" VerticalAlignment="Top"/>
+
+        <TextBlock HorizontalAlignment="Left" Margin="253,134,0,0" Name="name" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Left" Margin="253,154,0,0" Name="phone" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Left" Margin="253,174,0,0" Name="id" TextWrapping="Wrap" VerticalAlignment="Top"/>
+
+        <TextBlock HorizontalAlignment="Left" Text="Systolic" VerticalAlignment="Top" Margin="75,287,0,0"/>
+        <TextBlock HorizontalAlignment="Left" Text="Diastolic" VerticalAlignment="Top" Margin="142,287,0,0"/>
+        <TextBlock HorizontalAlignment="left" Text="Pulse" VerticalAlignment="Top" Margin="225,287,0,0"/>
+        <TextBlock HorizontalAlignment="Left" Text="Temperature" VerticalAlignment="Top" Margin="282,287,0,0"/>
+        <TextBlock HorizontalAlignment="Left" Text="Weight" VerticalAlignment="Top" Margin="381,287,0,0"/>
+
+
+
+        <Button Content="Home" HorizontalAlignment="Left" Margin="36,576,0,0" VerticalAlignment="Top" Height="41" Width="438" FontSize="25" Click="home_Click" />
+        <TextBox Name="systolic" HorizontalAlignment="Left" Text="" VerticalAlignment="Top" Margin="63,311,0,0" TextChanged="systolic_TextChanged"/>
+        <TextBox Name="diastolic" HorizontalAlignment="Left" Text="" VerticalAlignment="Top" Margin="138,311,0,0" TextChanged="diastolic_TextChanged"/>
+        <TextBox Name="pulse" HorizontalAlignment="Left" Text="" VerticalAlignment="Top" Margin="282,311,0,0" Width="88" TextChanged="pulse_TextChanged"/>
+        <TextBox Name="temperature" HorizontalAlignment="Left" Text="" VerticalAlignment="Top" Margin="375,312,0,0" TextChanged="temperature_TextChanged"/>
+        <TextBox Name="weight" HorizontalAlignment="Left" Text="" VerticalAlignment="Top" Margin="213,311,0,0" Width="47" TextChanged="weight_TextChanged"/>
+
+        <TextBlock HorizontalAlignment="Left" Margin="103,348,0,0" Text="Symptoms" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Left" Margin="286,348,0,0" Text="Patient's Symptoms" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <ListView Name="knownSymptoms"  HorizontalAlignment="Left" Height="150" Margin="36,373,0,0" VerticalAlignment="Top" Width="206" Background="Azure" Loaded="knownSymptoms_Loaded"/>
+        <ListView Name="patientSymptoms" HorizontalAlignment="Left" Height="150" Margin="249,373,0,0" VerticalAlignment="Top" Width="206" Background="Azure"/>
+        <Button Content="Add" HorizontalAlignment="Left" Margin="115,528,0,0" VerticalAlignment="Top" Click="addSymptom_Click"/>
+        <Button Content="Remove" HorizontalAlignment="Left" Margin="296,528,0,0" VerticalAlignment="Top" Click="removeSymptom_Click"/>
+
+
+
+
+
+
+
+
+
+
+    </Grid>
+</Page>

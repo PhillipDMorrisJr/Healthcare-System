@@ -30,6 +30,8 @@ namespace Healthcare
     public sealed partial class MainPage : Page
     {
         private static int findValue;
+        private Appointment currentAppointment;
+        private Patient currentPatient;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MainPage" /> class.
@@ -37,6 +39,8 @@ namespace Healthcare
         public MainPage()
         {
             this.InitializeComponent();
+            currentAppointment = null;
+            currentPatient = null;
             this.nameID.Text = AccessValidator.CurrentUser.Username;
             this.userID.Text = AccessValidator.CurrentUser.Id;
             this.accessType.Text = AccessValidator.Access;
@@ -93,7 +97,11 @@ namespace Healthcare
         /// <param name="e">The <see cref="RoutedEventArgs" /> instance containing the event data.</param>
         private void onUpdatePatient_Click(object sender, RoutedEventArgs e)
         {
-            this.Frame.Navigate(typeof(EditPatient));
+            if (currentPatient != null)
+            {
+                this.Frame.Navigate(typeof(EditPatient));
+            }
+            
         }
 
         /// <summary>
@@ -103,7 +111,10 @@ namespace Healthcare
         /// <param name="e">The <see cref="RoutedEventArgs" /> instance containing the event data.</param>
         private void onPatientDetails_Click(object sender, RoutedEventArgs e)
         {
-            this.Frame.Navigate(typeof(PatientDetails));
+            if (currentPatient != null)
+            {
+                this.Frame.Navigate(typeof(PatientDetails));
+            }
         }
 
         /// <summary>
@@ -113,7 +124,10 @@ namespace Healthcare
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void onAddAppointment_Click(object sender, RoutedEventArgs e)
         {
-            this.Frame.Navigate(typeof(NewAppointment));
+            if (currentPatient != null)
+            {
+                this.Frame.Navigate(typeof(NewAppointment));
+            }
         }
 
         /// <summary>
@@ -123,9 +137,25 @@ namespace Healthcare
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void onUpdateAppointment_Click(object sender, RoutedEventArgs e)
         {
-            this.Frame.Navigate(typeof(EditAppointment));
+            if (currentAppointment != null)
+            {
+                this.Frame.Navigate(typeof(EditAppointment));
+            }
         }
 
+        /// <summary>
+        /// Handles the Click event of the onCheckUp control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+        /// <exception cref="NotImplementedException"></exception>
+        private void onCheckUp_Click(object sender, RoutedEventArgs e)
+        {
+            if (currentAppointment != null && AccessValidator.Access.Equals("Nurse") && !currentAppointment.IsCheckedIn)
+            {
+                this.Frame.Navigate(typeof(RoutineCheckUp));
+            }
+        }
         /// <summary>
         /// Handles the Click event of the onAppointmentDetails control.
         /// </summary>
@@ -133,7 +163,10 @@ namespace Healthcare
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void onAppointmentDetails_Click(object sender, RoutedEventArgs e)
         {
-            this.Frame.Navigate(typeof(AppointmentDetails));
+            if (currentAppointment != null)
+            {
+                this.Frame.Navigate(typeof(AppointmentDetails));
+            }
         }
 
         /// <summary>
@@ -143,7 +176,7 @@ namespace Healthcare
         /// <param name="e">The <see cref="SelectionChangedEventArgs"/> instance containing the event data.</param>
         private void DatabasePatientInformation_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Patient currentPatient = (this.DatabasePatientInformation.SelectedItem as ListViewItem)?.Tag as Patient;
+            currentPatient = (this.DatabasePatientInformation.SelectedItem as ListViewItem)?.Tag as Patient;
             this.DatabaseAppointmentInformation.Items?.Clear();
             if (currentPatient == null)
             {
@@ -312,8 +345,9 @@ namespace Healthcare
 
         private void DatabaseAppointmentInformation_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Appointment currentAppointment = (this.DatabaseAppointmentInformation.SelectedItem as ListViewItem)?.Tag as Appointment;
+            currentAppointment = (this.DatabaseAppointmentInformation.SelectedItem as ListViewItem)?.Tag as Appointment;
             AppointmentManager.CurrentAppointment = currentAppointment;
         }
+
     }
 }

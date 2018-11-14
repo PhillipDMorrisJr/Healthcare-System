@@ -39,7 +39,8 @@
         <ListView x:Name="DatabaseAppointmentInformation" HorizontalAlignment="Left" Height="544" VerticalAlignment="Top" Width="378" Background="White" Margin="657,139,0,0" SelectionChanged="DatabaseAppointmentInformation_OnSelectionChanged" />
         <Button Content="NEW" HorizontalAlignment="Left" Margin="658,741,0,0" VerticalAlignment="Top" Height="66" Width="95" Click="onAddAppointment_Click" Background="#0178D4" BorderBrush="#3CC4EE" Foreground="Aqua" RenderTransformOrigin="0.535,0.233"/>
         <Button Content="UPDATE" HorizontalAlignment="Left" Margin="794,741,0,0" VerticalAlignment="Top" Height="66" Width="105" Click="onUpdateAppointment_Click" Background="#0178D4" BorderBrush="#3CC4EE" Foreground="Aqua"/>
-        <Button Content="CHECK-IN" HorizontalAlignment="Left" Margin="935,741,0,0" VerticalAlignment="Top" Height="66" Width="100" Click="onAppointmentDetails_Click" Background="#0178D4" BorderBrush="#3CC4EE" Foreground="Aqua"/>
+        <Button Content="Details" HorizontalAlignment="Left" Margin="935,741,0,0" VerticalAlignment="Top" Height="66" Width="100" Click="onAppointmentDetails_Click" Background="#0178D4" BorderBrush="#3CC4EE" Foreground="Aqua"/>
+        <Button Content="Check-Up" HorizontalAlignment="Left" Margin="658,18.8,0,0" VerticalAlignment="Top" Height="66" Width="100" Click="onCheckUp_Click" Background="#0178D4" BorderBrush="#3CC4EE" Foreground="Aqua" Grid.Row="1"/>
 
         <TextBox x:Name="lastName" HorizontalAlignment="Left" Margin="-123,590,0,0" Text="Search" VerticalAlignment="Top" Width="142" Background="Azure"/>
         <Button Content="Find Patient(s)" HorizontalAlignment="Left" Margin="-216,475,0,0" VerticalAlignment="Top" Width="157" Background="#0178D4" BorderBrush="#3CC4EE" Foreground="Aqua" Click="FindButton_Click"/>
