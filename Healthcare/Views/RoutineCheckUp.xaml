@@ -20,7 +20,7 @@
         <TextBlock HorizontalAlignment="Left" FontWeight="Bold" Margin="10,10,0,0" Text="Healthcare Services" Foreground="Gray" FontSize="50" TextAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" Height="123" Width="483"/>
         <TextBlock HorizontalAlignment="Left" Margin="37,220,0,0" Text="Arrival Time:" TextWrapping="Wrap" VerticalAlignment="Top" Height="33" Width="133"/>
         <TimePicker Name="AppointmentTime" HorizontalAlignment="Left" Margin="36,244,0,0" VerticalAlignment="Top" Height="37" Width="419"/>
-        <Button Content="Check-Up" HorizontalAlignment="Left" Margin="34,608,0,0" VerticalAlignment="Top" Height="58" Width="438" FontSize="25" Click="checkup_Click" />
+        <Button Content="Check-Up" HorizontalAlignment="Left" Margin="34,622,0,0" VerticalAlignment="Top" Height="44" Width="438" FontSize="25" Click="checkup_Click" />
         <Image Name="userImage" Source="../Images/noimage.png" HorizontalAlignment="Left" Height="126" Margin="23,87,0,0" VerticalAlignment="Top" Width="81"/>
 
         <TextBlock HorizontalAlignment="Left" Margin="191,134,0,0" Text="Name: " TextWrapping="Wrap" VerticalAlignment="Top"/>
@@ -39,12 +39,17 @@
 
 
 
-        <Button Content="Home" HorizontalAlignment="Left" Margin="36,545,0,0" VerticalAlignment="Top" Height="58" Width="438" FontSize="25" Click="home_Click" />
+        <Button Content="Home" HorizontalAlignment="Left" Margin="36,576,0,0" VerticalAlignment="Top" Height="41" Width="438" FontSize="25" Click="home_Click" />
         <TextBox HorizontalAlignment="Left" Text="" VerticalAlignment="Top" Margin="63,311,0,0"/>
         <TextBox HorizontalAlignment="Left" Text="" VerticalAlignment="Top" Margin="138,311,0,0"/>
         <TextBox HorizontalAlignment="Left" Text="" VerticalAlignment="Top" Margin="282,311,0,0" Width="88"/>
         <TextBox HorizontalAlignment="Left" Text="" VerticalAlignment="Top" Margin="375,312,0,0"/>
         <TextBox HorizontalAlignment="Left" Text="" VerticalAlignment="Top" Margin="213,311,0,0" Width="47"/>
+        <ListView HorizontalAlignment="Left" Height="150" Margin="36,373,0,0" VerticalAlignment="Top" Width="206" Background="Azure"/>
+        <ListView HorizontalAlignment="Left" Height="150" Margin="249,373,0,0" VerticalAlignment="Top" Width="206" Background="Azure"/>
+        <Button Content="Add" HorizontalAlignment="Left" Margin="115,528,0,0" VerticalAlignment="Top"/>
+        <Button Content="Remove" HorizontalAlignment="Left" Margin="328,528,0,0" VerticalAlignment="Top"/>
+
 
 
 

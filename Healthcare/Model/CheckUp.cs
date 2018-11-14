@@ -65,9 +65,16 @@ namespace Healthcare.Model
         /// The patient.
         /// </value>
         public Patient Patient { get; }
+        /// <summary>
+        /// Gets the symptoms.
+        /// </summary>
+        /// <value>
+        /// The symptoms.
+        /// </value>
+        public List<string> Symptoms { get; }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CheckUp"/> class.
+        /// Initializes a new instance of the <see cref="CheckUp" /> class.
         /// </summary>
         /// <param name="systolic">The systolic.</param>
         /// <param name="diastolic">The diastolic.</param>
@@ -77,8 +84,9 @@ namespace Healthcare.Model
         /// <param name="nurse">The nurse.</param>
         /// <param name="weight">The weight.</param>
         /// <param name="pulse">The pulse.</param>
+        /// <param name="symptoms">The symptoms.</param>
         public CheckUp(int systolic, int diastolic, Patient patient, int temperature, TimeSpan arrivalTime, Nurse nurse,
-            int weight, int pulse)
+            int weight, int pulse, List<string> symptoms)
         {
             Systolic = systolic;
             Diastolic = diastolic;
@@ -88,6 +96,7 @@ namespace Healthcare.Model
             Nurse = nurse;
             Weight = weight;
             Pulse = pulse;
+            Symptoms = symptoms;
         }
     }
 }
