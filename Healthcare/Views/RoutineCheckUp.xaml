@@ -32,7 +32,7 @@
         <TextBlock HorizontalAlignment="Left" Margin="253,174,0,0" Name="id" TextWrapping="Wrap" VerticalAlignment="Top"/>
 
         <TextBlock HorizontalAlignment="Left" Text="Systolic" VerticalAlignment="Top" Margin="75,287,0,0"/>
-        <TextBlock HorizontalAlignment="Left" Text="Diastolic" VerticalAlignment="Top" Margin="150,287,0,0"/>
+        <TextBlock HorizontalAlignment="Left" Text="Diastolic" VerticalAlignment="Top" Margin="142,287,0,0"/>
         <TextBlock HorizontalAlignment="left" Text="Pulse" VerticalAlignment="Top" Margin="225,287,0,0"/>
         <TextBlock HorizontalAlignment="Left" Text="Temperature" VerticalAlignment="Top" Margin="282,287,0,0"/>
         <TextBlock HorizontalAlignment="Left" Text="Weight" VerticalAlignment="Top" Margin="381,287,0,0"/>
@@ -40,15 +40,15 @@
 
 
         <Button Content="Home" HorizontalAlignment="Left" Margin="36,576,0,0" VerticalAlignment="Top" Height="41" Width="438" FontSize="25" Click="home_Click" />
-        <TextBox HorizontalAlignment="Left" Text="" VerticalAlignment="Top" Margin="63,311,0,0"/>
-        <TextBox HorizontalAlignment="Left" Text="" VerticalAlignment="Top" Margin="138,311,0,0"/>
-        <TextBox HorizontalAlignment="Left" Text="" VerticalAlignment="Top" Margin="282,311,0,0" Width="88"/>
-        <TextBox HorizontalAlignment="Left" Text="" VerticalAlignment="Top" Margin="375,312,0,0"/>
-        <TextBox HorizontalAlignment="Left" Text="" VerticalAlignment="Top" Margin="213,311,0,0" Width="47"/>
-        <ListView HorizontalAlignment="Left" Height="150" Margin="36,373,0,0" VerticalAlignment="Top" Width="206" Background="Azure"/>
-        <ListView HorizontalAlignment="Left" Height="150" Margin="249,373,0,0" VerticalAlignment="Top" Width="206" Background="Azure"/>
-        <Button Content="Add" HorizontalAlignment="Left" Margin="115,528,0,0" VerticalAlignment="Top"/>
-        <Button Content="Remove" HorizontalAlignment="Left" Margin="328,528,0,0" VerticalAlignment="Top"/>
+        <TextBox Name="systolic" HorizontalAlignment="Left" Text="" VerticalAlignment="Top" Margin="63,311,0,0" TextChanged="systolic_TextChanged"/>
+        <TextBox Name="diastolic" HorizontalAlignment="Left" Text="" VerticalAlignment="Top" Margin="138,311,0,0" TextChanged="diastolic_TextChanged"/>
+        <TextBox Name="pulse" HorizontalAlignment="Left" Text="" VerticalAlignment="Top" Margin="282,311,0,0" Width="88" TextChanged="pulse_TextChanged"/>
+        <TextBox Name="temperature" HorizontalAlignment="Left" Text="" VerticalAlignment="Top" Margin="375,312,0,0" TextChanged="temperature_TextChanged"/>
+        <TextBox Name="weight" HorizontalAlignment="Left" Text="" VerticalAlignment="Top" Margin="213,311,0,0" Width="47" TextChanged="weight_TextChanged"/>
+        <ListView Name="knownSymptoms" Header="Symptoms:" HorizontalAlignment="Left" Height="150" Margin="36,373,0,0" VerticalAlignment="Top" Width="206" Background="Azure"/>
+        <ListView Name="patientSymptoms" Header="Patient's Symptoms:" HorizontalAlignment="Left" Height="150" Margin="249,373,0,0" VerticalAlignment="Top" Width="206" Background="Azure"/>
+        <Button Content="Add" HorizontalAlignment="Left" Margin="115,528,0,0" VerticalAlignment="Top" Click="addSymptom_Click"/>
+        <Button Content="Remove" HorizontalAlignment="Left" Margin="296,528,0,0" VerticalAlignment="Top" Click="removeSymptom_Click"/>
 
 
 

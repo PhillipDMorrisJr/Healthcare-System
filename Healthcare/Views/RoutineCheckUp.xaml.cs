@@ -36,5 +36,40 @@ namespace Healthcare.Views
         {
             throw new NotImplementedException();
         }
+
+        private void systolic_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void diastolic_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void weight_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void pulse_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void temperature_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void addSymptom_Click(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void removeSymptom_Click(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
