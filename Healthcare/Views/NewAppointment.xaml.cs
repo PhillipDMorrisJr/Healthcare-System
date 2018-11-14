@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -25,6 +26,7 @@ namespace Healthcare.Views
         private Patient patient;
         private Doctor doctor;
         private TimeSpan time;
+        private bool isValidTime;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="NewAppointment"/> class.
@@ -35,7 +37,7 @@ namespace Healthcare.Views
             this.nameID.Text = AccessValidator.CurrentUser.Username;
             this.userID.Text = AccessValidator.CurrentUser.Id;
             this.accessType.Text = AccessValidator.Access;
-
+            this.isValidTime = false;
             this.patient = PatientManager.CurrentPatient;
 
             if (this.patient != null)
@@ -85,6 +87,17 @@ namespace Healthcare.Views
                         item.Content = formattedTime;
                         this.AppointmentTimes.Items?.Add(item);
                     }
+                    else
+                    {
+                        ListViewItem item = new ListViewItem();
+                        item.Tag = currentSlot;
+                        string formattedTime = DateTime.Today.Add(currentSlot).ToString("hh:mm tt");
+
+                        item.Content = formattedTime;
+                        this.AppointmentTimes.Items?.Add(item);
+                        item.IsEnabled = false;
+                        item.Foreground = new SolidColorBrush(Colors.Gray); 
+                    }
                 }
             }
 
@@ -116,7 +129,7 @@ namespace Healthcare.Views
             DateTime date = this.AppointmentDate.Date.DateTime;
 
 
-            if (this.doctor != null && this.time != null)
+            if (this.doctor != null && this.isValidTime)
             {
                 Appointment appointment = new Appointment(this.patient, this.doctor, date, time, description.Text,false);
                 AppointmentDAL.AddAppointment(this.patient, this.doctor, date, time,description.Text, false);
@@ -143,7 +156,13 @@ namespace Healthcare.Views
 
         private void Times_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            this.time = (TimeSpan) (this.AppointmentTimes.SelectedItem as ListViewItem)?.Tag;
+            ListViewItem selectedAppointmentTime = this.AppointmentTimes.SelectedItem as ListViewItem;
+            this.isValidTime = selectedAppointmentTime?.IsEnabled ?? false;
+            var appointmentTime = (selectedAppointmentTime)?.Tag;
+            if (appointmentTime != null)
+            {
+                this.time = (TimeSpan) appointmentTime;
+            }
         }
     }
 }
