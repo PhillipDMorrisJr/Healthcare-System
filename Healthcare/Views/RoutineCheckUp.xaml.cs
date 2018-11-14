@@ -115,11 +115,7 @@ namespace Healthcare.Views
         {
             if (isNotThreeDigitsNorHasChars(temperature.Text))
             {
-                int temp = int.Parse(temperature.Text);
-                if (temp > 0 && temp < 200)
-                {
                     temperature.Text = "";
-                }
                 
             }
         }
@@ -130,7 +126,8 @@ namespace Healthcare.Views
             bool isOnePatientsSymptoms = !this.patientSymptoms.Items?.Contains(selectedSymptom) ?? false;
             if (isOnePatientsSymptoms)
             {
-                this.patientSymptoms.Items.Add(selectedSymptom);
+                this.knownSymptoms.Items?.Remove(selectedSymptom);
+                this.patientSymptoms.Items?.Add(selectedSymptom);
             }
 
         }
@@ -139,6 +136,7 @@ namespace Healthcare.Views
         {
             ListViewItem selectedPatientSymptom = this.patientSymptoms.SelectedItem as ListViewItem;
             this.patientSymptoms.Items?.Remove(selectedPatientSymptom);
+            this.knownSymptoms.Items?.Add(selectedPatientSymptom);
         }
 
         private void knownSymptoms_Loaded(object sender, RoutedEventArgs e)
