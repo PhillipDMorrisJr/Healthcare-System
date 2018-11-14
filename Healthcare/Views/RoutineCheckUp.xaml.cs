@@ -48,11 +48,7 @@ namespace Healthcare.Views
 
         private void home_Click(object sender, RoutedEventArgs e)
         {
-            if (!this.hasNullOrEmpty())
-            {
-                this.Frame.Navigate(typeof(MainPage));
-            }
-            
+            this.Frame.Navigate(typeof(MainPage));
         }
 
         private void systolic_TextChanged(object sender, TextChangedEventArgs e)
@@ -107,12 +103,19 @@ namespace Healthcare.Views
 
         private void addSymptom_Click(object sender, RoutedEventArgs e)
         {
+            ListViewItem selectedSymptom = this.knownSymptoms.SelectedItem as ListViewItem;
+            bool isOnePatientsSymptoms = !this.patientSymptoms.Items?.Contains(selectedSymptom) ?? false;
+            if (isOnePatientsSymptoms)
+            {
+                this.patientSymptoms.Items.Add(selectedSymptom);
+            }
 
         }
 
         private void removeSymptom_Click(object sender, RoutedEventArgs e)
         {
-           
+            ListViewItem selectedPatientSymptom = this.patientSymptoms.SelectedItem as ListViewItem;
+            this.patientSymptoms.Items?.Remove(selectedPatientSymptom);
         }
 
         private void knownSymptoms_Loaded(object sender, RoutedEventArgs e)
