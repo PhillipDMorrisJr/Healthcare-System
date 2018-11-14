@@ -37,6 +37,9 @@ namespace Healthcare.Model
         /// </value>
         public TimeSpan AppointmentTime { get;  }
 
+
+        public uint ID { get; private set; }
+
         /// <summary>
         /// Gets a value indicating whether this instance is checked in.
         /// </summary>
@@ -65,6 +68,25 @@ namespace Healthcare.Model
             this.Description = description;
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Appointment" /> class.
+        /// </summary>
+        /// <param name="patient">The patient.</param>
+        /// <param name="doctor">The doctor.</param>
+        /// <param name="appointmentDateTime">The appointment date time.</param>
+        /// <param name="appointmentTime">The appointment time.</param>
+        /// <param name="description">The description.</param>
+        public Appointment(Patient patient, Doctor doctor, DateTime appointmentDateTime, TimeSpan appointmentTime, string description, bool checkedIn, uint id)
+        {
+            this.Doctor = doctor;
+            this.Patient = patient;
+            this.AppointmentDateTime = appointmentDateTime;
+            this.AppointmentTime = appointmentTime;
+            this.IsCheckedIn = checkedIn;
+            this.Description = description;
+            ID = id;
+        }
+
         public void CheckIn()
         {
             if (!IsCheckedIn)
@@ -72,6 +94,7 @@ namespace Healthcare.Model
                 this.IsCheckedIn = true;
             }
         }
+
 
 
 

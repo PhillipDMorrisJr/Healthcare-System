@@ -71,7 +71,14 @@ namespace Healthcare.Model
         /// <value>
         /// The symptoms.
         /// </value>
-        public List<string> Symptoms { get; }
+        public List<Symptom> Symptoms { get; }
+        /// <summary>
+        /// Gets the appointment.
+        /// </summary>
+        /// <value>
+        /// The appointment.
+        /// </value>
+        public Appointment Appointment { get; private set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CheckUp" /> class.
@@ -85,8 +92,9 @@ namespace Healthcare.Model
         /// <param name="weight">The weight.</param>
         /// <param name="pulse">The pulse.</param>
         /// <param name="symptoms">The symptoms.</param>
+        /// <param name="appointment">The appointment.</param>
         public CheckUp(int systolic, int diastolic, Patient patient, int temperature, TimeSpan arrivalTime, Nurse nurse,
-            int weight, int pulse, List<string> symptoms)
+            int weight, int pulse, List<Symptom> symptoms, Appointment appointment)
         {
             Systolic = systolic;
             Diastolic = diastolic;
@@ -97,6 +105,7 @@ namespace Healthcare.Model
             Weight = weight;
             Pulse = pulse;
             Symptoms = symptoms;
+            Appointment = appointment;
         }
     }
 }

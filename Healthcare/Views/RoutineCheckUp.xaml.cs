@@ -36,6 +36,29 @@ namespace Healthcare.Views
         {
             if (!this.hasNullOrEmpty())
             {
+                int systolic = int.Parse(this.systolic.Text);
+                int diastolic = int.Parse(this.diastolic.Text);
+                int pulse = int.Parse(this.pulse.Text);
+                int temp = int.Parse(this.temperature.Text);
+                int weight = int.Parse(this.weight.Text);
+                TimeSpan time = this.AppointmentTime.Time;
+                Patient patient = PatientManager.CurrentPatient;
+                Nurse nurse = AccessValidator.CurrentUser as Nurse;
+                Appointment appointment = AppointmentManager.CurrentAppointment;
+                List<Symptom> symptoms = new List<Symptom>();
+
+                ItemCollection items = this.patientSymptoms?.Items;
+                if (items != null)
+                {
+                    foreach (ListViewItem item in items)
+                    {
+                        Symptom symptom = item.Tag as Symptom;
+                        symptoms.Add(symptom);
+                    }
+                }
+                
+                CheckUp details = new CheckUp(systolic, diastolic, patient, temp, time, nurse, weight, pulse, symptoms, appointment);
+                CheckUpManager.Execute(details);
                 this.Frame.Navigate(typeof(MainPage));
             }
         }

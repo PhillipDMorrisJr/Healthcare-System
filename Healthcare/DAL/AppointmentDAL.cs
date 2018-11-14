@@ -34,6 +34,7 @@ namespace Healthcare.DAL
 
                         while (reader.Read())
                         {
+                            uint aID = (uint) reader["appointmentID"];
                             string dID = reader.GetString((int)AppointmentDAL.Attributes.doctorId);
                             DateTime apptDay = reader.GetDateTime((int) AppointmentDAL.Attributes.apptDay);
                             TimeSpan time2 = (TimeSpan) reader["apptTime"];
@@ -41,7 +42,7 @@ namespace Healthcare.DAL
                             bool status = reader.GetBoolean((int) Attributes.isCheckedIn);
 
                             Doctor doctor = DoctorManager.Doctors.Find(aDoctor => aDoctor.Id.Equals(dID));
-                            Appointment appointment = new Appointment(patient, doctor, apptDay,time2,description,status);
+                            Appointment appointment = new Appointment(patient, doctor, apptDay,time2,description,status, aID);
                             appointments.Add(appointment);
                         }
                         conn.Close();
