@@ -24,7 +24,7 @@ namespace Healthcare.DAL
                 {
 
                     conn.Open();
-                    var selectQuery = "select * from User WHERE username= @username AND password= @password";
+                    var selectQuery = "select * from User WHERE username= @username AND password= ENCRYPT( @password , \"salt\")";
                     using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
                     {
                         cmd.Parameters.Add("username", (DbType) MySqlDbType.VarChar).Value = username;

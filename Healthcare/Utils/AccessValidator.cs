@@ -27,7 +27,7 @@ namespace Healthcare.Utils
         /// <returns></returns>
         public static bool ConfirmUserAccess(String username, string password)
         {
-            bool validInput = ValidateThatUsernameAndPasswordAreNotEmpty(username, password);
+            bool validInput = isInputNullOrEmpty(username, password);
             CurrentUser = UserDAL.GetUser(username, password);
 
             bool isValid = !IsUserNull() && validInput;
@@ -44,9 +44,14 @@ namespace Healthcare.Utils
             return isUserNull;
         }
 
-        private static bool ValidateThatUsernameAndPasswordAreNotEmpty(string username, string password)
+        private static bool isInputNullOrEmpty(string username, string password)
         {
             return !(string.IsNullOrWhiteSpace(username) && string.IsNullOrWhiteSpace(password));
         }
+
+
+
+
+
     }
 }
