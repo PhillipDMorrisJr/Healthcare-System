@@ -12,10 +12,22 @@ namespace Healthcare.Utils
     {     
         public static Dictionary<Patient, List<Appointment>> Appointments = new Dictionary<Patient, List<Appointment>>();
         public static Appointment CurrentAppointment = null;
+        /// <summary>
+        /// Adds the appointment.
+        /// </summary>
+        /// <param name="appt">The appt.</param>
+        /// <param name="patient">The patient.</param>
         public static void AddAppointment(Appointment appt, Patient patient)
        {
            AppointmentManager.Appointments[patient].Add(appt);
        }
+        /// <summary>
+        /// Retrieves the used time slots.
+        /// </summary>
+        /// <param name="date">The date.</param>
+        /// <param name="doctor">The doctor.</param>
+        /// <param name="patient">The patient.</param>
+        /// <returns></returns>
         public static List<TimeSpan> RetrieveUsedTimeSlots(DateTime date, Doctor doctor, Patient patient)
         {
             AppointmentDAL apptDal = new AppointmentDAL();
