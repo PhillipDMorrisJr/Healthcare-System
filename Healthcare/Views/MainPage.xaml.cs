@@ -186,7 +186,6 @@ namespace Healthcare
             PatientManager.CurrentPatient = currentPatient;
             List<Appointment> appointments = AppointmentDAL.GetAppointments(currentPatient);  
        
-
             if (appointments == null)
             {
                 AppointmentManager.Appointments.Add(currentPatient, new List<Appointment>());
@@ -219,21 +218,9 @@ namespace Healthcare
 
         private void RefreshButton_Click(object sender, RoutedEventArgs e)
         {
-            this.DatabasePatientInformation.Items?.Clear();
-
             var patients = RegistrationUtility.GetRefreshedPatients();
            
-            foreach (var patientToRegister in patients)
-            {
-                if (patientToRegister != null)
-                {
-                    ListViewItem item = new ListViewItem
-                    {
-                        Tag = patientToRegister, Content = patientToRegister.Format()
-                    };
-                    this.DatabasePatientInformation.Items?.Add(item);
-                }
-            }
+            this.RefreshPatientList(patients);
         }
 
         private void FindButton_Click(object sender, RoutedEventArgs e)
@@ -263,19 +250,7 @@ namespace Healthcare
             
             var patients = RegistrationUtility.GetPatients();
 
-            this.DatabasePatientInformation.Items?.Clear();
-           
-            foreach (var patientToRegister in patients)
-            {
-                if (patientToRegister != null)
-                {
-                    ListViewItem item = new ListViewItem
-                    {
-                        Tag = patientToRegister, Content = patientToRegister.Format()
-                    };
-                    this.DatabasePatientInformation.Items?.Add(item);
-                }
-            }            
+            this.RefreshPatientList(patients);        
         }
 
         private void HandleSearchByDob()
@@ -286,19 +261,7 @@ namespace Healthcare
 
             var patients = RegistrationUtility.GetPatients();
 
-            this.DatabasePatientInformation.Items?.Clear();
-           
-            foreach (var patientToRegister in patients)
-            {
-                if (patientToRegister != null)
-                {
-                    ListViewItem item = new ListViewItem
-                    {
-                        Tag = patientToRegister, Content = patientToRegister.Format()
-                    };
-                    this.DatabasePatientInformation.Items?.Add(item);
-                }
-            }
+            this.RefreshPatientList(patients);
         }
 
         private void HandleSearchByBoth()
@@ -313,19 +276,7 @@ namespace Healthcare
             
             var patients = RegistrationUtility.GetPatients();
 
-            this.DatabasePatientInformation.Items?.Clear();
-           
-            foreach (var patientToRegister in patients)
-            {
-                if (patientToRegister != null)
-                {
-                    ListViewItem item = new ListViewItem
-                    {
-                        Tag = patientToRegister, Content = patientToRegister.Format()
-                    };
-                    this.DatabasePatientInformation.Items?.Add(item);
-                }
-            }
+            this.RefreshPatientList(patients);
         }
 
         private void SearchNameRadioButton_Checked(object sender, RoutedEventArgs e)
@@ -349,5 +300,21 @@ namespace Healthcare
             AppointmentManager.CurrentAppointment = currentAppointment;
         }
 
+        private void RefreshPatientList(List<Patient> patients)
+        {
+            this.DatabasePatientInformation.Items?.Clear();
+           
+            foreach (var patientToRegister in patients)
+            {
+                if (patientToRegister != null)
+                {
+                    ListViewItem item = new ListViewItem
+                    {
+                        Tag = patientToRegister, Content = patientToRegister.Format()
+                    };
+                    this.DatabasePatientInformation.Items?.Add(item);
+                }
+            }
+        }
     }
 }
