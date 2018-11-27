@@ -26,10 +26,24 @@ namespace Healthcare.Views
     /// </summary>
     public sealed partial class RoutineCheckUp : Page
     {
+        private Patient patient;
         public RoutineCheckUp()
         {
             this.InitializeComponent();
-           
+            this.nameID.Text = AccessValidator.CurrentUser.Username;
+            this.userID.Text = AccessValidator.CurrentUser.Id;
+            this.accessType.Text = AccessValidator.Access;
+
+            this.patient = PatientManager.CurrentPatient;
+
+            if (this.patient != null)
+            {
+                this.name.Text = this.patient.FirstName + " " + this.patient.LastName;
+                this.id.Text = this.patient.Id.ToString();
+                this.phone.Text = String.Format("{0:(###) ###-####}", this.patient.Phone);
+            }
+
+
         }
 
         private void checkup_Click(object sender, RoutedEventArgs e)
@@ -42,7 +56,7 @@ namespace Healthcare.Views
                 int temp = int.Parse(this.temperature.Text);
                 int weight = int.Parse(this.weight.Text);
                 TimeSpan time = this.AppointmentTime.Time;
-                Patient patient = PatientManager.CurrentPatient;
+             
                 Nurse nurse = AccessValidator.CurrentUser as Nurse;
                 Appointment appointment = AppointmentManager.CurrentAppointment;
                 List<Symptom> symptoms = new List<Symptom>();
@@ -57,7 +71,7 @@ namespace Healthcare.Views
                     }
                 }
                 
-                CheckUp details = new CheckUp(systolic, diastolic, patient, temp, time, nurse, weight, pulse, symptoms, appointment);
+                CheckUp details = new CheckUp(systolic, diastolic, this.patient, temp, time, nurse, weight, pulse, symptoms, appointment);
                 CheckUpManager.Execute(details);
                 this.Frame.Navigate(typeof(MainPage));
             }

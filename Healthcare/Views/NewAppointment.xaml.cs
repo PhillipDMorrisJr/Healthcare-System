@@ -37,6 +37,7 @@ namespace Healthcare.Views
             this.nameID.Text = AccessValidator.CurrentUser.Username;
             this.userID.Text = AccessValidator.CurrentUser.Id;
             this.accessType.Text = AccessValidator.Access;
+            
             this.isValidTime = false;
             this.patient = PatientManager.CurrentPatient;
 
@@ -44,7 +45,6 @@ namespace Healthcare.Views
             {
                 this.name.Text = this.patient.FirstName + " " + this.patient.LastName;
                 this.id.Text = this.patient.Id.ToString();
-                //this.ssn.Text = this.patient.Ssn.ToString();
                 this.phone.Text = String.Format("{0:(###) ###-####}", this.patient.Phone);
             }
 
@@ -132,7 +132,7 @@ namespace Healthcare.Views
             if (this.doctor != null && this.isValidTime)
             {
                 Appointment appointment = new Appointment(this.patient, this.doctor, date, time, description.Text,false);
-                AppointmentDAL.AddAppointment(this.patient, this.doctor, date, time,description.Text, false);
+                AppointmentDAL.AddAppointment(appointment);
                 AppointmentManager.AddAppointment(appointment, this.patient);
                 this.Frame.Navigate(typeof(MainPage));
             }

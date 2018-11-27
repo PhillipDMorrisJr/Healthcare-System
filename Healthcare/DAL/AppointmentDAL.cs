@@ -58,8 +58,7 @@ namespace Healthcare.DAL
         }
 
 
-        public static void AddAppointment(Patient patient, Doctor doctor, DateTime appointmentDateTime,
-            TimeSpan appointmentTime, string description,bool isCheckedIn)
+        public static void AddAppointment(Appointment details)
         {
             try
             {
@@ -71,12 +70,12 @@ namespace Healthcare.DAL
                         "INSERT INTO `appointments` (`doctorID`, `patientID`, `apptDay`, `apptTime`, `description`, `isCheckedIn`,`userID`) VALUES (@doctorID, @patientID, @apptDay, @apptTime, @description, @isCheckedIn, @userID)";
                     using (MySqlCommand cmd = new MySqlCommand(insertQuery, conn))
                     {
-                        cmd.Parameters.AddWithValue("@doctorID", doctor.Id);
-                        cmd.Parameters.AddWithValue("@patientID", patient.Id);
-                        cmd.Parameters.AddWithValue("@apptDay", appointmentDateTime.Date.ToString("yyyy-MM-dd"));
-                        cmd.Parameters.AddWithValue("@apptTime", appointmentTime.ToString());
-                        cmd.Parameters.AddWithValue("@description", description);
-                        cmd.Parameters.AddWithValue("@isCheckedIn", isCheckedIn);
+                        cmd.Parameters.AddWithValue("@doctorID", details.Doctor.Id);
+                        cmd.Parameters.AddWithValue("@patientID", details.Patient.Id);
+                        cmd.Parameters.AddWithValue("@apptDay", details.AppointmentDateTime.Date.ToString("yyyy-MM-dd"));
+                        cmd.Parameters.AddWithValue("@apptTime", details.AppointmentTime.ToString());
+                        cmd.Parameters.AddWithValue("@description", details.Description);
+                        cmd.Parameters.AddWithValue("@isCheckedIn", details.IsCheckedIn);
                         cmd.Parameters.AddWithValue("@userID", AccessValidator.CurrentUser.Id);
                         cmd.ExecuteNonQuery();
 
@@ -117,6 +116,38 @@ namespace Healthcare.DAL
                 }
             }
             return slots;
+        }
+
+        public static void UpdateAppointment(Appointment originalAppointment, Appointment newAppointment)
+        {
+            try
+            {
+                using (MySqlConnection conn = DbConnection.GetConnection())
+                {
+                    conn.Open();
+
+                    var insertQuery =
+                        "UPDATE `appointments` SET `doctorID` = @doctorID, `patientID` = @patientID, `apptDay` = @apptDay, `apptTime` = @apptTime, `description` = @description, `isCheckedIn` = @isCheckedIn,`userID` = @userID WHERE `appointmentID` = @aID";
+                    using (MySqlCommand cmd = new MySqlCommand(insertQuery, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@doctorID", newAppointment.Doctor.Id);
+                        cmd.Parameters.AddWithValue("@patientID", newAppointment.Patient.Id);
+                        cmd.Parameters.AddWithValue("@apptDay", newAppointment.AppointmentDateTime.Date.ToString("yyyy-MM-dd"));
+                        cmd.Parameters.AddWithValue("@apptTime", newAppointment.AppointmentTime.ToString());
+                        cmd.Parameters.AddWithValue("@description", newAppointment.Description);
+                        cmd.Parameters.AddWithValue("@isCheckedIn", newAppointment.IsCheckedIn);
+                        cmd.Parameters.AddWithValue("@aID", originalAppointment.ID);
+                        cmd.ExecuteNonQuery();
+
+                    }
+                    conn.Close();
+                }
+            }
+            catch (Exception exception)
+            {
+                Console.Write(exception.Message);
+                DbConnection.GetConnection().Close();
+            }
         }
     }
 }

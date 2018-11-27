@@ -32,6 +32,15 @@ namespace Healthcare.Utils
         {
             AppointmentDAL apptDal = new AppointmentDAL();
             return apptDal.GetTimeSlots(date, doctor, patient);
-        } 
+        }
+
+        public static void UpdateAppointment(Appointment originalAppointment, Appointment newAppointment, Patient patient)
+        {
+            AppointmentDAL.UpdateAppointment(originalAppointment, newAppointment);
+            AppointmentManager.Appointments[patient].Remove(originalAppointment);
+            AppointmentManager.Appointments[patient].Add(newAppointment);
+
+
+        }
     }
 }
