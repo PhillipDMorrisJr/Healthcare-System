@@ -9,13 +9,13 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
    
-        <Grid Background="Black" HorizontalAlignment="Center" Height="500" VerticalAlignment="Center" Width="500">
-            <TextBlock HorizontalAlignment="Left" FontWeight="Bold" Margin="10,10,0,0" Text="Healthcare Services" Foreground="White" FontSize="50" TextAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" Height="123" Width="483"/>
+        <Grid Background="White" HorizontalAlignment="Center" Height="500" VerticalAlignment="Center" Width="500">
+            <TextBlock HorizontalAlignment="Left" FontWeight="Bold" Margin="10,10,0,0" Text="Healthcare Services" Foreground="Gray" FontSize="50" TextAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" Height="123" Width="483"/>
             <TextBox Name="UserNameBox" HorizontalAlignment="Left" Margin="35,137,0,0" VerticalAlignment="Top" Height="57" Width="434" BorderBrush="DarkGray" FontSize="25" Background="Azure"/>
             <PasswordBox Name="PasswordBox" HorizontalAlignment="Left" Margin="37,237,0,0" VerticalAlignment="Top" Height="57" Width="434" BorderBrush="DarkGray" FontSize="25" Background="Azure"/>
             <Button Content="LOG IN" HorizontalAlignment="Left" Margin="37,315,0,0" VerticalAlignment="Top" Height="58" Width="438" FontSize="25" Click="onLogin_Click" Background="#0178D4" BorderBrush="#3CC4EE" Foreground="Aqua"/>
-            <TextBlock HorizontalAlignment="Left" Margin="35,112,0,0" Text="Username:" TextWrapping="Wrap" VerticalAlignment="Top" Height="33" Width="133" Foreground="GhostWhite"/>
-            <TextBlock HorizontalAlignment="Left" Margin="37,212,0,0" Text="Password:" TextWrapping="Wrap" VerticalAlignment="Top" Height="33" Width="133" Foreground="GhostWhite"/>
+            <TextBlock HorizontalAlignment="Left" Margin="35,112,0,0" Text="Username:" TextWrapping="Wrap" VerticalAlignment="Top" Height="33" Width="133" />
+            <TextBlock HorizontalAlignment="Left" Margin="37,212,0,0" Text="Password:" TextWrapping="Wrap" VerticalAlignment="Top" Height="33" Width="133" />
     </Grid>
 
     

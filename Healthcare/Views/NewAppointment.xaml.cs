@@ -134,7 +134,7 @@ namespace Healthcare.Views
                 Appointment appointment = new Appointment(this.patient, this.doctor, date, time, description.Text,false);
                 AppointmentDAL.AddAppointment(appointment);
                 AppointmentManager.AddAppointment(appointment, this.patient);
-                this.Frame.Navigate(typeof(MainPage));
+                this.Frame.Navigate(typeof(Confirmation));
             }
         }
 

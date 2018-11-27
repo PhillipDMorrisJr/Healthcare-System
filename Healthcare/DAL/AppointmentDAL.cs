@@ -137,6 +137,7 @@ namespace Healthcare.DAL
                         cmd.Parameters.AddWithValue("@description", newAppointment.Description);
                         cmd.Parameters.AddWithValue("@isCheckedIn", newAppointment.IsCheckedIn);
                         cmd.Parameters.AddWithValue("@aID", originalAppointment.ID);
+                        cmd.Parameters.AddWithValue("@userID", AccessValidator.CurrentUser.Id);
                         cmd.ExecuteNonQuery();
 
                     }

@@ -51,15 +51,19 @@ namespace Healthcare.Views
 
             List<Doctor> doctors = DoctorManager.Doctors;
             this.originalAppointment = AppointmentManager.CurrentAppointment;
-            displayDoctors(doctors);
-            displayTimes();
 
-            object d = this.Doctors.Items?.First(item => ((Doctor) (item as ListViewItem)?.Tag).Id.Equals(this.originalAppointment.Doctor.Id));
+            displayDoctors(doctors);
+
+            object d = this.Doctors.Items?.First(item => ((Doctor)(item as ListViewItem)?.Tag).Id.Equals(this.originalAppointment.Doctor.Id));
             int x = this.Doctors.Items?.IndexOf(d) ?? -1;
             if (x > -1)
             {
                 this.Doctors.SelectedIndex = x;
             }
+            
+            displayTimes();
+
+
 
             this.AppointmentDate.Date = this.originalAppointment.AppointmentDateTime;
             this.description.Text = this.originalAppointment.Description;
@@ -179,7 +183,7 @@ namespace Healthcare.Views
                     new Appointment(this.patient, this.doctor, date, time, description.Text, false);
                 
                 AppointmentManager.UpdateAppointment(this.originalAppointment, newAppointment, this.patient);
-                this.Frame.Navigate(typeof(MainPage));
+                this.Frame.Navigate(typeof(Confirmation));
             }
         }
     }
