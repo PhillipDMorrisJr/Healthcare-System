@@ -11,7 +11,7 @@
     <AssemblyName>Healthcare</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
-    <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.17134.0</TargetPlatformVersion>
+    <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.17763.0</TargetPlatformVersion>
     <TargetPlatformMinVersion>10.0.16299.0</TargetPlatformMinVersion>
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <FileAlignment>512</FileAlignment>
@@ -106,10 +106,13 @@
     <Compile Include="Model\CheckUp.cs" />
     <Compile Include="Model\Doctor.cs" />
     <Compile Include="Model\Symptom.cs" />
+    <Compile Include="Model\Test.cs" />
+    <Compile Include="Model\TestResult.cs" />
     <Compile Include="Utils\CheckUpManager.cs" />
     <Compile Include="Utils\DoctorManager.cs" />
     <Compile Include="Utils\IdGenerator.cs" />
     <Compile Include="Utils\SymptomManager.cs" />
+    <Compile Include="Utils\TestManager.cs" />
     <Compile Include="Views\AppointmentDetails.xaml.cs">
       <DependentUpon>AppointmentDetails.xaml</DependentUpon>
     </Compile>
