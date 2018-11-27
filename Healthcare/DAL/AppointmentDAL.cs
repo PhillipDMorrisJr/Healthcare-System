@@ -14,7 +14,7 @@ namespace Healthcare.DAL
     {
         private enum Attributes
         {
-            doctorId = 6, patientId=1, apptDay, apptTime, description, isCheckedIn
+            ApptDay = 2, Description = 4, IsCheckedIn = 5, DoctorId = 6, TestOrdered = 8, TestTaken = 9
         }
 
         public static List<Appointment> GetAppointments(Patient patient)
@@ -35,14 +35,18 @@ namespace Healthcare.DAL
                         while (reader.Read())
                         {
                             uint aID = (uint) reader["appointmentID"];
-                            string dID = reader.GetString((int)AppointmentDAL.Attributes.doctorId);
-                            DateTime apptDay = reader.GetDateTime((int) AppointmentDAL.Attributes.apptDay);
+                            string dID = reader.GetString((int)AppointmentDAL.Attributes.DoctorId);
+                            DateTime apptDay = reader.GetDateTime((int) AppointmentDAL.Attributes.ApptDay);
                             TimeSpan time2 = (TimeSpan) reader["apptTime"];
-                            string description = reader.GetString((int) AppointmentDAL.Attributes.description);
-                            bool status = reader.GetBoolean((int) Attributes.isCheckedIn);
+                            string description = reader.GetString((int) AppointmentDAL.Attributes.Description);
+                            bool checkedIn = reader.GetBoolean((int) AppointmentDAL.Attributes.IsCheckedIn);
+                            bool isTestOrdered = reader.GetBoolean((int) AppointmentDAL.Attributes.TestOrdered);
+                            bool isTestTaken = reader.GetBoolean((int) AppointmentDAL.Attributes.TestTaken);
+
+
 
                             Doctor doctor = DoctorManager.Doctors.Find(aDoctor => aDoctor.Id.Equals(dID));
-                            Appointment appointment = new Appointment(patient, doctor, apptDay,time2,description,status, aID);
+                            Appointment appointment = new Appointment(patient, doctor, apptDay,time2,description,checkedIn, aID, isTestOrdered, isTestTaken);
                             appointments.Add(appointment);
                         }
                         conn.Close();
@@ -59,7 +63,7 @@ namespace Healthcare.DAL
 
 
         public static void AddAppointment(Patient patient, Doctor doctor, DateTime appointmentDateTime,
-            TimeSpan appointmentTime, string description,bool isCheckedIn)
+            TimeSpan appointmentTime, string description,bool isCheckedIn, bool isTestOrdered, bool isTestTaken)
         {
             try
             {
@@ -68,7 +72,7 @@ namespace Healthcare.DAL
                     conn.Open();
 
                     var insertQuery =
-                        "INSERT INTO `appointments` (`doctorID`, `patientID`, `apptDay`, `apptTime`, `description`, `isCheckedIn`,`userID`) VALUES (@doctorID, @patientID, @apptDay, @apptTime, @description, @isCheckedIn, @userID)";
+                        "INSERT INTO `appointments` (`doctorID`, `patientID`, `apptDay`, `apptTime`, `description`, `isCheckedIn`,`userID`, `testOrdered`, `testTaken`) VALUES (@doctorID, @patientID, @apptDay, @apptTime, @description, @isCheckedIn, @userID, @testOrdered, @testTaken)";
                     using (MySqlCommand cmd = new MySqlCommand(insertQuery, conn))
                     {
                         cmd.Parameters.AddWithValue("@doctorID", doctor.Id);
@@ -77,9 +81,10 @@ namespace Healthcare.DAL
                         cmd.Parameters.AddWithValue("@apptTime", appointmentTime.ToString());
                         cmd.Parameters.AddWithValue("@description", description);
                         cmd.Parameters.AddWithValue("@isCheckedIn", isCheckedIn);
+                        cmd.Parameters.AddWithValue("@testOrdered", isTestOrdered);
+                        cmd.Parameters.AddWithValue("@testTaken", isTestTaken);
                         cmd.Parameters.AddWithValue("@userID", AccessValidator.CurrentUser.Id);
                         cmd.ExecuteNonQuery();
-
                     }
                 }
             }

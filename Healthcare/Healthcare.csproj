@@ -126,6 +126,9 @@
     <Compile Include="Views\EditPatient.xaml.cs">
       <DependentUpon>EditPatient.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\EnterTestResult.xaml.cs">
+      <DependentUpon>EnterTestResult.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
     </Compile>
@@ -153,6 +156,9 @@
     <Compile Include="Utils\RegistrationUtility.cs" />
     <Compile Include="Views\RoutineCheckUp.xaml.cs">
       <DependentUpon>RoutineCheckUp.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ViewTestResult.xaml.cs">
+      <DependentUpon>ViewTestResult.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -193,6 +199,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\EnterTestResult.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\LoginPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -214,6 +224,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\RoutineCheckUp.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ViewTestResult.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
