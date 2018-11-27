@@ -101,6 +101,7 @@
     <Compile Include="DAL\DoctorDAL.cs" />
     <Compile Include="DAL\PatientDAL.cs" />
     <Compile Include="DAL\SymptomDAL.cs" />
+    <Compile Include="DAL\TestDAL.cs" />
     <Compile Include="DAL\UserDAL.cs" />
     <Compile Include="Model\Address.cs" />
     <Compile Include="Model\CheckUp.cs" />

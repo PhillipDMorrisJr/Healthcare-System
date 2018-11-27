@@ -184,35 +184,25 @@ namespace Healthcare
             }
 
             PatientManager.CurrentPatient = currentPatient;
-            List<Appointment> appointments = AppointmentDAL.GetAppointments(currentPatient);  
-       
-            if (appointments == null)
-            {
-                AppointmentManager.Appointments.Add(currentPatient, new List<Appointment>());
-            }
-            else
+            List<Appointment> appointments = AppointmentDAL.GetAppointments(currentPatient);
+
+            if (appointments != null)
             {
                 try
                 {
-                     AppointmentManager.Appointments.Add(currentPatient, appointments);
+                    AppointmentManager.Appointments[currentPatient] = appointments;
                 }
-                    catch (Exception)
+                catch (Exception)
                 {
                     // ignored
                 }
             }
-
-            int count = 0;
-
+        
             foreach (var appointment in AppointmentManager.Appointments[currentPatient])
             {
-                if (appointment != null)
-                {
-                    ListViewItem item = new ListViewItem();
-                    item.Tag = appointment;
-                    item.Content = appointment.Format();
-                    this.DatabaseAppointmentInformation.Items?.Add(item);
-                }
+                if (appointment == null) continue;
+                var item = new ListViewItem {Tag = appointment, Content = appointment.Format()};
+                this.DatabaseAppointmentInformation.Items?.Add(item);
             }
         }
 

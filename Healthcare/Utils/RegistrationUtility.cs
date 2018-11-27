@@ -75,8 +75,7 @@ namespace Healthcare.Utils
 
             Patients.Remove(matchedPatient);
             Patients.Add(patient);
-            AppointmentManager.Appointments.Remove(matchedPatient);
-            AppointmentManager.Appointments.Add(patient, appointments);
+            AppointmentManager.Appointments[patient] = appointments;
         }
 
         /// <summary>
@@ -108,8 +107,7 @@ namespace Healthcare.Utils
                 }
 
                 Patients.Add(patient);
-                AppointmentManager.Appointments.Remove(patient);
-                AppointmentManager.Appointments.Add(patient, appointments);
+                AppointmentManager.Appointments[patient] = appointments;
             }
         }
 
@@ -141,8 +139,7 @@ namespace Healthcare.Utils
                 }
 
                 Patients.Add(patient);
-                AppointmentManager.Appointments.Remove(patient);
-                AppointmentManager.Appointments.Add(patient, appointments);
+                AppointmentManager.Appointments[patient] = appointments;
             }
         }
 
@@ -176,8 +173,7 @@ namespace Healthcare.Utils
                 }
 
                 Patients.Add(patient);
-                AppointmentManager.Appointments.Remove(patient);
-                AppointmentManager.Appointments.Add(patient, appointments);
+                AppointmentManager.Appointments[patient] = appointments;
             }
         }
 
