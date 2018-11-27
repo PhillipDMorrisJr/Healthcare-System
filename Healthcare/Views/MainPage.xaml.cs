@@ -154,6 +154,7 @@ namespace Healthcare
             if (currentAppointment != null && AccessValidator.Access.Equals("Nurse") && !currentAppointment.IsCheckedIn)
             {
                 this.Frame.Navigate(typeof(RoutineCheckUp));
+                currentAppointment.CheckIn();
             }
         }
         /// <summary>
