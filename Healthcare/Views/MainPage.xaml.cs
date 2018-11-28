@@ -313,5 +313,13 @@ namespace Healthcare
                 Frame.Navigate(typeof(QueryPage));
             }
         }
+
+        private void onDetails_Click(object sender, RoutedEventArgs e)
+        {
+            if (currentAppointment != null)
+            {
+                this.Frame.Navigate(typeof(AppointmentDetails));
+            }
+        }
     }
 }

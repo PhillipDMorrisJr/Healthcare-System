@@ -80,6 +80,8 @@ namespace Healthcare.DAL
                         cmd.Parameters.AddWithValue("@apptTime", details.AppointmentTime.ToString());
                         cmd.Parameters.AddWithValue("@description", details.Description);
                         cmd.Parameters.AddWithValue("@isCheckedIn", details.IsCheckedIn);
+                        cmd.Parameters.AddWithValue("@testOrdered", details.TestOrdered);
+                        cmd.Parameters.AddWithValue("@testTaken", details.TestTaken);
                         cmd.Parameters.AddWithValue("@userID", AccessValidator.CurrentUser.Id);
                         cmd.ExecuteNonQuery();
                     }
@@ -153,5 +155,33 @@ namespace Healthcare.DAL
                 DbConnection.GetConnection().Close();
             }
         }
+
+
+            public static bool updateTestOrdered(int apptId)
+            {
+                try
+                {
+                    using (MySqlConnection conn = DbConnection.GetConnection())
+                    {
+                        conn.Open();
+                        var updateQuery = "UPDATE `appointments` SET testOrdered = @testOrdered WHERE appointmentID = @apptID";
+                        using (MySqlCommand cmd = new MySqlCommand(updateQuery, conn))
+                        {
+                            cmd.Parameters.AddWithValue("@testOrdered", 1);
+                            cmd.Parameters.AddWithValue("@apptID", apptId);
+                            cmd.ExecuteNonQuery();
+                        }
+                        conn.Close();
+                    }
+
+                    return true;
+                }
+                catch (Exception exception)
+                {
+                    Console.Write(exception.Message);
+                    DbConnection.GetConnection().Close();
+                    return false;
+                }
+            }
     }
 }
