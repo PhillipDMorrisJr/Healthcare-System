@@ -14,6 +14,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using Healthcare.DAL;
 using Healthcare.Model;
 using Healthcare.Utils;
 
@@ -30,20 +31,16 @@ namespace Healthcare.Views
         public RoutineCheckUp()
         {
             this.InitializeComponent();
+
             this.nameID.Text = AccessValidator.CurrentUser.Username;
             this.userID.Text = AccessValidator.CurrentUser.Id;
             this.accessType.Text = AccessValidator.Access;
 
-            this.patient = PatientManager.CurrentPatient;
+            this.name.Text = AppointmentManager.CurrentAppointment.Patient.FirstName + " " +
+                                AppointmentManager.CurrentAppointment.Patient.LastName;
 
-            if (this.patient != null)
-            {
-                this.name.Text = this.patient.FirstName + " " + this.patient.LastName;
-                this.id.Text = this.patient.Id.ToString();
-                this.phone.Text = String.Format("{0:(###) ###-####}", this.patient.Phone);
-            }
-
-
+            this.phone.Text = String.Format("{0:(###) ###-####}", AppointmentManager.CurrentAppointment.Patient.Phone);
+            this.ssn.Text = "***-**-" + AppointmentManager.CurrentAppointment.Patient.Ssn.ToString().Substring(5);          
         }
 
         private void checkup_Click(object sender, RoutedEventArgs e)
@@ -129,8 +126,7 @@ namespace Healthcare.Views
         {
             if (isNotThreeDigitsNorHasChars(temperature.Text))
             {
-                    temperature.Text = "";
-                
+                    temperature.Text = "";             
             }
         }
 
@@ -143,7 +139,6 @@ namespace Healthcare.Views
                 this.knownSymptoms.Items?.Remove(selectedSymptom);
                 this.patientSymptoms.Items?.Add(selectedSymptom);
             }
-
         }
 
         private void removeSymptom_Click(object sender, RoutedEventArgs e)
@@ -161,13 +156,28 @@ namespace Healthcare.Views
                 if (symptom != null)
                 {
                     ListViewItem item = new ListViewItem
-                    {
-                        
+                    {                       
                         Tag = symptom, Content = symptom.Name
                     };
 
                     this.knownSymptoms.Items?.Add(item);
                 }
+            }
+        }
+
+        private void orderTest_Click(object sender, RoutedEventArgs e)
+        {
+            var complete = AppointmentDAL.updateTestOrdered((int) AppointmentManager.CurrentAppointment.ID);
+
+            if (complete)
+            {
+                this.homeBtn.IsEnabled = false;
+                this.orderBtn.IsEnabled = false;
+            }
+            else
+            {
+                this.homeBtn.IsEnabled = true;
+                this.orderBtn.IsEnabled = true;
             }
         }
     }

@@ -184,56 +184,33 @@ namespace Healthcare
             }
 
             PatientManager.CurrentPatient = currentPatient;
-            List<Appointment> appointments = AppointmentDAL.GetAppointments(currentPatient);  
-       
+            List<Appointment> appointments = AppointmentDAL.GetAppointments(currentPatient);
 
-            if (appointments == null)
-            {
-                AppointmentManager.Appointments.Add(currentPatient, new List<Appointment>());
-            }
-            else
+            if (appointments != null)
             {
                 try
                 {
-                     AppointmentManager.Appointments.Add(currentPatient, appointments);
+                    AppointmentManager.Appointments[currentPatient] = appointments;
                 }
-                    catch (Exception)
+                catch (Exception)
                 {
                     // ignored
                 }
             }
-
-            int count = 0;
-
+        
             foreach (var appointment in AppointmentManager.Appointments[currentPatient])
             {
-                if (appointment != null)
-                {
-                    ListViewItem item = new ListViewItem();
-                    item.Tag = appointment;
-                    item.Content = appointment.Format();
-                    this.DatabaseAppointmentInformation.Items?.Add(item);
-                }
+                if (appointment == null) continue;
+                var item = new ListViewItem {Tag = appointment, Content = appointment.Format()};
+                this.DatabaseAppointmentInformation.Items?.Add(item);
             }
         }
 
         private void RefreshButton_Click(object sender, RoutedEventArgs e)
         {
-            this.DatabasePatientInformation.Items?.Clear();
-
             var patients = RegistrationUtility.GetRefreshedPatients();
            
-            foreach (var patientToRegister in patients)
-            {
-                if (patientToRegister != null)
-                {
-                    ListViewItem item = new ListViewItem
-                    {
-                        Tag = patientToRegister, Content = patientToRegister.Format()
-                    };
-                    this.DatabasePatientInformation.Items?.Add(item);
-                }
-            }
+            this.RefreshPatientList(patients);
         }
 
         private void FindButton_Click(object sender, RoutedEventArgs e)
@@ -263,19 +240,7 @@ namespace Healthcare
             
             var patients = RegistrationUtility.GetPatients();
 
-            this.DatabasePatientInformation.Items?.Clear();
-           
-            foreach (var patientToRegister in patients)
-            {
-                if (patientToRegister != null)
-                {
-                    ListViewItem item = new ListViewItem
-                    {
-                        Tag = patientToRegister, Content = patientToRegister.Format()
-                    };
-                    this.DatabasePatientInformation.Items?.Add(item);
-                }
-            }            
+            this.RefreshPatientList(patients);        
         }
 
         private void HandleSearchByDob()
@@ -286,19 +251,7 @@ namespace Healthcare
 
             var patients = RegistrationUtility.GetPatients();
 
-            this.DatabasePatientInformation.Items?.Clear();
-           
-            foreach (var patientToRegister in patients)
-            {
-                if (patientToRegister != null)
-                {
-                    ListViewItem item = new ListViewItem
-                    {
-                        Tag = patientToRegister, Content = patientToRegister.Format()
-                    };
-                    this.DatabasePatientInformation.Items?.Add(item);
-                }
-            }
+            this.RefreshPatientList(patients);
         }
 
         private void HandleSearchByBoth()
@@ -313,19 +266,7 @@ namespace Healthcare
             
             var patients = RegistrationUtility.GetPatients();
 
-            this.DatabasePatientInformation.Items?.Clear();
-           
-            foreach (var patientToRegister in patients)
-            {
-                if (patientToRegister != null)
-                {
-                    ListViewItem item = new ListViewItem
-                    {
-                        Tag = patientToRegister, Content = patientToRegister.Format()
-                    };
-                    this.DatabasePatientInformation.Items?.Add(item);
-                }
-            }
+            this.RefreshPatientList(patients);
         }
 
         private void SearchNameRadioButton_Checked(object sender, RoutedEventArgs e)
@@ -349,11 +290,35 @@ namespace Healthcare
             AppointmentManager.CurrentAppointment = currentAppointment;
         }
 
+        private void RefreshPatientList(List<Patient> patients)
+        {
+            this.DatabasePatientInformation.Items?.Clear();
+           
+            foreach (var patientToRegister in patients)
+            {
+                if (patientToRegister != null)
+                {
+                    ListViewItem item = new ListViewItem
+                    {
+                        Tag = patientToRegister, Content = patientToRegister.Format()
+                    };
+                    this.DatabasePatientInformation.Items?.Add(item);
+                }
+            }
+        }
         private void customQuery_Click(object sender, RoutedEventArgs e)
         {
             if (AccessValidator.Access.Equals("Administrator"))
             {
                 Frame.Navigate(typeof(QueryPage));
+            }
+        }
+
+        private void onDetails_Click(object sender, RoutedEventArgs e)
+        {
+            if (currentAppointment != null)
+            {
+                this.Frame.Navigate(typeof(AppointmentDetails));
             }
         }
     }

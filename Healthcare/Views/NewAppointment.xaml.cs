@@ -37,14 +37,14 @@ namespace Healthcare.Views
             this.nameID.Text = AccessValidator.CurrentUser.Username;
             this.userID.Text = AccessValidator.CurrentUser.Id;
             this.accessType.Text = AccessValidator.Access;
-            
+
             this.isValidTime = false;
             this.patient = PatientManager.CurrentPatient;
 
             if (this.patient != null)
             {
                 this.name.Text = this.patient.FirstName + " " + this.patient.LastName;
-                this.id.Text = this.patient.Id.ToString().PadLeft(4, '0');
+                this.ssn.Text = "***-**-" + this.patient.Ssn.ToString().Substring(5);
                 this.phone.Text = String.Format("{0:(###) ###-####}", this.patient.Phone);
             }
 
@@ -127,7 +127,7 @@ namespace Healthcare.Views
 
             if (this.doctor != null && this.isValidTime)
             {
-                Appointment appointment = new Appointment(this.patient, this.doctor, date, time, description.Text,false);
+                Appointment appointment = new Appointment(this.patient, this.doctor, date, time, description.Text,false, false, false);
                 AppointmentDAL.AddAppointment(appointment);
                 AppointmentManager.AddAppointment(appointment, this.patient);
                 this.Frame.Navigate(typeof(Confirmation));

@@ -19,7 +19,7 @@
 
         <TextBlock Grid.Row="0" HorizontalAlignment="Left" Margin="-197,231,0,0" Text="Name:" TextWrapping="Wrap" Foreground="GhostWhite" VerticalAlignment="Top" Height="20" Width="62"/>
         <TextBlock Grid.Row="0" Name="nameID" HorizontalAlignment="Left" Margin="-107,231,0,0" Text="" TextWrapping="Wrap" Foreground="GhostWhite" VerticalAlignment="Top" Height="20" Width="62"/>
-        <TextBlock Grid.Row="0" HorizontalAlignment="Left" Margin="-197,251,0,0" Text="User SSN:" TextWrapping="Wrap" Foreground="GhostWhite" VerticalAlignment="Top" Height="20" Width="62"/>
+        <TextBlock Grid.Row="0" HorizontalAlignment="Left" Margin="-197,251,0,0" Text="UserId:" TextWrapping="Wrap" Foreground="GhostWhite" VerticalAlignment="Top" Height="20" Width="62"/>
         <TextBlock Grid.Row="0" Name="userID" HorizontalAlignment="Left" Margin="-107,251,0,0" Text="" TextWrapping="Wrap" Foreground="GhostWhite" VerticalAlignment="Top" Height="20" Width="62"/>
         <TextBlock Grid.Row="0" HorizontalAlignment="Left" Margin="-197,271,0,0" Text="Access:" TextWrapping="Wrap" Foreground="GhostWhite" VerticalAlignment="Top" Height="20" Width="62"/>
         <TextBlock Grid.Row="0" Name="accessType" HorizontalAlignment="Left" Margin="-107,271,0,0" Text="" TextWrapping="Wrap" Foreground="GhostWhite" VerticalAlignment="Top" Height="20" Width="100"/>
@@ -54,5 +54,6 @@
         </StackPanel>
         <Button Content="REFRESH" HorizontalAlignment="Left" Margin="257,66,0,0" VerticalAlignment="Top" Height="38" Width="100" Background="#0178D4" BorderBrush="#3CC4EE" Foreground="Aqua" Click="RefreshButton_Click" Grid.Row="1"/>
         <Button Content="CUSTOM QUERY" HorizontalAlignment="Left" Margin="820,70.8,0,0" VerticalAlignment="Top" Height="66" Width="165" Click="customQuery_Click"  Background="#0178D4" BorderBrush="#3CC4EE" Foreground="Aqua" Grid.Row="1"/>
+        <Button Content="DETAILS" HorizontalAlignment="Left" Margin="658,19,0,0" VerticalAlignment="Top" Height="66" Width="95" Click="onDetails_Click" Background="#0178D4" BorderBrush="#3CC4EE" Foreground="Aqua" RenderTransformOrigin="0.535,0.233" Grid.Row="1"/>
     </Grid>
 </Page>

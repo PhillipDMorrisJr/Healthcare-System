@@ -44,14 +44,14 @@ namespace Healthcare.Views
 
             if (this.patient != null)
             {
-                this.name.Text = this.patient.FirstName + " " + this.patient.LastName;
-                this.id.Text = this.patient.Id.ToString().PadLeft(4, '0');
-                this.phone.Text = String.Format("{0:(###) ###-####}", this.patient.Phone);
+                this.nameTxt.Text = this.patient.FirstName + " " + this.patient.LastName;
+                this.ssnTxt.Text = "***-**-" + AppointmentManager.CurrentAppointment.Patient.Ssn.ToString().Substring(5);
+                this.phoneTxt.Text = String.Format("{0:(###) ###-####}", this.patient.Phone);
             }
 
             
             this.originalAppointment = AppointmentManager.CurrentAppointment;
-
+            
             initializeDoctors();
 
             displayTimes();
@@ -155,21 +155,13 @@ namespace Healthcare.Views
         }
 
 
-        private void Doctors_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            this.doctor = (this.Doctors.SelectedItem as ListViewItem)?.Tag as Doctor;
-            this.displayTimes();
-        }
+
 
         private void homeButton_Click(object sender, RoutedEventArgs e)
         {
             this.Frame.Navigate(typeof(MainPage));
         }
 
-        private void AppointmentDate_DateChanged(object sender, DatePickerValueChangedEventArgs e)
-        {
-            displayTimes();
-        }
 
         private void Times_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -190,11 +182,17 @@ namespace Healthcare.Views
             if (this.doctor != null && this.isValidTime)
             {
                 Appointment newAppointment =
-                    new Appointment(this.patient, this.doctor, date, time, description.Text, false);
+                    new Appointment(this.patient, this.doctor, date, time, description.Text, false, false, false);
                 
                 AppointmentManager.UpdateAppointment(this.originalAppointment, newAppointment, this.patient);
                 this.Frame.Navigate(typeof(Confirmation));
             }
+        }
+
+        private void Doctors_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            this.doctor = (this.Doctors.SelectedItem as ListViewItem)?.Tag as Doctor;
+            this.displayTimes();
         }
     }
 }
