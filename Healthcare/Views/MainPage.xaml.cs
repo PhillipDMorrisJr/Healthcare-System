@@ -306,5 +306,12 @@ namespace Healthcare
                 }
             }
         }
+        private void customQuery_Click(object sender, RoutedEventArgs e)
+        {
+            if (AccessValidator.Access.Equals("Administrator"))
+            {
+                Frame.Navigate(typeof(QueryPage));
+            }
+        }
     }
 }

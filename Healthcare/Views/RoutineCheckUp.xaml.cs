@@ -27,6 +27,7 @@ namespace Healthcare.Views
     /// </summary>
     public sealed partial class RoutineCheckUp : Page
     {
+        private Patient patient;
         public RoutineCheckUp()
         {
             this.InitializeComponent();
@@ -52,7 +53,7 @@ namespace Healthcare.Views
                 int temp = int.Parse(this.temperature.Text);
                 int weight = int.Parse(this.weight.Text);
                 TimeSpan time = this.AppointmentTime.Time;
-                Patient patient = PatientManager.CurrentPatient;
+             
                 Nurse nurse = AccessValidator.CurrentUser as Nurse;
                 Appointment appointment = AppointmentManager.CurrentAppointment;
                 List<Symptom> symptoms = new List<Symptom>();
@@ -67,7 +68,7 @@ namespace Healthcare.Views
                     }
                 }
                 
-                CheckUp details = new CheckUp(systolic, diastolic, patient, temp, time, nurse, weight, pulse, symptoms, appointment);
+                CheckUp details = new CheckUp(systolic, diastolic, this.patient, temp, time, nurse, weight, pulse, symptoms, appointment);
                 CheckUpManager.Execute(details);
                 this.Frame.Navigate(typeof(MainPage));
             }

@@ -125,13 +125,12 @@ namespace Healthcare.Views
         {
             DateTime date = this.AppointmentDate.Date.DateTime;
 
-
             if (this.doctor != null && this.isValidTime)
             {
                 Appointment appointment = new Appointment(this.patient, this.doctor, date, time, description.Text,false, false, false);
                 AppointmentDAL.AddAppointment(this.patient, this.doctor, date, time, description.Text, false, false, false);
                 AppointmentManager.AddAppointment(appointment, this.patient);
-                this.Frame.Navigate(typeof(MainPage));
+                this.Frame.Navigate(typeof(Confirmation));
             }
         }
 
