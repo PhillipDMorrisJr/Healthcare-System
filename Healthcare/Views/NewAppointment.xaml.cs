@@ -37,6 +37,7 @@ namespace Healthcare.Views
             this.nameID.Text = AccessValidator.CurrentUser.Username;
             this.userID.Text = AccessValidator.CurrentUser.Id;
             this.accessType.Text = AccessValidator.Access;
+            
             this.isValidTime = false;
             this.patient = PatientManager.CurrentPatient;
 
@@ -127,9 +128,9 @@ namespace Healthcare.Views
             if (this.doctor != null && this.isValidTime)
             {
                 Appointment appointment = new Appointment(this.patient, this.doctor, date, time, description.Text,false);
-                AppointmentDAL.AddAppointment(this.patient, this.doctor, date, time,description.Text, false);
+                AppointmentDAL.AddAppointment(appointment);
                 AppointmentManager.AddAppointment(appointment, this.patient);
-                this.Frame.Navigate(typeof(MainPage));
+                this.Frame.Navigate(typeof(Confirmation));
             }
         }
 
