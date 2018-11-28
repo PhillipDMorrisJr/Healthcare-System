@@ -26,21 +26,22 @@
 
         <Button Content="LOG OUT" HorizontalAlignment="Left" Margin="1002,71,0,0" VerticalAlignment="Top" Height="66" Width="165" Click="onLogout_Click" Background="#0178D4" BorderBrush="#3CC4EE" Foreground="Aqua" Grid.Row="1"/>
 
-        <TextBox x:Name="query" HorizontalAlignment="Left" Margin="76,134,0,0" VerticalAlignment="Top" Height="170" Width="1091" Background="Azure" />
-        <TextBlock HorizontalAlignment="Left" Margin="593,99,0,0" Text="Query" Foreground="AliceBlue" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="20" FontWeight="Bold" Width="66"/>
-        <TextBlock HorizontalAlignment="Left" Margin="594,463,0,0" Text="Results" Foreground="AliceBlue" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="20" FontWeight="Bold" Width="72"/>
-        <Button Content="GO" HorizontalAlignment="Center" Margin="0,309,0,0" VerticalAlignment="Top" Height="51" Width="328" Background="#0178D4" BorderBrush="#3CC4EE" Foreground="Aqua" Click="query_OnClick"/>
+        <TextBox Grid.Row="0" x:Name="query" HorizontalAlignment="Left" Margin="76,134,0,0" VerticalAlignment="Top" Height="170" Width="1091" Background="Azure" />
+        <TextBlock Grid.Row="0" HorizontalAlignment="Left" Margin="593,99,0,0" Text="Query" Foreground="AliceBlue" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="20" FontWeight="Bold" Width="66"/>
+        <TextBlock Grid.Row="0" HorizontalAlignment="Left" Margin="594,463,0,0" Text="Results" Foreground="AliceBlue" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="20" FontWeight="Bold" Width="72"/>
+        <Button Grid.Row="0" Content="GO" HorizontalAlignment="Center" Margin="0,309,0,0" VerticalAlignment="Top" Height="51" Width="328" Background="#0178D4" BorderBrush="#3CC4EE" Foreground="Aqua" Click="query_OnClick"/>
         <Button Content="HOME" HorizontalAlignment="Left" Margin="832,70.8,0,0" VerticalAlignment="Top" Height="66" Width="165" Click="home_Click" Background="#0178D4" BorderBrush="#3CC4EE" Foreground="Aqua" Grid.Row="1"/>
 
-        <Custom:DataGrid Name="Results" Background="Azure"
+        <Custom:DataGrid Grid.Row="0" Name="Results" Background="Azure"
                          RowDetailsVisibilityMode="VisibleWhenSelected"
                          CanUserSortColumns="True"
                          BorderThickness="2"
                          BorderBrush="DarkSlateGray"
-                         AlternatingRowBackground="Aqua"
+                         AlternatingRowBackground="#00A86B"
                          GridLinesVisibility="All"
                          AutoGenerateColumns="False"
-                         SelectionMode="Single" HorizontalAlignment="Left" Margin="76,495,0,0" VerticalAlignment="Top" Height="240" Width="1091"/>
+                         SelectionMode="Single" HorizontalAlignment="Left" Margin="76,495,0,0"  VerticalAlignment="Top" Height="240" Width="1091"/>
+        <TextBlock Grid.Row="0" Name="confirmation" HorizontalAlignment="Left" Margin="76,740,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="20" Width="226"/>
 
     </Grid>
 

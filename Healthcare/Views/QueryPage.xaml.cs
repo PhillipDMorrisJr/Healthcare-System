@@ -7,6 +7,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -31,6 +32,9 @@ namespace Healthcare.Views
         public QueryPage()
         {
             this.InitializeComponent();
+            this.nameID.Text = AccessValidator.CurrentUser.Username;
+            this.userID.Text = AccessValidator.CurrentUser.Id;
+            this.accessType.Text = AccessValidator.Access;
         }
 
         private void onLogout_Click(object sender, RoutedEventArgs e)
@@ -40,22 +44,35 @@ namespace Healthcare.Views
 
         private void query_OnClick(object sender, RoutedEventArgs e)
         {
-            DataTable table = CustomQuery.RetrieveResults(this.query.Text);
-            for (int i = 0; i < table.Columns.Count; i++)
+            try
             {
-                Results.Columns.Add(new DataGridTextColumn()
+
+
+                DataTable table = CustomQuery.RetrieveResults(this.query.Text);
+                for (int i = 0; i < table.Columns.Count; i++)
                 {
-                    Header = table.Columns[i].ColumnName,
-                    Binding = new Binding { Path = new PropertyPath("[" + i.ToString() + "]") }
-                });
+                    Results.Columns.Add(new DataGridTextColumn()
+                    {
+                        Header = table.Columns[i].ColumnName,
+                        Binding = new Binding {Path = new PropertyPath("[" + i.ToString() + "]")}
+                    });
+                }
+
+                var collection = new ObservableCollection<object>();
+                foreach (DataRow row in table.Rows)
+                {
+                    collection.Add(row.ItemArray);
+                }
+
+                Results.ItemsSource = collection;
+                this.confirmation.Foreground = new SolidColorBrush(Colors.LawnGreen);
+                this.confirmation.Text = "Success";
             }
-            var collection = new ObservableCollection<object>();
-            foreach (DataRow row in table.Rows)
+            catch (Exception exc)
             {
-                collection.Add(row.ItemArray);
+                this.confirmation.Foreground = new SolidColorBrush(Colors.Yellow); 
+                this.confirmation.Text = exc.Message;
             }
-            Results.ItemsSource = collection;
-          
         }
 
         private void home_Click(object sender, RoutedEventArgs e)

@@ -13,21 +13,27 @@ namespace Healthcare.DAL
     {
         public static DataTable GetResults(string query)
         {
-
-            using (MySqlConnection conn = DbConnection.GetConnection())
+            try
             {
-                conn.Open();
-                using (var cmd = new MySqlCommand(query, conn))
+                using (MySqlConnection conn = DbConnection.GetConnection())
                 {
-
-                    DataTable dataTable = new DataTable();
-
-                    using (var dataAdapter = new MySqlDataAdapter(cmd))
+                    conn.Open();
+                    using (var cmd = new MySqlCommand(query, conn))
                     {
-                        dataAdapter.Fill(dataTable);
-                        return dataTable;
+
+                        DataTable dataTable = new DataTable();
+
+                        using (var dataAdapter = new MySqlDataAdapter(cmd))
+                        {
+                            dataAdapter.Fill(dataTable);
+                            return dataTable;
+                        }
                     }
                 }
+            }
+            catch (Exception)
+            {
+                throw;
             }
         }
     }
