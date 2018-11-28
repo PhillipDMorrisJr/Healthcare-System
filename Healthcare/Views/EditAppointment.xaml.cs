@@ -45,7 +45,7 @@ namespace Healthcare.Views
             if (this.patient != null)
             {
                 this.name.Text = this.patient.FirstName + " " + this.patient.LastName;
-                this.id.Text = this.patient.Id.ToString();
+                this.id.Text = this.patient.Id.ToString().PadLeft(4, '0');
                 this.phone.Text = String.Format("{0:(###) ###-####}", this.patient.Phone);
             }
 

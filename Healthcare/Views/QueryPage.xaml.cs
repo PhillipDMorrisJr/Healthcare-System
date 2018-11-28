@@ -46,8 +46,6 @@ namespace Healthcare.Views
         {
             try
             {
-
-
                 DataTable table = CustomQuery.RetrieveResults(this.query.Text);
                 for (int i = 0; i < table.Columns.Count; i++)
                 {
