@@ -8,7 +8,7 @@ using MySql.Data.MySqlClient;
 
 namespace Healthcare.DAL
 {
-    class TestDAL
+    public static class TestDAL
     {
         public static List<Test> GetTests()
         {
@@ -27,7 +27,7 @@ namespace Healthcare.DAL
 
                     while (reader.Read())
                     {
-                        var code = (int) reader["code"];
+                        var code = Convert.ToInt32(reader["code"]);
                         var name = (string) reader["name"];
 
                         var newTest = new Test(code, name);

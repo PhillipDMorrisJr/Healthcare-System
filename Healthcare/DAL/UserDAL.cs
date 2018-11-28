@@ -14,7 +14,7 @@ namespace Healthcare.DAL
     {
         private enum Attributes
         {
-            Userid = 0, Username, Isadmin, Password 
+            Userid = 0, IsAdmin = 2
         }
         public static User GetUser(string username, string password)
         {
@@ -34,7 +34,7 @@ namespace Healthcare.DAL
                         {
                             reader.Read();
                             int id  = reader.GetInt32((int)Attributes.Userid);
-                            if (reader.GetBoolean((int)Attributes.Isadmin))
+                            if (reader.GetBoolean((int)Attributes.IsAdmin))
                             {
                                 Administrator admin = new Administrator(username, password, id);
                                 conn.Close();

@@ -37,14 +37,14 @@ namespace Healthcare.Views
             this.nameID.Text = AccessValidator.CurrentUser.Username;
             this.userID.Text = AccessValidator.CurrentUser.Id;
             this.accessType.Text = AccessValidator.Access;
+
             this.isValidTime = false;
             this.patient = PatientManager.CurrentPatient;
 
             if (this.patient != null)
             {
                 this.name.Text = this.patient.FirstName + " " + this.patient.LastName;
-                this.id.Text = this.patient.Id.ToString();
-                //this.ssn.Text = this.patient.Ssn.ToString();
+                this.ssn.Text = "***-**-" + this.patient.Ssn.ToString().Substring(5);
                 this.phone.Text = String.Format("{0:(###) ###-####}", this.patient.Phone);
             }
 
@@ -100,9 +100,6 @@ namespace Healthcare.Views
                     }
                 }
             }
-
-
-
         }
 
         private void displayDoctors(List<Doctor> doctors)

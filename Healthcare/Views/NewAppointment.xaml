@@ -13,29 +13,29 @@
         <Image Source="../Images/noimage.png" HorizontalAlignment="Left" Height="126" Margin="36,116,0,0" VerticalAlignment="Top" Width="81"/>
         <TextBlock HorizontalAlignment="Left" Margin="191,134,0,0" Text="Name: " TextWrapping="Wrap" VerticalAlignment="Top"/>
         <TextBlock HorizontalAlignment="Left" Margin="191,154,0,0" Text="Phone: " TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <TextBlock HorizontalAlignment="Left" Margin="191,174,0,0" Text="ID#: " TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Left" Margin="191,174,0,0" Text="SSN: " TextWrapping="Wrap" VerticalAlignment="Top"/>
         <TextBlock Grid.Row="0" Text="Healthcare Services" HorizontalAlignment="Left" Margin="-469,21,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="139" Width="254" Foreground="White" FontSize="50" TextAlignment="Center" />
         <TextBlock Grid.Row="0" HorizontalAlignment="Left" Margin="-469,231,0,0" Text="Name:" TextWrapping="Wrap" Foreground="GhostWhite" VerticalAlignment="Top" Height="20" Width="62"/>
         <TextBlock Grid.Row="0" Name="nameID" HorizontalAlignment="Left" Margin="-402,231,0,0" Text="" TextWrapping="Wrap" Foreground="GhostWhite" VerticalAlignment="Top" Height="20" Width="62"/>
-        <TextBlock Grid.Row="0" HorizontalAlignment="Left" Margin="-469,251,0,0" Text="User SSN:" TextWrapping="Wrap" Foreground="GhostWhite" VerticalAlignment="Top" Height="20" Width="62"/>
+        <TextBlock Grid.Row="0" HorizontalAlignment="Left" Margin="-469,251,0,0" Text="UserId:" TextWrapping="Wrap" Foreground="GhostWhite" VerticalAlignment="Top" Height="20" Width="62"/>
         <TextBlock Grid.Row="0" Name="userID" HorizontalAlignment="Left" Margin="-402,251,0,0" Text="" TextWrapping="Wrap" Foreground="GhostWhite" VerticalAlignment="Top" Height="20" Width="62"/>
         <TextBlock Grid.Row="0" HorizontalAlignment="Left" Margin="-469,271,0,0" Text="Access:" TextWrapping="Wrap" Foreground="GhostWhite" VerticalAlignment="Top" Height="20" Width="62"/>
         <TextBlock Grid.Row="0" Name="accessType" HorizontalAlignment="Left" Margin="-402,271,0,0" Text="" TextWrapping="Wrap" Foreground="GhostWhite" VerticalAlignment="Top" Height="20" Width="100"/>
         <TextBlock HorizontalAlignment="Left" Margin="253,134,0,0" Name="name" TextWrapping="Wrap" VerticalAlignment="Top"/>
         <TextBlock HorizontalAlignment="Left" Margin="253,154,0,0" Name="phone" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <TextBlock HorizontalAlignment="Left" Margin="253,174,0,0" Name="id" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Left" Margin="253,174,0,0" Name="ssn" TextWrapping="Wrap" VerticalAlignment="Top"/>
 
-        <ListBox Name="Doctors" SelectionChanged="Doctors_OnSelectionChanged" HorizontalAlignment="Left" Height="54" VerticalAlignment="Top" Width="427" Background="Azure" Margin="55,281,0,0" BorderBrush="LightGray" BorderThickness="2"/>
+        <ListBox Name="Doctors" SelectionChanged="Doctors_OnSelectionChanged" HorizontalAlignment="Center" Height="54" VerticalAlignment="Top" Width="436" Background="Azure" Margin="0,281,0,0" BorderBrush="LightGray" BorderThickness="2"/>
         <TextBlock HorizontalAlignment="Left" Margin="59,256,0,0" Text="Doctors:" TextWrapping="Wrap" VerticalAlignment="Top"/>
         <TextBlock HorizontalAlignment="Left" Margin="58,358,0,0" Text="Appointment Date:" TextWrapping="Wrap" VerticalAlignment="Top" Height="33" Width="133"/>
-        <DatePicker Name="AppointmentDate" HorizontalAlignment="Center" Margin="0,383,0,0" VerticalAlignment="Top" Height="37" Width="432" DateChanged="AppointmentDate_DateChanged"/>
+        <DatePicker Name="AppointmentDate" HorizontalAlignment="Center" Margin="0,383,0,0" VerticalAlignment="Top" Height="37" Width="436" DateChanged="AppointmentDate_DateChanged"/>
         <TextBlock HorizontalAlignment="Left" Margin="58,425,0,0" Text="Appointment Time:" TextWrapping="Wrap" VerticalAlignment="Top" Height="33" Width="133"/>
         <Button Content="SCHEDULE" HorizontalAlignment="Center" Margin="0,808,0,0" VerticalAlignment="Top" Height="58" Width="438" FontSize="25" Click="schedule_Click" />
 
 
         <Button Content="HOME" HorizontalAlignment="Center" Margin="0,872,0,0" VerticalAlignment="Top" Height="58" Width="438" FontSize="25" Click="homeButton_Click" />
-        <ListBox x:Name="AppointmentTimes" SelectionChanged="Times_OnSelectionChanged" HorizontalAlignment="Left" Height="159" VerticalAlignment="Top" Width="427" Background="Azure" Margin="60,445,0,0" BorderBrush="LightGray" BorderThickness="2"/>
-        <TextBox Name="description" Header="Description" HorizontalAlignment="Left" Margin="58,614,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Height="165" Width="424" Background="Azure"/>
+        <ListBox x:Name="AppointmentTimes" SelectionChanged="Times_OnSelectionChanged" HorizontalAlignment="Left" Height="159" VerticalAlignment="Top" Width="433" Background="Azure" Margin="60,445,0,0" BorderBrush="LightGray" BorderThickness="2"/>
+        <TextBox Name="description" Header="Description" HorizontalAlignment="Center" Margin="0,614,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Height="165" Width="436" Background="Azure"/>
 
     </Grid>
 </Page>

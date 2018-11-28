@@ -10,7 +10,7 @@ using MySql.Data.MySqlClient;
 
 namespace Healthcare.DAL
 {
-    class AppointmentDAL
+    public class AppointmentDAL
     {
         private enum Attributes
         {
@@ -35,13 +35,13 @@ namespace Healthcare.DAL
                         while (reader.Read())
                         {
                             uint aID = (uint) reader["appointmentID"];
-                            string dID = reader.GetString((int)AppointmentDAL.Attributes.DoctorId);
-                            DateTime apptDay = reader.GetDateTime((int) AppointmentDAL.Attributes.ApptDay);
+                            string dID = reader.GetString((int) Attributes.DoctorId);
+                            DateTime apptDay = reader.GetDateTime((int) Attributes.ApptDay);
                             TimeSpan time2 = (TimeSpan) reader["apptTime"];
-                            string description = reader.GetString((int) AppointmentDAL.Attributes.Description);
-                            bool checkedIn = reader.GetBoolean((int) AppointmentDAL.Attributes.IsCheckedIn);
-                            bool isTestOrdered = reader.GetBoolean((int) AppointmentDAL.Attributes.TestOrdered);
-                            bool isTestTaken = reader.GetBoolean((int) AppointmentDAL.Attributes.TestTaken);
+                            string description = reader.GetString((int) Attributes.Description);
+                            bool checkedIn = reader.GetBoolean((int) Attributes.IsCheckedIn);
+                            bool isTestOrdered = reader.GetBoolean((int) Attributes.TestOrdered);
+                            bool isTestTaken = reader.GetBoolean((int) Attributes.TestTaken);
 
 
 
@@ -76,7 +76,7 @@ namespace Healthcare.DAL
                     using (MySqlCommand cmd = new MySqlCommand(insertQuery, conn))
                     {
                         cmd.Parameters.AddWithValue("@doctorID", doctor.Id);
-                        cmd.Parameters.AddWithValue("@patientID", patient.Ssn);
+                        cmd.Parameters.AddWithValue("@patientID", patient.Id);
                         cmd.Parameters.AddWithValue("@apptDay", appointmentDateTime.Date.ToString("yyyy-MM-dd"));
                         cmd.Parameters.AddWithValue("@apptTime", appointmentTime.ToString());
                         cmd.Parameters.AddWithValue("@description", description);
@@ -122,6 +122,36 @@ namespace Healthcare.DAL
                 }
             }
             return slots;
+        }
+
+        public static bool updateTestOrdered(int apptId)
+        {
+            try
+            {
+                using (MySqlConnection conn = DbConnection.GetConnection())
+                {
+                    conn.Open();
+
+                    var updateQuery =
+                        "UPDATE `appointments` SET testOrdered = @testOrdered WHERE appointmentID = @apptID";
+                    using (MySqlCommand cmd = new MySqlCommand(updateQuery, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@testOrdered", 1);
+                        cmd.Parameters.AddWithValue("@apptID", apptId);
+                        cmd.ExecuteNonQuery();
+                    }
+
+                    conn.Close();
+                }
+
+                return true;
+            }
+            catch (Exception exception)
+            {
+                Console.Write(exception.Message);
+                DbConnection.GetConnection().Close();
+                return false;
+            }
         }
     }
 }
