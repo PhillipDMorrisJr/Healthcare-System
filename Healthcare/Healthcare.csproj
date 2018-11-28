@@ -147,6 +147,9 @@
     <Compile Include="Utils\AppointmentManager.cs" />
     <Compile Include="Utils\PatientManager.cs" />
     <Compile Include="Utils\RegistrationUtility.cs" />
+    <Compile Include="Views\QueryPage.xaml.cs">
+      <DependentUpon>QueryPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\RoutineCheckUp.xaml.cs">
       <DependentUpon>RoutineCheckUp.xaml</DependentUpon>
     </Compile>
@@ -206,6 +209,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\NewAppointment.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\QueryPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
