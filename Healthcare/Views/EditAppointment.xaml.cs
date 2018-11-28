@@ -49,34 +49,43 @@ namespace Healthcare.Views
                 this.phone.Text = String.Format("{0:(###) ###-####}", this.patient.Phone);
             }
 
-            List<Doctor> doctors = DoctorManager.Doctors;
+            
             this.originalAppointment = AppointmentManager.CurrentAppointment;
 
-            displayDoctors(doctors);
+            initializeDoctors();
 
-            object d = this.Doctors.Items?.First(item => ((Doctor)(item as ListViewItem)?.Tag).Id.Equals(this.originalAppointment.Doctor.Id));
-            int x = this.Doctors.Items?.IndexOf(d) ?? -1;
-            if (x > -1)
-            {
-                this.Doctors.SelectedIndex = x;
-            }
-            
             displayTimes();
-
-
-
+            
             this.AppointmentDate.Date = this.originalAppointment.AppointmentDateTime;
             this.description.Text = this.originalAppointment.Description;
+            initializeTimes();
+        }
 
-
-            object t = this.AppointmentTimes.Items?.First(item => ((TimeSpan) (item as ListViewItem)?.Tag).Equals(this.originalAppointment.AppointmentTime));
-            int i = this.AppointmentTimes.Items?.IndexOf(t) ?? -1;
-            if (i > -1)
+        private void initializeTimes()
+        {
+            object selectedTime = this.AppointmentTimes.Items?.First(item =>
+                ((TimeSpan) (item as ListViewItem)?.Tag).Equals(this.originalAppointment.AppointmentTime));
+            int timesSelectedIndex = this.AppointmentTimes.Items?.IndexOf(selectedTime) ?? -1;
+            if (timesSelectedIndex > -1)
             {
-                this.AppointmentTimes.SelectedIndex = i;
+                this.AppointmentTimes.SelectedIndex = timesSelectedIndex;
+                this.AppointmentTimes.IsEnabled = true;
             }
+        }
 
+        private void initializeDoctors()
+        {
+            List<Doctor> doctors = DoctorManager.Doctors;
+            displayDoctors(doctors);
 
+            object selectedDoctor = this.Doctors.Items?.First(item =>
+                ((Doctor) (item as ListViewItem)?.Tag).Id.Equals(this.originalAppointment.Doctor.Id));
+            int selectedIndex = this.Doctors.Items?.IndexOf(selectedDoctor) ?? -1;
+            if (selectedIndex > -1)
+            {
+                this.Doctors.SelectedIndex = selectedIndex;
+                this.Doctors.IsEnabled = true;
+            }
         }
 
         private void displayTimes()
@@ -90,6 +99,7 @@ namespace Healthcare.Views
 
             List<TimeSpan> usedSlots =
                 AppointmentManager.RetrieveUsedTimeSlots(this.AppointmentDate.Date.Date, doctor, patient);
+           
 
             if (!(this.AppointmentDate.Date.DayOfWeek == DayOfWeek.Saturday ||
                   this.AppointmentDate.Date.DayOfWeek == DayOfWeek.Sunday))
