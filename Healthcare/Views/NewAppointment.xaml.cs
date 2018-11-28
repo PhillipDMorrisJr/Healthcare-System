@@ -100,9 +100,6 @@ namespace Healthcare.Views
                     }
                 }
             }
-
-
-
         }
 
         private void displayDoctors(List<Doctor> doctors)
@@ -127,7 +124,6 @@ namespace Healthcare.Views
         private void schedule_Click(object sender, RoutedEventArgs e)
         {
             DateTime date = this.AppointmentDate.Date.DateTime;
-
 
             if (this.doctor != null && this.isValidTime)
             {
