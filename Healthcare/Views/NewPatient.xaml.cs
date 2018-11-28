@@ -67,5 +67,10 @@ namespace Healthcare.Views
 
             this.Frame.Navigate(typeof(MainPage));
         }
+
+        private void home_onClick(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(MainPage));
+        }
     }
 }

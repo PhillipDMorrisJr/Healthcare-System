@@ -26,8 +26,8 @@
         <TextBlock HorizontalAlignment="Left" FontWeight="Bold" Margin="10,10,0,0" Text="Healthcare Services" Foreground="Gray" FontSize="50" TextAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" Height="123" Width="483"/>
 
 
-        <TextBlock HorizontalAlignment="Left" Margin="37,342,0,0" Text="Appointment Date:" TextWrapping="Wrap" VerticalAlignment="Top" Height="33" Width="133"/>
-        <DatePicker Name="AppointmentDate" HorizontalAlignment="Left" Margin="36,367,0,0" VerticalAlignment="Top" Height="37" Width="432"/>
+        <TextBlock HorizontalAlignment="Left" Margin="61,342,0,0" Text="Appointment Date:" TextWrapping="Wrap" VerticalAlignment="Top" Height="33" Width="133"/>
+        <DatePicker Name="AppointmentDate" HorizontalAlignment="Left" Margin="61,367,0,0" VerticalAlignment="Top" Height="37" Width="421"/>
 
         <TextBlock HorizontalAlignment="Left" Margin="191,134,0,0" Text="Name: " TextWrapping="Wrap" VerticalAlignment="Top"/>
         <TextBlock HorizontalAlignment="Left" Name="nameTxt" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Margin="272,134,0,0"/>

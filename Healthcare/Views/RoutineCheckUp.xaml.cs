@@ -36,6 +36,8 @@ namespace Healthcare.Views
             this.userID.Text = AccessValidator.CurrentUser.Id;
             this.accessType.Text = AccessValidator.Access;
 
+            this.patient = AppointmentManager.CurrentAppointment.Patient;
+
             this.name.Text = AppointmentManager.CurrentAppointment.Patient.FirstName + " " +
                                 AppointmentManager.CurrentAppointment.Patient.LastName;
 

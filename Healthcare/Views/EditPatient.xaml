@@ -8,7 +8,7 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Grid Background="White" HorizontalAlignment="Center" Height="850" VerticalAlignment="Center" Width="540">
+    <Grid Background="White" HorizontalAlignment="Center" Height="856" VerticalAlignment="Top" Width="540" Margin="0,52,0,0">
 
         <TextBlock Grid.Row="0" Text="Healthcare Services" HorizontalAlignment="Left" Margin="-469,21,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="139" Width="254" Foreground="White" FontSize="50" TextAlignment="Center" />
 
@@ -39,7 +39,7 @@
                 <TextBox x:Name="lname" HorizontalAlignment="Center" Margin="0,339,0,0" VerticalAlignment="Top" Height="61" Width="455" Background="Azure" FontSize="30" Grid.ColumnSpan="2"/>
                 <TextBox x:Name="phone" HorizontalAlignment="Center" Margin="0,472,0,0" VerticalAlignment="Top" Height="61" Width="455" Background="Azure" FontSize="30" Grid.ColumnSpan="2"/>
                 <DatePicker x:Name="bday" HorizontalAlignment="Center" Margin="0,615,0,0" VerticalAlignment="Top" MinHeight="33" MinWidth="455" Background="Azure" FontSize="30" Grid.ColumnSpan="2"/>
-                <Button Content="Submit" HorizontalAlignment="Center" Margin="0,1493,0,0" VerticalAlignment="Top" Height="61" Width="456" Click="updatePatient_onClick" Grid.ColumnSpan="2"/>
+                <Button Content="SUBMIT" HorizontalAlignment="Center" Margin="0,1493,0,0" VerticalAlignment="Top" Height="61" Width="456" Click="updatePatient_onClick" Grid.ColumnSpan="2"/>
                 <PasswordBox x:Name="ssn" HorizontalAlignment="Center" Margin="0,740,0,1065" Width="455" Background="Azure" FontSize="30" Grid.ColumnSpan="2"/>
                 <TextBox x:Name="street" HorizontalAlignment="Center" Margin="0,866,0,0" VerticalAlignment="Top" Height="61" Width="455" Background="Azure" FontSize="30" Grid.ColumnSpan="2"/>
                 <TextBlock HorizontalAlignment="Left" Margin="26,826,0,0" Text="Street:" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="30" Grid.ColumnSpan="2"/>
@@ -49,6 +49,7 @@
                 <TextBox x:Name="zip" HorizontalAlignment="Left" Margin="37,1149,0,0" VerticalAlignment="Top" Height="61" Width="228" Background="Azure" FontSize="30" Grid.ColumnSpan="2"/>
                 <TextBlock HorizontalAlignment="Left" Margin="26,1258,0,0" Text="Gender:" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="30" Grid.ColumnSpan="2"/>
                 <ComboBox x:Name="genderCmbox" HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="38,1331,0,489" RenderTransformOrigin="0.424,0.665" Width="167" Background="Azure"></ComboBox>
+                <Button Content="HOME" HorizontalAlignment="Left" Margin="38,1427,0,0" VerticalAlignment="Top" Height="61" Width="456" Click="home_onClick" Grid.ColumnSpan="2"/>
             </Grid>
         </ScrollViewer>
 

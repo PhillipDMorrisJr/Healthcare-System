@@ -69,6 +69,7 @@ namespace Healthcare.Views
             if (timesSelectedIndex > -1)
             {
                 this.AppointmentTimes.SelectedIndex = timesSelectedIndex;
+                
                 this.AppointmentTimes.IsEnabled = true;
             }
         }
