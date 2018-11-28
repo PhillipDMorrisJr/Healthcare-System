@@ -44,7 +44,6 @@ namespace Healthcare.Views
             {
                 this.name.Text = this.patient.FirstName + " " + this.patient.LastName;
                 this.id.Text = this.patient.Id.ToString();
-                //this.ssn.Text = this.patient.Ssn.ToString();
                 this.phone.Text = String.Format("{0:(###) ###-####}", this.patient.Phone);
             }
 
@@ -100,9 +99,6 @@ namespace Healthcare.Views
                     }
                 }
             }
-
-
-
         }
 
         private void displayDoctors(List<Doctor> doctors)
@@ -127,7 +123,6 @@ namespace Healthcare.Views
         private void schedule_Click(object sender, RoutedEventArgs e)
         {
             DateTime date = this.AppointmentDate.Date.DateTime;
-
 
             if (this.doctor != null && this.isValidTime)
             {
