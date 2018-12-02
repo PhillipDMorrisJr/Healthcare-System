@@ -27,6 +27,7 @@ namespace Healthcare.Views
         public LoginPage()
         {
             this.InitializeComponent();
+            this.loginValidator.Visibility = Visibility.Collapsed;
         }
 
         private void onLogin_Click(object sender, RoutedEventArgs e)
@@ -38,6 +39,7 @@ namespace Healthcare.Views
             {
                 this.Frame.Navigate(typeof(MainPage));
             }
+            this.loginValidator.Visibility = Visibility.Visible;
         }
 
     }
