@@ -44,6 +44,11 @@ namespace Healthcare.Views
 
         private void query_OnClick(object sender, RoutedEventArgs e)
         {
+            var collection = new ObservableCollection<object>();
+            Results.Columns.Clear();
+            
+            
+
             try
             {
                 DataTable table = CustomQuery.RetrieveResults(this.query.Text);
@@ -55,8 +60,7 @@ namespace Healthcare.Views
                         Binding = new Binding {Path = new PropertyPath("[" + i.ToString() + "]")}
                     });
                 }
-
-                var collection = new ObservableCollection<object>();
+                
                 foreach (DataRow row in table.Rows)
                 {
                     collection.Add(row.ItemArray);

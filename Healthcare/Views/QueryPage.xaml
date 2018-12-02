@@ -41,7 +41,7 @@
                          GridLinesVisibility="All"
                          AutoGenerateColumns="False"
                          SelectionMode="Single" HorizontalAlignment="Left" Margin="76,495,0,0"  VerticalAlignment="Top" Height="240" Width="1091"/>
-        <TextBlock Grid.Row="0" Name="confirmation" HorizontalAlignment="Left" Margin="76,740,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="20" Width="226"/>
+        <TextBlock Grid.Row="0" Name="confirmation" HorizontalAlignment="Left" Margin="76,740,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="27" Width="1026"/>
 
     </Grid>
 
