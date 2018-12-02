@@ -24,16 +24,34 @@ namespace Healthcare.Views
     /// </summary>
     public sealed partial class NewPatient : Page
     {
+        private List<string> validationSummary;
         public NewPatient()
         {
             this.InitializeComponent();
             this.nameID.Text = AccessValidator.CurrentUser.Username;
             this.userID.Text = AccessValidator.CurrentUser.Id;
             this.accessType.Text = AccessValidator.Access;
-
+            this.validationSummary = new List<string>();
             List<string> genders = new List<string> {"Male", "Female"};
             this.genderCmbox.ItemsSource = genders;
             this.genderCmbox.SelectedItem = "Male";
+        }
+
+        private void validate()
+        {
+            validationSummary.Add("Please Address the following:");
+            if (string.IsNullOrEmpty(fname.Text))
+            {
+
+            }
+        }
+
+        public bool isValidPatient()
+        {
+            string street = this.street.Text;
+            string state = this.state.Text;
+            string zip = this.zip.Text;
+            return 
         }
 
         private void createPatient_onClick(object sender, RoutedEventArgs e)
@@ -56,16 +74,22 @@ namespace Healthcare.Views
             string state = this.state.Text;
             string zip = this.zip.Text;
 
-            bool isTenDigit = phone.Length == 10;
-            bool isSsnNineDigit = ssn.Length == 9;
 
-            if (!(string.IsNullOrWhiteSpace(street) && string.IsNullOrWhiteSpace(state) && string.IsNullOrWhiteSpace(zip) && string.IsNullOrWhiteSpace(firstName) && string.IsNullOrWhiteSpace(lastName) && string.IsNullOrWhiteSpace(phone)) && isTenDigit && isSsnNineDigit)
+            try
             {
                 string fullAddress = street + ", " + state + ", " + zip;
-                RegistrationUtility.CreateNewPatient(Convert.ToInt32(ssn), firstName, lastName, phone, dateOfBirth, gender, fullAddress);               
+                RegistrationUtility.CreateNewPatient(Convert.ToInt32(ssn), firstName, lastName, phone, dateOfBirth,
+                    gender, fullAddress);
+                this.Frame.Navigate(typeof(MainPage));
             }
+            catch (Exception)
+            {
+                validate()
+            }
+             
+            
 
-            this.Frame.Navigate(typeof(MainPage));
+            
         }
 
         private void home_onClick(object sender, RoutedEventArgs e)
