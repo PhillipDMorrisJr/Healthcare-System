@@ -9,6 +9,21 @@
     Loaded="MainPage_OnLoaded"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
+    <Page.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Background" Value="#0178D4" />
+            <Setter Property="Foreground" Value="Aqua" />
+            <Setter Property="BorderBrush" Value="#3CC4EE"/>
+            <Setter Property="BorderThickness" Value="2"/>
+        </Style>
+        <Style TargetType="RadioButton">
+            <Setter Property="Foreground" Value="Azure" />
+        </Style>
+        <Style TargetType="TextBlock">
+            <Setter Property="Foreground" Value="Azure"></Setter>
+        </Style>
+    </Page.Resources>
+
     <Grid  HorizontalAlignment="Stretch" Margin="245,10,0,0" VerticalAlignment="Stretch">
         <Grid.RowDefinitions>
             <RowDefinition Height="826*"/>
@@ -24,36 +39,36 @@
         <TextBlock Grid.Row="0" HorizontalAlignment="Left" Margin="-197,271,0,0" Text="Access:" TextWrapping="Wrap" Foreground="GhostWhite" VerticalAlignment="Top" Height="20" Width="62"/>
         <TextBlock Grid.Row="0" Name="accessType" HorizontalAlignment="Left" Margin="-107,271,0,0" Text="" TextWrapping="Wrap" Foreground="GhostWhite" VerticalAlignment="Top" Height="20" Width="100"/>
 
-        <Button Content="LOG OUT" HorizontalAlignment="Left" Margin="1002,71,0,0" VerticalAlignment="Top" Height="66" Width="165" Click="onLogout_Click"  Background="#0178D4" BorderBrush="#3CC4EE" Foreground="Aqua" Grid.Row="1"/>
+        <Button Content="LOG OUT" HorizontalAlignment="Left" Margin="1002,71,0,0" VerticalAlignment="Top" Height="66" Width="165" Click="onLogout_Click"  Grid.Row="1"/>
 
         <TextBlock HorizontalAlignment="Left" Margin="118,94,0,0" Text="Patients" TextWrapping="Wrap" VerticalAlignment="Top" Height="38" Width="379" Foreground="Azure" FontSize="30" TextAlignment="Center"/>
 
         <ListView Name="DatabasePatientInformation" SelectionChanged="DatabasePatientInformation_OnSelectionChanged" HorizontalAlignment="Left" Height="544" VerticalAlignment="Top" Width="378" Background="White" Margin="118,139,0,0"/>
-        <Button Content="NEW" HorizontalAlignment="Left" Margin="118,741,0,0" VerticalAlignment="Top" Height="66" Width="100" Click="onAddPatient_Click"  Background="#0178D4" BorderBrush="#3CC4EE" Foreground="Aqua"/>
-        <Button Content="UPDATE" HorizontalAlignment="Left" Margin="257,741,0,0" VerticalAlignment="Top" Height="66" Width="100" Click="onUpdatePatient_Click"  Background="#0178D4" BorderBrush="#3CC4EE" Foreground="Aqua"/>
-        <Button Content="DETAILS" HorizontalAlignment="Left" Margin="396,741,0,0" VerticalAlignment="Top" Height="66" Width="100" Click="onPatientDetails_Click"  Background="#0178D4" BorderBrush="#3CC4EE" Foreground="Aqua"/>
+        <Button Content="NEW" HorizontalAlignment="Left" Margin="118,713,0,0" VerticalAlignment="Top" Height="66" Width="100" Click="onAddPatient_Click" />
+        <Button Content="UPDATE" HorizontalAlignment="Left" Margin="257,713,0,0" VerticalAlignment="Top" Height="66" Width="100" Click="onUpdatePatient_Click"  />
+        <Button Content="DETAILS" HorizontalAlignment="Left" Margin="396,713,0,0" VerticalAlignment="Top" Height="66" Width="100" Click="onPatientDetails_Click" />
 
 
-        <TextBlock HorizontalAlignment="Left" Margin="658,94,0,0" Text="Appointments" TextWrapping="Wrap" VerticalAlignment="Top" Height="38" Width="379" Foreground="Azure" FontSize="30" TextAlignment="Center"/>
+        <TextBlock HorizontalAlignment="Left" Margin="658,94,0,0" Text="Appointments" TextWrapping="Wrap" VerticalAlignment="Top" Height="38" Width="379" FontSize="30" TextAlignment="Center"/>
 
         <ListView x:Name="DatabaseAppointmentInformation" HorizontalAlignment="Left" Height="544" VerticalAlignment="Top" Width="378" Background="White" Margin="657,139,0,0" SelectionChanged="DatabaseAppointmentInformation_OnSelectionChanged" />
-        <Button Content="NEW" HorizontalAlignment="Left" Margin="658,741,0,0" VerticalAlignment="Top" Height="66" Width="95" Click="onAddAppointment_Click" Background="#0178D4" BorderBrush="#3CC4EE" Foreground="Aqua" RenderTransformOrigin="0.535,0.233"/>
-        <Button Content="UPDATE" HorizontalAlignment="Left" Margin="794,741,0,0" VerticalAlignment="Top" Height="66" Width="105" Click="onUpdateAppointment_Click" Background="#0178D4" BorderBrush="#3CC4EE" Foreground="Aqua"/>
-        <Button Content="Check-Up" HorizontalAlignment="Left" Margin="935,741,0,0" VerticalAlignment="Top" Height="66" Width="100" Click="onCheckUp_Click" Background="#0178D4" BorderBrush="#3CC4EE" Foreground="Aqua"/>
+        <Button Content="NEW" HorizontalAlignment="Left" Margin="658,713,0,0" VerticalAlignment="Top" Height="66" Width="95" Click="onAddAppointment_Click" RenderTransformOrigin="0.535,0.233"/>
+        <Button Content="UPDATE" HorizontalAlignment="Left" Margin="794,713,0,0" VerticalAlignment="Top" Height="66" Width="105" Click="onUpdateAppointment_Click" />
+        <Button Content="Check-Up" HorizontalAlignment="Left" Margin="935,713,0,0" VerticalAlignment="Top" Height="66" Width="100" Click="onCheckUp_Click" />
 
         <TextBox x:Name="lastName" HorizontalAlignment="Left" Margin="-123,590,0,0" Text="Search" VerticalAlignment="Top" Width="142" Background="Azure"/>
-        <Button Content="Find Patient(s)" HorizontalAlignment="Left" Margin="-216,475,0,0" VerticalAlignment="Top" Width="157" Background="#0178D4" BorderBrush="#3CC4EE" Foreground="Aqua" Click="FindButton_Click"/>
+        <Button Content="Find Patient(s)" HorizontalAlignment="Left" Margin="-216,475,0,0" VerticalAlignment="Top" Width="157" Click="FindButton_Click"/>
         <TextBox x:Name="firstName" HorizontalAlignment="Left" Margin="-123,540,0,0" Text="Search" VerticalAlignment="Top" Width="142" Background="Azure"/>
-        <TextBlock HorizontalAlignment="Left" Margin="-217,546,0,0" Text="First Name:" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="White"/>
-        <TextBlock HorizontalAlignment="Left" Margin="-216,596,0,0" Text="Last Name:" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="White"/>
+        <TextBlock HorizontalAlignment="Left" Margin="-217,546,0,0" Text="First Name:" TextWrapping="Wrap" VerticalAlignment="Top" />
+        <TextBlock HorizontalAlignment="Left" Margin="-216,596,0,0" Text="Last Name:" TextWrapping="Wrap" VerticalAlignment="Top" />
         <DatePicker x:Name="datePicker" HorizontalAlignment="Left" Margin="-217,651,0,0" VerticalAlignment="Top"/>
         <StackPanel Orientation="Vertical" Margin="-216,707,1329,46" Grid.RowSpan="2">
             <RadioButton Content="Search by Name" Tag="SearchName" Checked="SearchNameRadioButton_Checked" GroupName="SearchButtons" IsChecked="True"/>
             <RadioButton Content="Search by Date of Birth" Tag="SearchDate" Checked="SearchDateRadioButton_Checked" GroupName="SearchButtons"/>
             <RadioButton Content="Search by Both" Tag="SearchBoth" Checked="SearchBothRadioButton_Checked" GroupName="SearchButtons"/>
         </StackPanel>
-        <Button Content="REFRESH" HorizontalAlignment="Left" Margin="257,66,0,0" VerticalAlignment="Top" Height="38" Width="100" Background="#0178D4" BorderBrush="#3CC4EE" Foreground="Aqua" Click="RefreshButton_Click" Grid.Row="1"/>
-        <Button Content="CUSTOM QUERY" HorizontalAlignment="Left" Margin="820,70.8,0,0" VerticalAlignment="Top" Height="66" Width="165" Click="customQuery_Click"  Background="#0178D4" BorderBrush="#3CC4EE" Foreground="Aqua" Grid.Row="1"/>
-        <Button Content="DETAILS" HorizontalAlignment="Left" Margin="658,19,0,0" VerticalAlignment="Top" Height="66" Width="95" Click="onDetails_Click" Background="#0178D4" BorderBrush="#3CC4EE" Foreground="Aqua" RenderTransformOrigin="0.535,0.233" Grid.Row="1"/>
+        <Button Content="REFRESH" HorizontalAlignment="Left" Margin="257,66,0,0" VerticalAlignment="Top" Height="38" Width="100"  Click="RefreshButton_Click" Grid.Row="1"/>
+        <Button Content="CUSTOM QUERY" HorizontalAlignment="Left" Margin="820,70.8,0,0" VerticalAlignment="Top" Height="66" Width="165" Click="customQuery_Click"  Grid.Row="1"/>
+        <Button Content="DETAILS" HorizontalAlignment="Left" Margin="658,783,0,0" VerticalAlignment="Top" Height="62" Width="95" Click="onDetails_Click" RenderTransformOrigin="0.535,0.233" Grid.RowSpan="2"/>
     </Grid>
 </Page>
