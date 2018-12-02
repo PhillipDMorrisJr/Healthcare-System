@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text.RegularExpressions;
 using Windows.Foundation;
@@ -28,6 +29,9 @@ namespace Healthcare.Views
     public sealed partial class RoutineCheckUp : Page
     {
         private Patient patient;
+        private bool checkupBtnOn = true;
+        private bool doctorDiagnosisBtnOn = true;
+
         public RoutineCheckUp()
         {
             this.InitializeComponent();
@@ -42,7 +46,11 @@ namespace Healthcare.Views
                                 AppointmentManager.CurrentAppointment.Patient.LastName;
 
             this.phone.Text = String.Format("{0:(###) ###-####}", AppointmentManager.CurrentAppointment.Patient.Phone);
-            this.ssn.Text = "***-**-" + AppointmentManager.CurrentAppointment.Patient.Ssn.ToString().Substring(5);          
+            this.ssn.Text = "***-**-" + AppointmentManager.CurrentAppointment.Patient.Ssn.ToString().Substring(5);   
+            this.doctor.Text = AppointmentManager.CurrentAppointment.Doctor.FullName;
+
+            this.checkupBtn.IsEnabled = checkupBtnOn;
+            this.doctorDiagnosisBtn.IsEnabled = doctorDiagnosisBtnOn;
         }
 
         private void checkup_Click(object sender, RoutedEventArgs e)
@@ -71,8 +79,31 @@ namespace Healthcare.Views
                 }
                 
                 CheckUp details = new CheckUp(systolic, diastolic, this.patient, temp, time, nurse, weight, pulse, symptoms, appointment);
-                CheckUpManager.Execute(details);
-                this.Frame.Navigate(typeof(MainPage));
+
+                var result = CheckUpManager.Execute(details);
+
+                if (result != null)
+                {
+                    this.doctorDiagnosisBtn.IsEnabled = true;
+                    this.checkupBtn.IsEnabled = false;
+
+                    //display complete check-in and checkup dialog
+
+                    this.systolic.IsEnabled = false;
+                    this.diastolic.IsEnabled = false;
+                    this.pulse.IsEnabled = false;
+                    this.temperature.IsEnabled = false;
+                    this.weight.IsEnabled = false;
+                    this.AppointmentTime.IsEnabled = false;
+                    this.patientSymptoms.IsEnabled = false;
+                    this.knownSymptoms.IsEnabled = false;
+                    this.addSymptomBtn.IsEnabled = false;
+                    this.removeSymptomBtn.IsEnabled = false;                    
+                }
+                else
+                {
+                    //display error message dialog
+                }
             }
         }
 
@@ -167,20 +198,25 @@ namespace Healthcare.Views
             }
         }
 
-        private void orderTest_Click(object sender, RoutedEventArgs e)
+        private void doctorDiagnosisBtn_Click(object sender, RoutedEventArgs e)
         {
-            var complete = AppointmentDAL.updateTestOrdered((int) AppointmentManager.CurrentAppointment.ID);
 
-            if (complete)
-            {
-                this.homeBtn.IsEnabled = false;
-                this.orderBtn.IsEnabled = false;
-            }
-            else
-            {
-                this.homeBtn.IsEnabled = true;
-                this.orderBtn.IsEnabled = true;
-            }
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            bool diagnosisResult = e.Parameter != null && (bool) e.Parameter;
+
+            var previousPage = Frame.BackStack.Last();
+
+            if (previousPage?.SourcePageType != typeof(DoctorDiagnosis)) return;
+
+            if (!diagnosisResult) return;
+
+            checkupBtnOn = false;
+            doctorDiagnosisBtnOn = false;
+
+            base.OnNavigatedTo(e);
         }
     }
 }

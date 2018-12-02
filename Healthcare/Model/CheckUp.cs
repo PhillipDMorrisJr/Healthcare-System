@@ -80,6 +80,8 @@ namespace Healthcare.Model
         /// </value>
         public Appointment Appointment { get; private set; }
 
+        public int cuID { get; private set; }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="CheckUp" /> class.
         /// </summary>

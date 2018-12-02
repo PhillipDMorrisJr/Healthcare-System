@@ -130,6 +130,12 @@
     <Compile Include="Views\EditPatient.xaml.cs">
       <DependentUpon>EditPatient.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\DoctorDiagnosis.xaml.cs">
+      <DependentUpon>DoctorDiagnosis.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\OrderTest.xaml.cs">
+      <DependentUpon>OrderTest.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\EnterTestResult.xaml.cs">
       <DependentUpon>EnterTestResult.xaml</DependentUpon>
     </Compile>
@@ -205,6 +211,14 @@
     <Page Include="Views\EditPatient.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\DoctorDiagnosis.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\OrderTest.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\EnterTestResult.xaml">
       <SubType>Designer</SubType>

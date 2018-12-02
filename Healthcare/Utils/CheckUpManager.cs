@@ -10,6 +10,10 @@ namespace Healthcare.Utils
 {
     public static class CheckUpManager
     {
+        //public static List<CheckUp> checkups = CheckUpDAL.getCheckups();
+
+        public static CheckUp CurrentCheckUp;
+
         /// <summary>
         /// Executes check up with the specified details.
         /// </summary>
