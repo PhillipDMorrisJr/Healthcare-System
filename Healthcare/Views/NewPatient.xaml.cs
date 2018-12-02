@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -24,14 +25,13 @@ namespace Healthcare.Views
     /// </summary>
     public sealed partial class NewPatient : Page
     {
-        private List<string> validationSummary;
         public NewPatient()
         {
             this.InitializeComponent();
             this.nameID.Text = AccessValidator.CurrentUser.Username;
             this.userID.Text = AccessValidator.CurrentUser.Id;
             this.accessType.Text = AccessValidator.Access;
-            this.validationSummary = new List<string>();
+            
             List<string> genders = new List<string> {"Male", "Female"};
             this.genderCmbox.ItemsSource = genders;
             this.genderCmbox.SelectedItem = "Male";
@@ -39,23 +39,52 @@ namespace Healthcare.Views
 
         private void validate()
         {
-            validationSummary.Add("Please Address the following:");
+            this.validation.Text +=  "Please Address the following:\n";
             if (string.IsNullOrEmpty(fname.Text))
             {
+                this.validation.Text += "Please enter a valid first name\n";
+                this.fname.BorderBrush = new SolidColorBrush(Colors.Red);
+            }
+            if (string.IsNullOrEmpty(lname.Text))
+            {
+                this.validation.Text += "Please enter a valid last name\n";
+                this.lname.BorderBrush = new SolidColorBrush(Colors.Red);
+            }
+            if (string.IsNullOrEmpty(street.Text))
+            {
+                this.validation.Text += "Please enter a valid street\n";
+                this.street.BorderBrush = new SolidColorBrush(Colors.Red);
+            }
+
+            if (string.IsNullOrEmpty(this.ssn.Password))
+            {
+                this.validation.Text += "Please enter a valid ssn in the following format: xxxxxxxxx\n";
+                this.street.BorderBrush = new SolidColorBrush(Colors.Red);
 
             }
-        }
+            if (string.IsNullOrEmpty(this.phone.Text))
+            {
+                this.validation.Text += "Please enter a valid phone number in the following format: xxxxxxxxxx\n";
+                this.street.BorderBrush = new SolidColorBrush(Colors.Red);
 
-        public bool isValidPatient()
-        {
-            string street = this.street.Text;
-            string state = this.state.Text;
-            string zip = this.zip.Text;
-            return 
+            }
+
+            if (this.bday.Date > DateTimeOffset.Now)
+            {
+                this.validation.Text += "Patient's birthday must before the current day\n";
+                this.bday.BorderBrush = new SolidColorBrush(Colors.Red);
+            }
+
+            if (this.genderCmbox.SelectedItem == null)
+            {
+                this.validation.Text += "Must select a gender\n";
+                this.genderCmbox.BorderBrush = new SolidColorBrush(Colors.Red);
+            }
         }
 
         private void createPatient_onClick(object sender, RoutedEventArgs e)
         {
+            this.validation.Text = "";
             string ssn = this.ssn.Password;
             string firstName = this.fname.Text;
             string lastName = this.lname.Text;
@@ -65,15 +94,12 @@ namespace Healthcare.Views
             string gender = string.Empty;
             
             var genderCmboxSelectedItem = this.genderCmbox.SelectedItem;
-            if (genderCmboxSelectedItem != null)
-            {
-                gender = genderCmboxSelectedItem.ToString();
-            }
+            gender = genderCmboxSelectedItem?.ToString();
+            
 
             string street = this.street.Text;
             string state = this.state.Text;
             string zip = this.zip.Text;
-
 
             try
             {
@@ -84,12 +110,8 @@ namespace Healthcare.Views
             }
             catch (Exception)
             {
-                validate()
+                this.validate();
             }
-             
-            
-
-            
         }
 
         private void home_onClick(object sender, RoutedEventArgs e)

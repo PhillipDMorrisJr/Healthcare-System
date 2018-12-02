@@ -63,22 +63,35 @@ namespace Healthcare
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="RoutedEventArgs" /> instance containing the event data.</param>
-        private void MainPage_OnLoaded(object sender, RoutedEventArgs e)
+        private async void MainPage_OnLoaded(object sender, RoutedEventArgs e)
         {
-            findValue = 1;
-
-            List<Patient> patientRegistry =  RegistrationUtility.GetPatients();
-            foreach (var patientToRegister in patientRegistry)
+            try
             {
-                if (patientToRegister != null)
+                findValue = 1;
+
+                List<Patient> patientRegistry = RegistrationUtility.GetPatients();
+                foreach (var patientToRegister in patientRegistry)
                 {
-                    ListViewItem item = new ListViewItem
+                    if (patientToRegister != null)
                     {
-                        Tag = patientToRegister, Content = patientToRegister.Format()
-                    };
-                    this.DatabasePatientInformation.Items?.Add(item);
+                        ListViewItem item = new ListViewItem {
+                            Tag = patientToRegister,
+                            Content = patientToRegister.Format()
+                        };
+                        this.DatabasePatientInformation.Items?.Add(item);
+                    }
                 }
             }
+            catch (Exception)
+            {
+                ContentDialog backHome = new ContentDialog() {
+                    Content = "Page failed to load. Returning back to login page.",
+                    CloseButtonText = "Okay"
+                };
+                await backHome.ShowAsync();
+                this.Frame.Navigate(typeof(LoginPage));
+            }
+           
         }
 
         /// <summary>
@@ -136,7 +149,10 @@ namespace Healthcare
             {
                 this.Frame.Navigate(typeof(PatientDetails));
             }
-            await InformToSelectPatient();
+            else
+            {
+                await InformToSelectPatient();
+            }
             
         }
 
@@ -151,7 +167,11 @@ namespace Healthcare
             {
                 this.Frame.Navigate(typeof(NewAppointment));
             }
-            await InformToSelectPatient();
+            else
+            {
+                await InformToSelectPatient();
+            }
+            
         }
 
         /// <summary>
@@ -165,7 +185,11 @@ namespace Healthcare
             {
                 this.Frame.Navigate(typeof(EditAppointment));
             }
-            await InformToSelectAppointment();
+            else
+            {
+                await InformToSelectAppointment();
+            }
+            
         }
 
         /// <summary>
@@ -179,18 +203,18 @@ namespace Healthcare
             if (currentAppointment != null && AccessValidator.Access.Equals("Nurse"))
             {
                 this.Frame.Navigate(typeof(RoutineCheckUp));
-            }
-
-            if (currentAppointment == null)
+            } else if (currentAppointment == null)
             {
                 await InformToSelectAppointment();
-            } 
-            ContentDialog invalidAccess = new ContentDialog()
+            } else
             {
-                Content = "Please login as a Nurse to perform routine check-up",
-                CloseButtonText = "Okay"
-            };
-            await invalidAccess.ShowAsync();
+                ContentDialog invalidAccess = new ContentDialog()
+                {
+                    Content = "Please login as a Nurse to perform routine check-up",
+                    CloseButtonText = "Okay"
+                };
+                await invalidAccess.ShowAsync();
+            }
 
 
         }
@@ -338,12 +362,17 @@ namespace Healthcare
             {
                 Frame.Navigate(typeof(QueryPage));
             }
-            ContentDialog invalidAccess = new ContentDialog()
+            else
             {
-                Content = "Please login as an Administrator to access this page",
-                CloseButtonText = "Okay"
-            };
-            await invalidAccess.ShowAsync();
+                ContentDialog invalidAccess = new ContentDialog()
+                {
+                    Content = "Please login as an Administrator to access this page",
+                    CloseButtonText = "Okay"
+                };
+                await invalidAccess.ShowAsync();
+            }
+
+
         }
         /// <summary>
         /// Handles the Click event of the Appointment Details control.
@@ -356,7 +385,11 @@ namespace Healthcare
             {
                 this.Frame.Navigate(typeof(AppointmentDetails));
             }
-            await InformToSelectAppointment();
+            else
+            {
+                await InformToSelectAppointment();
+            }
+           
         }
     }
 }

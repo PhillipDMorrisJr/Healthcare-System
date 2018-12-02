@@ -1,4 +1,4 @@
-﻿<Page RequestedTheme="Dark"
+﻿<Page 
     x:Class="Healthcare.MainPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -16,7 +16,9 @@
             <Setter Property="BorderBrush" Value="#3CC4EE"/>
             <Setter Property="BorderThickness" Value="2"/>
         </Style>
-
+<Style TargetType="RadioButton">
+            <Setter Property="RequestedTheme" Value="Dark"></Setter>
+</Style>
         <Style TargetType="TextBlock">
             <Setter Property="Foreground" Value="Azure"></Setter>
         </Style>
@@ -61,7 +63,7 @@
         <TextBlock HorizontalAlignment="Left" Margin="-216,596,0,0" Text="Last Name:" TextWrapping="Wrap" VerticalAlignment="Top" />
         <DatePicker x:Name="datePicker" HorizontalAlignment="Left" Margin="-217,651,0,0" VerticalAlignment="Top"/>
         <StackPanel Orientation="Vertical" Margin="-216,707,1329,46" Grid.RowSpan="2">
-            <RadioButton Content="Search by Name" Tag="SearchName" Checked="SearchNameRadioButton_Checked" GroupName="SearchButtons" IsChecked="True"/>
+            <RadioButton Content="Search by Name" Tag="SearchName" Checked="SearchNameRadioButton_Checked" GroupName="SearchButtons" IsChecked="True" />
             <RadioButton Content="Search by Date of Birth" Tag="SearchDate" Checked="SearchDateRadioButton_Checked" GroupName="SearchButtons"/>
             <RadioButton Content="Search by Both" Tag="SearchBoth" Checked="SearchBothRadioButton_Checked" GroupName="SearchButtons"/>
         </StackPanel>
