@@ -1,18 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
 using Healthcare.DAL;
 using Healthcare.Model;
 using Healthcare.Utils;
@@ -23,7 +13,7 @@ using Healthcare.Views;
 namespace Healthcare
 {
     /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
+    ///     An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
     /// <seealso cref="Windows.UI.Xaml.Controls.Page" />
     /// <seealso cref="Windows.UI.Xaml.Markup.IComponentConnector" />
@@ -35,31 +25,30 @@ namespace Healthcare
         private Patient currentPatient;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="MainPage" /> class.
+        ///     Initializes a new instance of the <see cref="MainPage" /> class.
         /// </summary>
         public MainPage()
         {
-            this.InitializeComponent();
+            InitializeComponent();
             currentAppointment = null;
             currentPatient = null;
-            this.nameID.Text = AccessValidator.CurrentUser.Username;
-            this.userID.Text = AccessValidator.CurrentUser.Id;
-            this.accessType.Text = AccessValidator.Access;
-
+            nameID.Text = AccessValidator.CurrentUser.Username;
+            userID.Text = AccessValidator.CurrentUser.Id;
+            accessType.Text = AccessValidator.Access;
         }
 
         /// <summary>
-        /// Handles the Click event of the onLogout control.
+        ///     Handles the Click event of the onLogout control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="RoutedEventArgs" /> instance containing the event data.</param>
         private void onLogout_Click(object sender, RoutedEventArgs e)
         {
-            this.Frame.Navigate(typeof(LoginPage));
+            Frame.Navigate(typeof(LoginPage));
         }
 
         /// <summary>
-        /// Handles the OnLoaded event of the MainPage control.
+        ///     Handles the OnLoaded event of the MainPage control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="RoutedEventArgs" /> instance containing the event data.</param>
@@ -69,71 +58,66 @@ namespace Healthcare
             {
                 findValue = 1;
 
-                List<Patient> patientRegistry = RegistrationUtility.GetPatients();
+                var patientRegistry = RegistrationUtility.GetPatients();
                 foreach (var patientToRegister in patientRegistry)
-                {
                     if (patientToRegister != null)
                     {
-                        ListViewItem item = new ListViewItem {
+                        var item = new ListViewItem
+                        {
                             Tag = patientToRegister,
                             Content = patientToRegister.Format()
                         };
-                        this.DatabasePatientInformation.Items?.Add(item);
+                        DatabasePatientInformation.Items?.Add(item);
                     }
-                }
             }
             catch (Exception)
             {
-                ContentDialog backHome = new ContentDialog() {
+                var backHome = new ContentDialog
+                {
                     Content = "Page failed to load. Returning back to login page.",
                     CloseButtonText = "Okay"
                 };
                 await backHome.ShowAsync();
-                this.Frame.Navigate(typeof(LoginPage));
+                Frame.Navigate(typeof(LoginPage));
             }
-           
         }
 
         /// <summary>
-        /// Handles the Click event of the onAddPatient control.
+        ///     Handles the Click event of the onAddPatient control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="RoutedEventArgs" /> instance containing the event data.</param>
         private void onAddPatient_Click(object sender, RoutedEventArgs e)
         {
-            this.Frame.Navigate(typeof(NewPatient));
+            Frame.Navigate(typeof(NewPatient));
         }
 
         /// <summary>
-        /// Handles the Click event of the onUpdatePatient control.
+        ///     Handles the Click event of the onUpdatePatient control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="RoutedEventArgs" /> instance containing the event data.</param>
         private async void onUpdatePatient_Click(object sender, RoutedEventArgs e)
         {
             if (currentPatient != null)
-            {
-                this.Frame.Navigate(typeof(EditPatient));
-            }
+                Frame.Navigate(typeof(EditPatient));
             else
-            {
                 await InformToSelectPatient();
-            }
-            
         }
 
         private static async Task InformToSelectPatient()
         {
-            ContentDialog selectPatient = new ContentDialog()
+            var selectPatient = new ContentDialog
             {
                 Content = "Please select a patient",
                 CloseButtonText = "Okay"
             };
             await selectPatient.ShowAsync();
         }
+
         private static async Task InformToSelectAppointment()
         {
-            ContentDialog selectAppointment = new ContentDialog()
+            var selectAppointment = new ContentDialog
             {
                 Content = "Please select an appointment",
                 CloseButtonText = "Okay"
@@ -142,107 +126,88 @@ namespace Healthcare
         }
 
         /// <summary>
-        /// Handles the Click event of the onPatientDetails control.
+        ///     Handles the Click event of the onPatientDetails control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="RoutedEventArgs" /> instance containing the event data.</param>
         private async void onPatientDetails_Click(object sender, RoutedEventArgs e)
         {
             if (currentPatient != null)
-            {
-                this.Frame.Navigate(typeof(PatientDetails));
-            }
+                Frame.Navigate(typeof(PatientDetails));
             else
-            {
                 await InformToSelectPatient();
-            }
-            
         }
 
         /// <summary>
-        /// Handles the Click event of the onAddAppointment control.
+        ///     Handles the Click event of the onAddAppointment control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs" /> instance containing the event data.</param>
         private async void onAddAppointment_Click(object sender, RoutedEventArgs e)
         {
             if (currentPatient != null)
-            {
-                this.Frame.Navigate(typeof(NewAppointment));
-            }
+                Frame.Navigate(typeof(NewAppointment));
             else
-            {
                 await InformToSelectPatient();
-            }
-            
         }
 
         /// <summary>
-        /// Handles the Click event of the onUpdateAppointment control.
+        ///     Handles the Click event of the onUpdateAppointment control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs" /> instance containing the event data.</param>
         private async void onUpdateAppointment_Click(object sender, RoutedEventArgs e)
         {
             if (currentAppointment != null)
-            {
-                this.Frame.Navigate(typeof(EditAppointment));
-            }
+                Frame.Navigate(typeof(EditAppointment));
             else
-            {
                 await InformToSelectAppointment();
-            }
-            
         }
 
         /// <summary>
-        /// Handles the Click event of the onCheckUp control.
+        ///     Handles the Click event of the onCheckUp control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs" /> instance containing the event data.</param>
         /// <exception cref="NotImplementedException"></exception>
         private async void onCheckUp_Click(object sender, RoutedEventArgs e)
         {
             if (currentAppointment != null && AccessValidator.Access.Equals("Nurse"))
             {
-                this.Frame.Navigate(typeof(RoutineCheckUp));
-            } else if (currentAppointment == null)
+                Frame.Navigate(typeof(RoutineCheckUp));
+            }
+            else if (currentAppointment == null)
             {
                 await InformToSelectAppointment();
-            } else
+            }
+            else
             {
-                ContentDialog invalidAccess = new ContentDialog()
+                var invalidAccess = new ContentDialog
                 {
                     Content = "Please login as a Nurse to perform routine check-up",
                     CloseButtonText = "Okay"
                 };
                 await invalidAccess.ShowAsync();
             }
-
-
         }
 
         /// <summary>
-        /// Handles the OnSelectionChanged event of the DatabasePatientInformation control.
+        ///     Handles the OnSelectionChanged event of the DatabasePatientInformation control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="SelectionChangedEventArgs"/> instance containing the event data.</param>
+        /// <param name="e">The <see cref="SelectionChangedEventArgs" /> instance containing the event data.</param>
         private void DatabasePatientInformation_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            currentPatient = (this.DatabasePatientInformation.SelectedItem as ListViewItem)?.Tag as Patient;
-            this.DatabaseAppointmentInformation.Items?.Clear();
-            if (currentPatient == null)
-            {
-                return;
-            }
+            currentPatient = (DatabasePatientInformation.SelectedItem as ListViewItem)?.Tag as Patient;
+            DatabaseAppointmentInformation.Items?.Clear();
+            if (currentPatient == null) return;
 
             PatientManager.CurrentPatient = currentPatient;
-            List<Appointment> appointments = AppointmentDAL.GetAppointments(currentPatient);
+            var appointments = AppointmentDAL.GetAppointments(currentPatient);
 
             AddAPpointmentsToManager(appointments);
 
             displayAppointments();
-
         }
 
         private void displayAppointments()
@@ -253,7 +218,7 @@ namespace Healthcare
                 {
                     if (appointment == null) continue;
                     var item = new ListViewItem {Tag = appointment, Content = appointment.Format()};
-                    this.DatabaseAppointmentInformation.Items?.Add(item);
+                    DatabaseAppointmentInformation.Items?.Add(item);
                 }
             }
             catch (Exception)
@@ -264,7 +229,6 @@ namespace Healthcare
         private void AddAPpointmentsToManager(List<Appointment> appointments)
         {
             if (appointments != null)
-            {
                 try
                 {
                     AppointmentManager.Appointments[currentPatient] = appointments;
@@ -273,14 +237,13 @@ namespace Healthcare
                 {
                     // ignored
                 }
-            }
         }
 
         private void RefreshButton_Click(object sender, RoutedEventArgs e)
         {
             var patients = RegistrationUtility.GetRefreshedPatients();
-           
-            this.RefreshPatientList(patients);
+
+            RefreshPatientList(patients);
         }
 
         private void FindButton_Click(object sender, RoutedEventArgs e)
@@ -301,42 +264,42 @@ namespace Healthcare
 
         private void HandleSearchByName()
         {
-            var fName = this.firstName.Text;
-            var lName = this.lastName.Text;
+            var fName = firstName.Text;
+            var lName = lastName.Text;
 
             if (string.IsNullOrWhiteSpace(fName) && string.IsNullOrWhiteSpace(lName)) return;
 
             RegistrationUtility.FindPatientsByName(fName, lName);
-            
+
             var patients = RegistrationUtility.GetPatients();
 
-            this.RefreshPatientList(patients);        
+            RefreshPatientList(patients);
         }
 
         private void HandleSearchByDob()
         {
-            var dob = this.datePicker.Date.DateTime;
+            var dob = datePicker.Date.DateTime;
 
             RegistrationUtility.FindPatientsByDob(dob);
 
             var patients = RegistrationUtility.GetPatients();
 
-            this.RefreshPatientList(patients);
+            RefreshPatientList(patients);
         }
 
         private void HandleSearchByBoth()
         {
-            var dob = this.datePicker.Date.DateTime;
-            var fName = this.firstName.Text;
-            var lName = this.lastName.Text;
+            var dob = datePicker.Date.DateTime;
+            var fName = firstName.Text;
+            var lName = lastName.Text;
 
             if (string.IsNullOrWhiteSpace(fName) && string.IsNullOrWhiteSpace(lName)) return;
 
             RegistrationUtility.FindPatientsByNameAndDob(fName, lName, dob);
-            
+
             var patients = RegistrationUtility.GetPatients();
 
-            this.RefreshPatientList(patients);
+            RefreshPatientList(patients);
         }
 
         private void SearchNameRadioButton_Checked(object sender, RoutedEventArgs e)
@@ -356,26 +319,25 @@ namespace Healthcare
 
         private void DatabaseAppointmentInformation_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            currentAppointment = (this.DatabaseAppointmentInformation.SelectedItem as ListViewItem)?.Tag as Appointment;
+            currentAppointment = (DatabaseAppointmentInformation.SelectedItem as ListViewItem)?.Tag as Appointment;
             AppointmentManager.CurrentAppointment = currentAppointment;
         }
 
         private void RefreshPatientList(List<Patient> patients)
         {
-            this.DatabasePatientInformation.Items?.Clear();
-           
+            DatabasePatientInformation.Items?.Clear();
+
             foreach (var patientToRegister in patients)
-            {
                 if (patientToRegister != null)
                 {
-                    ListViewItem item = new ListViewItem
+                    var item = new ListViewItem
                     {
                         Tag = patientToRegister, Content = patientToRegister.Format()
                     };
-                    this.DatabasePatientInformation.Items?.Add(item);
+                    DatabasePatientInformation.Items?.Add(item);
                 }
-            }
         }
+
         private async void customQuery_Click(object sender, RoutedEventArgs e)
         {
             if (AccessValidator.Access.Equals("Administrator"))
@@ -384,32 +346,26 @@ namespace Healthcare
             }
             else
             {
-                ContentDialog invalidAccess = new ContentDialog()
+                var invalidAccess = new ContentDialog
                 {
                     Content = "Please login as an Administrator to access this page",
                     CloseButtonText = "Okay"
                 };
                 await invalidAccess.ShowAsync();
             }
-
-
         }
+
         /// <summary>
-        /// Handles the Click event of the Appointment Details control.
+        ///     Handles the Click event of the Appointment Details control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs" /> instance containing the event data.</param>
         private async void onDetails_Click(object sender, RoutedEventArgs e)
         {
             if (currentAppointment != null)
-            {
-                this.Frame.Navigate(typeof(AppointmentDetails));
-            }
+                Frame.Navigate(typeof(AppointmentDetails));
             else
-            {
                 await InformToSelectAppointment();
-            }
-           
         }
     }
 }

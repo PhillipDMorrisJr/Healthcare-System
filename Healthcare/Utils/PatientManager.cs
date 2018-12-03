@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Healthcare.DAL;
 using Healthcare.Model;
 
@@ -18,18 +14,11 @@ namespace Healthcare.Utils
         {
             Address foundAddress = null;
 
-            if (Addresses == null)
-            {
-                return null;
-            }
+            if (Addresses == null) return null;
 
             foreach (var address in Addresses)
-            {
                 if (address.AddressId == id)
-                {
                     foundAddress = address;
-                }
-            }
 
             return foundAddress;
         }

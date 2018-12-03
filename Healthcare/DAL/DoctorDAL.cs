@@ -1,20 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Healthcare.Model;
 using MySql.Data.MySqlClient;
 
 namespace Healthcare.DAL
 {
-    class DoctorDAL
+    internal class DoctorDAL
     {
         public static List<Doctor> GetDoctors()
         {
             var doctors = new List<Doctor>();
 
-            using (MySqlConnection conn = DbConnection.GetConnection())
+            using (var conn = DbConnection.GetConnection())
             {
                 conn.Open();
                 const string selectQuery = "select * from doctors";
@@ -32,10 +28,11 @@ namespace Healthcare.DAL
                         var lastName = (string) reader["lastName"];
 
                         var newDoctor = new Doctor(id, firstName, lastName);
-                        doctors.Add(newDoctor);                       
+                        doctors.Add(newDoctor);
                     }
                 }
             }
+
             return doctors;
         }
     }

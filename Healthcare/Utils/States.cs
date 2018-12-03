@@ -1,17 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Metadata.Ecma335;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace Healthcare.Utils
 {
     public static class States
     {
-        public static List<String> GetStates()
+        public static List<string> GetStates()
         {
-            List<String> states = new List<String>(50);
+            var states = new List<string>(50);
             states.Add("AL");
             states.Add("AK");
             states.Add("AZ");

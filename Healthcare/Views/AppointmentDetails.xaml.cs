@@ -1,18 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
+﻿using System.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-using Healthcare.DAL;
 using Healthcare.Model;
 using Healthcare.Utils;
 
@@ -21,68 +10,64 @@ using Healthcare.Utils;
 namespace Healthcare.Views
 {
     /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
+    ///     An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
     public sealed partial class AppointmentDetails : Page
     {
         public AppointmentDetails()
         {
-            this.InitializeComponent();
-            this.nameID.Text = AccessValidator.CurrentUser.Username;
-            this.userID.Text = AccessValidator.CurrentUser.Id;
-            this.accessType.Text = AccessValidator.Access;
+            InitializeComponent();
+            nameID.Text = AccessValidator.CurrentUser.Username;
+            userID.Text = AccessValidator.CurrentUser.Id;
+            accessType.Text = AccessValidator.Access;
 
-            this.AppointmentDate.Date = AppointmentManager.CurrentAppointment.AppointmentDateTime;
-            this.description.Text = AppointmentManager.CurrentAppointment.Description;
-            this.AppointmentTime.Time = AppointmentManager.CurrentAppointment.AppointmentTime;
-           
-            this.doctor.Text = AppointmentManager.CurrentAppointment.Doctor.FullName;
+            AppointmentDate.Date = AppointmentManager.CurrentAppointment.AppointmentDateTime;
+            description.Text = AppointmentManager.CurrentAppointment.Description;
+            AppointmentTime.Time = AppointmentManager.CurrentAppointment.AppointmentTime;
 
-            this.name.Text = AppointmentManager.CurrentAppointment.Patient.FirstName + " " +
-                                AppointmentManager.CurrentAppointment.Patient.LastName;
+            doctor.Text = AppointmentManager.CurrentAppointment.Doctor.FullName;
 
-            this.phone.Text = String.Format("{0:(###) ###-####}", AppointmentManager.CurrentAppointment.Patient.Phone);
-            this.ssn.Text = "***-**-" + AppointmentManager.CurrentAppointment.Patient.Ssn.ToString().Substring(5);
+            name.Text = AppointmentManager.CurrentAppointment.Patient.FirstName + " " +
+                        AppointmentManager.CurrentAppointment.Patient.LastName;
 
-            this.checkedIn.Text = AppointmentManager.CurrentAppointment.IsCheckedIn ? "Yes" : "No";     
+            phone.Text = string.Format("{0:(###) ###-####}", AppointmentManager.CurrentAppointment.Patient.Phone);
+            ssn.Text = "***-**-" + AppointmentManager.CurrentAppointment.Patient.Ssn.ToString().Substring(5);
 
-            this.checkupListBtn.IsEnabled = AppointmentManager.CurrentAppointment.IsCheckedIn;
+            checkedIn.Text = AppointmentManager.CurrentAppointment.IsCheckedIn ? "Yes" : "No";
+
+            checkupListBtn.IsEnabled = AppointmentManager.CurrentAppointment.IsCheckedIn;
 
             RecordedDiagnosis recordedDiagnosis = null;
 
             foreach (var record in RecordDiagnosisManager.GetRefreshedRecordedDiagnoses())
-            {
                 if (record.ApptId == AppointmentManager.CurrentAppointment.ID)
-                {
                     recordedDiagnosis = record;
-                }
-            }
 
             if (recordedDiagnosis == null)
             {
-                this.finalResultBtn.IsEnabled = true;
-                this.viewResultBtn.IsEnabled = false;
+                finalResultBtn.IsEnabled = true;
+                viewResultBtn.IsEnabled = false;
             }
             else
             {
-                this.finalResultBtn.IsEnabled = false;
-                this.viewResultBtn.IsEnabled = true;
+                finalResultBtn.IsEnabled = false;
+                viewResultBtn.IsEnabled = true;
             }
         }
 
         private void home_Click(object sender, RoutedEventArgs e)
         {
-            this.Frame.Navigate(typeof(MainPage));
+            Frame.Navigate(typeof(MainPage));
         }
 
         private void CheckupListBtn_Click(object sender, RoutedEventArgs e)
         {
-            this.Frame.Navigate(typeof(CheckupList));
+            Frame.Navigate(typeof(CheckupList));
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            bool recordResult = e.Parameter != null && (bool) e.Parameter;
+            var recordResult = e.Parameter != null && (bool) e.Parameter;
 
             var previousPage = Frame.BackStack.Last();
 
@@ -90,20 +75,20 @@ namespace Healthcare.Views
 
             if (!recordResult) return;
 
-            this.finalResultBtn.IsEnabled = false;
-            this.viewResultBtn.IsEnabled = true;
+            finalResultBtn.IsEnabled = false;
+            viewResultBtn.IsEnabled = true;
 
             base.OnNavigatedTo(e);
         }
 
         private void FinalResultBtn_Click(object sender, RoutedEventArgs e)
         {
-            this.Frame.Navigate(typeof(RecordFinalDiagnosis));
+            Frame.Navigate(typeof(RecordFinalDiagnosis));
         }
 
         private void ViewResultBtn_Click(object sender, RoutedEventArgs e)
         {
-            this.Frame.Navigate(typeof(ViewRecordFinalDiagnosis));
+            Frame.Navigate(typeof(ViewRecordFinalDiagnosis));
         }
     }
 }

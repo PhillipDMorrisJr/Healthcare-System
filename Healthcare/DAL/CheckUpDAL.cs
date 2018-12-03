@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Healthcare.Model;
 using Healthcare.Utils;
 using MySql.Data.MySqlClient;
@@ -11,40 +8,24 @@ namespace Healthcare.DAL
 {
     public static class CheckUpDAL
     {
-        private enum Attributes
-        {
-            CuId, ApptId, Systolic, Diastolic, PatientId, Temperature, ArrivalDate,
-            Weight = 9, Pulse
-        }
-
-        private enum PatientAttributes
-        {
-            PatientId, PatientSsn, FirstName, LastName, BirthDate, Gender, Phone, AddressId
-        }
-
-        private enum AppointmentAttributes
-        {
-            ApptDay = 2, Description = 4, IsCheckedIn = 5, DoctorId = 6
-        }
-
         public static CheckUp AddCheckUp(CheckUp details)
         {
             try
             {
                 int cuid;
-                using (MySqlConnection conn = DbConnection.GetConnection())
+                using (var conn = DbConnection.GetConnection())
                 {
                     conn.Open();
-                    
+
                     var insertQuery =
                         "INSERT INTO `checkup` (`appointmentID`, `systolic`, `diastolic`, `pID`, `temperature`, `arrivalDate`, `arrivalTime`, `nurseID`, `weight`, `pulse`) VALUES (@apptID, @systolic, @diastolic, @pID, @temp, @arrivalDate, @arrivalTime, @nurseID, @weight, @pulse)";
-                    using (MySqlCommand command = new MySqlCommand(insertQuery, conn))
+                    using (var command = new MySqlCommand(insertQuery, conn))
                     {
                         command.Parameters.AddWithValue("@apptID", details.Appointment.ID);
                         command.Parameters.AddWithValue("@systolic", details.Systolic);
                         command.Parameters.AddWithValue("@diastolic", details.Diastolic);
                         command.Parameters.AddWithValue("@pID", details.Patient.Id);
-                        command.Parameters.AddWithValue("@arrivalDate", details.ArrivalDate.ToString(("yyyy-MM-dd")));
+                        command.Parameters.AddWithValue("@arrivalDate", details.ArrivalDate.ToString("yyyy-MM-dd"));
                         command.Parameters.AddWithValue("@arrivalTime", details.ArrivalTime.ToString());
                         command.Parameters.AddWithValue("@temp", details.Temperature);
                         command.Parameters.AddWithValue("@nurseID", details.Nurse.Id);
@@ -55,9 +36,9 @@ namespace Healthcare.DAL
 
                     var selectQuery = "select LAST_INSERT_ID()";
 
-                    using (MySqlCommand selectCommand = new MySqlCommand(selectQuery, conn))
+                    using (var selectCommand = new MySqlCommand(selectQuery, conn))
                     {
-                        MySqlDataReader lastIndexReader = selectCommand.ExecuteReader();
+                        var lastIndexReader = selectCommand.ExecuteReader();
                         lastIndexReader.Read();
                         cuid = lastIndexReader.GetInt32(0);
 
@@ -68,43 +49,39 @@ namespace Healthcare.DAL
                     conn.Close();
                 }
 
-                foreach (Symptom symptom in details.Symptoms)
-                {
-                    using (MySqlConnection conn = DbConnection.GetConnection())
+                foreach (var symptom in details.Symptoms)
+                    using (var conn = DbConnection.GetConnection())
                     {
                         conn.Open();
                         var insertQuery = "INSERT INTO `checkupSymptoms` (`cuID`, `sID`) VALUES (@cuid, @sid)";
 
-                        using (MySqlCommand insertCommand = new MySqlCommand(insertQuery, conn))
+                        using (var insertCommand = new MySqlCommand(insertQuery, conn))
                         {
                             insertCommand.Parameters.AddWithValue("@cuid", cuid);
                             insertCommand.Parameters.AddWithValue("@sid", symptom.ID);
                             insertCommand.ExecuteNonQuery();
                         }
+
                         conn.Close();
                     }
-                }
 
-                using (MySqlConnection conn = DbConnection.GetConnection())
+                using (var conn = DbConnection.GetConnection())
                 {
                     conn.Open();
                     var checkInQuery =
                         "UPDATE `appointments` SET `isCheckedIn` = @status WHERE appointmentID = @aID AND patientID = @pID";
-                    using (MySqlCommand checkInCommand = new MySqlCommand(checkInQuery, conn))
+                    using (var checkInCommand = new MySqlCommand(checkInQuery, conn))
                     {
-
                         checkInCommand.Parameters.AddWithValue("@status", 1);
                         checkInCommand.Parameters.AddWithValue("@aID", details.Appointment.ID);
                         checkInCommand.Parameters.AddWithValue("@pID", details.Patient.Id);
                         checkInCommand.ExecuteNonQuery();
-
                     }
 
                     conn.Close();
                 }
 
                 return details;
-
             }
             catch (Exception exception)
             {
@@ -114,7 +91,7 @@ namespace Healthcare.DAL
             }
         }
 
-        public static List<CheckUp> GetCheckups() 
+        public static List<CheckUp> GetCheckups()
         {
             var checkups = new List<CheckUp>();
 
@@ -124,7 +101,7 @@ namespace Healthcare.DAL
                 const string selectQuery = "select * from checkup";
 
                 using (var cmd = new MySqlCommand(selectQuery, conn))
-                {                  
+                {
                     var reader = cmd.ExecuteReader();
 
                     if (!reader.HasRows) return checkups;
@@ -147,12 +124,14 @@ namespace Healthcare.DAL
                         var symptoms = FindSymptoms(cuId);
                         var appointment = FindAppointment(apptId, patient);
 
-                        var newCheckUp = new CheckUp(systolic, diastolic, patient, temperature, arrivalDate, arrivalTime, nurse,
-                        weight, pulse, symptoms, appointment) {cuID = cuId};
-                        checkups.Add(newCheckUp);                       
+                        var newCheckUp = new CheckUp(systolic, diastolic, patient, temperature, arrivalDate,
+                            arrivalTime, nurse,
+                            weight, pulse, symptoms, appointment) {cuID = cuId};
+                        checkups.Add(newCheckUp);
                     }
                 }
             }
+
             return checkups;
         }
 
@@ -161,29 +140,30 @@ namespace Healthcare.DAL
             Patient patient = null;
 
             try
-            {            
-                using (MySqlConnection conn = DbConnection.GetConnection())
+            {
+                using (var conn = DbConnection.GetConnection())
                 {
                     conn.Open();
                     var selectQuery = "select * from patients WHERE patientID = @patientId";
-                    using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
+                    using (var cmd = new MySqlCommand(selectQuery, conn))
                     {
                         cmd.Parameters.AddWithValue("@patientId", patientId);
-                        MySqlDataReader reader = cmd.ExecuteReader();
+                        var reader = cmd.ExecuteReader();
 
                         while (reader.Read())
-                        {                         
-                            int id = reader.GetInt32((int)PatientAttributes.PatientId);
-                            int ssn = reader.GetInt32((int)PatientAttributes.PatientSsn);
-                            string firstName = reader.GetString((int)PatientAttributes.FirstName);
-                            string lastName = reader.GetString((int)PatientAttributes.LastName);
-                            string phone = reader.GetString((int)PatientAttributes.Phone);
-                            DateTime bdate = reader.GetDateTime((int)PatientAttributes.BirthDate);
-                            int addressId = reader.GetInt32((int)PatientAttributes.AddressId);
-                            string gender = reader.GetString((int)PatientAttributes.Gender);
+                        {
+                            var id = reader.GetInt32((int) PatientAttributes.PatientId);
+                            var ssn = reader.GetInt32((int) PatientAttributes.PatientSsn);
+                            var firstName = reader.GetString((int) PatientAttributes.FirstName);
+                            var lastName = reader.GetString((int) PatientAttributes.LastName);
+                            var phone = reader.GetString((int) PatientAttributes.Phone);
+                            var bdate = reader.GetDateTime((int) PatientAttributes.BirthDate);
+                            var addressId = reader.GetInt32((int) PatientAttributes.AddressId);
+                            var gender = reader.GetString((int) PatientAttributes.Gender);
 
-                            patient = new Patient(ssn, firstName, lastName, phone, bdate, gender, addressId) {Id = id};                         
+                            patient = new Patient(ssn, firstName, lastName, phone, bdate, gender, addressId) {Id = id};
                         }
+
                         conn.Close();
                         return patient;
                     }
@@ -195,34 +175,36 @@ namespace Healthcare.DAL
                 return patient;
             }
         }
+
         public static Appointment FindAppointment(int apptId, Patient patient)
         {
             Appointment appointment = null;
 
             try
             {
-                using (MySqlConnection conn = DbConnection.GetConnection())
+                using (var conn = DbConnection.GetConnection())
                 {
                     conn.Open();
                     var selectQuery = "select * from appointments Where appointmentID=@apptId";
-                    using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
+                    using (var cmd = new MySqlCommand(selectQuery, conn))
                     {
                         cmd.Parameters.AddWithValue("@apptId", apptId);
-                        MySqlDataReader reader = cmd.ExecuteReader();
+                        var reader = cmd.ExecuteReader();
 
                         while (reader.Read())
                         {
-                            uint aID = (uint) reader["appointmentID"];
-                            string dID = reader.GetString((int) AppointmentAttributes.DoctorId);
-                            DateTime apptDay = reader.GetDateTime((int) AppointmentAttributes.ApptDay);
-                            TimeSpan time = (TimeSpan) reader["apptTime"];
-                            string description = reader.GetString((int) AppointmentAttributes.Description);
-                            bool checkedIn = reader.GetBoolean((int) AppointmentAttributes.IsCheckedIn);
-          
+                            var aID = (uint) reader["appointmentID"];
+                            var dID = reader.GetString((int) AppointmentAttributes.DoctorId);
+                            var apptDay = reader.GetDateTime((int) AppointmentAttributes.ApptDay);
+                            var time = (TimeSpan) reader["apptTime"];
+                            var description = reader.GetString((int) AppointmentAttributes.Description);
+                            var checkedIn = reader.GetBoolean((int) AppointmentAttributes.IsCheckedIn);
 
-                            Doctor doctor = DoctorManager.Doctors.Find(aDoctor => aDoctor.Id.Equals(dID));
-                            appointment = new Appointment(patient, doctor, apptDay,time,description,checkedIn, aID);
+
+                            var doctor = DoctorManager.Doctors.Find(aDoctor => aDoctor.Id.Equals(dID));
+                            appointment = new Appointment(patient, doctor, apptDay, time, description, checkedIn, aID);
                         }
+
                         conn.Close();
                         return appointment;
                     }
@@ -239,7 +221,7 @@ namespace Healthcare.DAL
         {
             var symptoms = new List<Symptom>();
 
-            using (MySqlConnection conn = DbConnection.GetConnection())
+            using (var conn = DbConnection.GetConnection())
             {
                 conn.Open();
                 const string selectQuery =
@@ -258,11 +240,45 @@ namespace Healthcare.DAL
                         var name = (string) reader["name"];
 
                         var newSymptom = new Symptom(id, name);
-                        symptoms.Add(newSymptom);                       
+                        symptoms.Add(newSymptom);
                     }
                 }
             }
+
             return symptoms;
         }
-    }  
+
+        private enum Attributes
+        {
+            CuId,
+            ApptId,
+            Systolic,
+            Diastolic,
+            PatientId,
+            Temperature,
+            ArrivalDate,
+            Weight = 9,
+            Pulse
+        }
+
+        private enum PatientAttributes
+        {
+            PatientId,
+            PatientSsn,
+            FirstName,
+            LastName,
+            BirthDate,
+            Gender,
+            Phone,
+            AddressId
+        }
+
+        private enum AppointmentAttributes
+        {
+            ApptDay = 2,
+            Description = 4,
+            IsCheckedIn = 5,
+            DoctorId = 6
+        }
+    }
 }

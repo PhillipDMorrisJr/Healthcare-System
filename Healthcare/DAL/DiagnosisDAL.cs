@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Healthcare.Model;
 using Healthcare.Utils;
 using MySql.Data.MySqlClient;
@@ -11,11 +8,6 @@ namespace Healthcare.DAL
 {
     public static class DiagnosisDAL
     {
-        private enum Attributes
-        {
-            DiagnosisId = 0, CuId = 1, DoctorId = 2, Date = 3, Diagnosis = 5, IsFinalDiagnosis = 6
-        }
-
         public static List<Diagnosis> GetDiagnoses()
         {
             var diagnoses = new List<Diagnosis>();
@@ -43,10 +35,11 @@ namespace Healthcare.DAL
 
                         var newDiagnosis = new Diagnosis(cuId, doctorId, date, time, diagnosis, isFinalDiagnosis)
                             {DiagnosisId = diagnosisId};
-                        diagnoses.Add(newDiagnosis);                       
+                        diagnoses.Add(newDiagnosis);
                     }
                 }
             }
+
             return diagnoses;
         }
 
@@ -54,13 +47,13 @@ namespace Healthcare.DAL
         {
             try
             {
-                using (MySqlConnection conn = DbConnection.GetConnection())
+                using (var conn = DbConnection.GetConnection())
                 {
                     conn.Open();
 
                     var insertQuery =
                         "INSERT INTO `doctorDiagnosis` (`cuID`, `doctorID`, `date`, `time`, `diagnosis`,`isFinalDiagnosis`) VALUES (@cuID, @doctorID, @date, @time, @diagnosis, @isFinalDiagnosis)";
-                    using (MySqlCommand cmd = new MySqlCommand(insertQuery, conn))
+                    using (var cmd = new MySqlCommand(insertQuery, conn))
                     {
                         cmd.Parameters.AddWithValue("@cuID", diagnosis.CuId);
                         cmd.Parameters.AddWithValue("@doctorID", diagnosis.DoctorId);
@@ -73,9 +66,9 @@ namespace Healthcare.DAL
 
                     var selectQuery = "select LAST_INSERT_ID()";
 
-                    using (MySqlCommand selectCommand = new MySqlCommand(selectQuery, conn))
+                    using (var selectCommand = new MySqlCommand(selectQuery, conn))
                     {
-                        MySqlDataReader lastIndexReader = selectCommand.ExecuteReader();
+                        var lastIndexReader = selectCommand.ExecuteReader();
                         lastIndexReader.Read();
                         var diagnosisId = lastIndexReader.GetInt32(0);
 
@@ -91,6 +84,16 @@ namespace Healthcare.DAL
                 Console.Write(exception.Message);
                 DbConnection.GetConnection().Close();
             }
+        }
+
+        private enum Attributes
+        {
+            DiagnosisId = 0,
+            CuId = 1,
+            DoctorId = 2,
+            Date = 3,
+            Diagnosis = 5,
+            IsFinalDiagnosis = 6
         }
     }
 }

@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Healthcare.Model;
 using Healthcare.Utils;
 using MySql.Data.MySqlClient;
@@ -12,40 +9,36 @@ namespace Healthcare.DAL
 {
     public class AppointmentDAL
     {
-        private enum Attributes
-        {
-            ApptDay = 2, Description = 4, IsCheckedIn = 5, DoctorId = 6
-        }
-
         public static List<Appointment> GetAppointments(Patient patient)
         {
-
-            List<Appointment> appointments = new List<Appointment>();
+            var appointments = new List<Appointment>();
             try
             {
-                using (MySqlConnection conn = DbConnection.GetConnection())
+                using (var conn = DbConnection.GetConnection())
                 {
                     conn.Open();
                     var selectQuery = "select * from appointments Where patientID=@patientID";
-                    using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
+                    using (var cmd = new MySqlCommand(selectQuery, conn))
                     {
                         cmd.Parameters.AddWithValue("@patientID", patient.Id);
-                        MySqlDataReader reader = cmd.ExecuteReader();
+                        var reader = cmd.ExecuteReader();
 
                         while (reader.Read())
                         {
-                            uint aID = (uint) reader["appointmentID"];
-                            string dID = reader.GetString((int) Attributes.DoctorId);
-                            DateTime apptDay = reader.GetDateTime((int) Attributes.ApptDay);
-                            TimeSpan time2 = (TimeSpan) reader["apptTime"];
-                            string description = reader.GetString((int) Attributes.Description);
-                            bool checkedIn = reader.GetBoolean((int) Attributes.IsCheckedIn);
-          
+                            var aID = (uint) reader["appointmentID"];
+                            var dID = reader.GetString((int) Attributes.DoctorId);
+                            var apptDay = reader.GetDateTime((int) Attributes.ApptDay);
+                            var time2 = (TimeSpan) reader["apptTime"];
+                            var description = reader.GetString((int) Attributes.Description);
+                            var checkedIn = reader.GetBoolean((int) Attributes.IsCheckedIn);
 
-                            Doctor doctor = DoctorManager.Doctors.Find(aDoctor => aDoctor.Id.Equals(dID));
-                            Appointment appointment = new Appointment(patient, doctor, apptDay,time2,description,checkedIn, aID);
+
+                            var doctor = DoctorManager.Doctors.Find(aDoctor => aDoctor.Id.Equals(dID));
+                            var appointment = new Appointment(patient, doctor, apptDay, time2, description, checkedIn,
+                                aID);
                             appointments.Add(appointment);
                         }
+
                         conn.Close();
                         return appointments;
                     }
@@ -58,25 +51,25 @@ namespace Healthcare.DAL
             }
         }
 
-
         public static void AddAppointment(Appointment details)
         {
             try
             {
-                using (MySqlConnection conn = DbConnection.GetConnection())
+                using (var conn = DbConnection.GetConnection())
                 {
                     conn.Open();
 
                     var insertQuery =
                         "INSERT INTO `appointments` (`doctorID`, `patientID`, `apptDay`, `apptTime`, `description`, `isCheckedIn`,`userID`) VALUES (@doctorID, @patientID, @apptDay, @apptTime, @description, @isCheckedIn, @userID)";
-                    using (MySqlCommand cmd = new MySqlCommand(insertQuery, conn))
+                    using (var cmd = new MySqlCommand(insertQuery, conn))
                     {
                         cmd.Parameters.AddWithValue("@doctorID", details.Doctor.Id);
                         cmd.Parameters.AddWithValue("@patientID", details.Patient.Id);
-                        cmd.Parameters.AddWithValue("@apptDay", details.AppointmentDateTime.Date.ToString("yyyy-MM-dd"));
+                        cmd.Parameters.AddWithValue("@apptDay",
+                            details.AppointmentDateTime.Date.ToString("yyyy-MM-dd"));
                         cmd.Parameters.AddWithValue("@apptTime", details.AppointmentTime.ToString());
                         cmd.Parameters.AddWithValue("@description", details.Description);
-                        cmd.Parameters.AddWithValue("@isCheckedIn", details.IsCheckedIn);                
+                        cmd.Parameters.AddWithValue("@isCheckedIn", details.IsCheckedIn);
                         cmd.Parameters.AddWithValue("@userID", AccessValidator.CurrentUser.Id);
                         cmd.ExecuteNonQuery();
                     }
@@ -87,17 +80,17 @@ namespace Healthcare.DAL
                 Console.Write(exception.Message);
                 DbConnection.GetConnection().Close();
             }
-       
         }
 
-        public List<TimeSpan> GetTimeSlots( DateTime date, Doctor doctor, Patient patient)
+        public List<TimeSpan> GetTimeSlots(DateTime date, Doctor doctor, Patient patient)
         {
             var slots = new List<TimeSpan>();
 
-            using (MySqlConnection conn = DbConnection.GetConnection())
+            using (var conn = DbConnection.GetConnection())
             {
                 conn.Open();
-                const string selectQuery = "select apptTime from appointments WHERE apptDay=@date AND doctorID=@dID OR patientID=@pID AND apptDay=@date";
+                const string selectQuery =
+                    "select apptTime from appointments WHERE apptDay=@date AND doctorID=@dID OR patientID=@pID AND apptDay=@date";
 
                 using (var cmd = new MySqlCommand(selectQuery, conn))
                 {
@@ -110,11 +103,12 @@ namespace Healthcare.DAL
 
                     while (reader.Read())
                     {
-                        TimeSpan timeSlot = (TimeSpan) reader["apptTime"];
-                        slots.Add(timeSlot);                       
+                        var timeSlot = (TimeSpan) reader["apptTime"];
+                        slots.Add(timeSlot);
                     }
                 }
             }
+
             return slots;
         }
 
@@ -122,25 +116,26 @@ namespace Healthcare.DAL
         {
             try
             {
-                using (MySqlConnection conn = DbConnection.GetConnection())
+                using (var conn = DbConnection.GetConnection())
                 {
                     conn.Open();
 
                     var insertQuery =
                         "UPDATE `appointments` SET `doctorID` = @doctorID, `patientID` = @patientID, `apptDay` = @apptDay, `apptTime` = @apptTime, `description` = @description, `isCheckedIn` = @isCheckedIn,`userID` = @userID WHERE `appointmentID` = @aID";
-                    using (MySqlCommand cmd = new MySqlCommand(insertQuery, conn))
+                    using (var cmd = new MySqlCommand(insertQuery, conn))
                     {
                         cmd.Parameters.AddWithValue("@doctorID", newAppointment.Doctor.Id);
                         cmd.Parameters.AddWithValue("@patientID", newAppointment.Patient.Id);
-                        cmd.Parameters.AddWithValue("@apptDay", newAppointment.AppointmentDateTime.Date.ToString("yyyy-MM-dd"));
+                        cmd.Parameters.AddWithValue("@apptDay",
+                            newAppointment.AppointmentDateTime.Date.ToString("yyyy-MM-dd"));
                         cmd.Parameters.AddWithValue("@apptTime", newAppointment.AppointmentTime.ToString());
                         cmd.Parameters.AddWithValue("@description", newAppointment.Description);
                         cmd.Parameters.AddWithValue("@isCheckedIn", newAppointment.IsCheckedIn);
                         cmd.Parameters.AddWithValue("@aID", originalAppointment.ID);
                         cmd.Parameters.AddWithValue("@userID", AccessValidator.CurrentUser.Id);
                         cmd.ExecuteNonQuery();
-
                     }
+
                     conn.Close();
                 }
             }
@@ -149,6 +144,14 @@ namespace Healthcare.DAL
                 Console.Write(exception.Message);
                 DbConnection.GetConnection().Close();
             }
+        }
+
+        private enum Attributes
+        {
+            ApptDay = 2,
+            Description = 4,
+            IsCheckedIn = 5,
+            DoctorId = 6
         }
     }
 }

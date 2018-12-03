@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Healthcare.Model;
 using Healthcare.Utils;
 using MySql.Data.MySqlClient;
@@ -11,12 +8,6 @@ namespace Healthcare.DAL
 {
     public static class TestOrderDAL
     {
-        private enum Attributes
-        {
-            OrderId = 0, CuId = 1, Code = 2, Date = 3, DoctorId = 5
-        }
-
-
         public static List<Order> GetTestOrders()
         {
             var orders = new List<Order>();
@@ -42,19 +33,17 @@ namespace Healthcare.DAL
                         var time = (TimeSpan) reader["time"];
 
                         var newOrder = new Order(cuId, code, date, time, doctorId) {OrderId = orderId};
-                        orders.Add(newOrder);                       
+                        orders.Add(newOrder);
                     }
                 }
             }
+
             return orders;
         }
 
         public static void AddTestOrders(List<Order> orders)
         {
-            foreach (var order in orders)
-            {
-                handleAddOrder(order);
-            }           
+            foreach (var order in orders) handleAddOrder(order);
         }
 
         private static void handleAddOrder(Order order)
@@ -63,13 +52,13 @@ namespace Healthcare.DAL
             {
                 int currentOrderId;
 
-                using (MySqlConnection conn = DbConnection.GetConnection())
+                using (var conn = DbConnection.GetConnection())
                 {
                     conn.Open();
 
                     var insertQuery =
                         "INSERT INTO `testOrder` (`cuID`, `code`, `date`, `time`, `doctorID`) VALUES (@cuID, @code, @date, @time, @doctorID)";
-                    using (MySqlCommand cmd = new MySqlCommand(insertQuery, conn))
+                    using (var cmd = new MySqlCommand(insertQuery, conn))
                     {
                         cmd.Parameters.AddWithValue("@cuID", order.CuId);
                         cmd.Parameters.AddWithValue("@code", order.Code);
@@ -81,9 +70,9 @@ namespace Healthcare.DAL
 
                     var selectQuery = "select LAST_INSERT_ID()";
 
-                    using (MySqlCommand selectCommand = new MySqlCommand(selectQuery, conn))
+                    using (var selectCommand = new MySqlCommand(selectQuery, conn))
                     {
-                        MySqlDataReader lastIndexReader = selectCommand.ExecuteReader();
+                        var lastIndexReader = selectCommand.ExecuteReader();
                         lastIndexReader.Read();
                         currentOrderId = lastIndexReader.GetInt32(0);
 
@@ -91,10 +80,10 @@ namespace Healthcare.DAL
                         TestOrderManager.Orders.Add(order);
                     }
 
-                    conn.Close();               
+                    conn.Close();
                 }
 
-                using (MySqlConnection conn = DbConnection.GetConnection())
+                using (var conn = DbConnection.GetConnection())
                 {
                     TestTaken taken;
 
@@ -105,7 +94,7 @@ namespace Healthcare.DAL
 
                     var insertQuery =
                         "INSERT INTO `testsTaken` (`orderID`, `isTestTaken`, `date`, `time`) VALUES (@orderID, @isTestTaken, @date, @time)";
-                    using (MySqlCommand cmd = new MySqlCommand(insertQuery, conn))
+                    using (var cmd = new MySqlCommand(insertQuery, conn))
                     {
                         cmd.Parameters.AddWithValue("@orderID", currentOrderId);
                         cmd.Parameters.AddWithValue("@isTestTaken", false);
@@ -118,9 +107,9 @@ namespace Healthcare.DAL
 
                     var selectQuery = "select LAST_INSERT_ID()";
 
-                    using (MySqlCommand selectCommand = new MySqlCommand(selectQuery, conn))
+                    using (var selectCommand = new MySqlCommand(selectQuery, conn))
                     {
-                        MySqlDataReader lastIndexReader = selectCommand.ExecuteReader();
+                        var lastIndexReader = selectCommand.ExecuteReader();
                         lastIndexReader.Read();
                         var testTakenId = lastIndexReader.GetInt32(0);
 
@@ -128,14 +117,23 @@ namespace Healthcare.DAL
                         TestTakenManager.TestsTaken.Add(taken);
                     }
 
-                    conn.Close();               
+                    conn.Close();
                 }
             }
             catch (Exception exception)
             {
                 Console.Write(exception.Message);
                 DbConnection.GetConnection().Close();
-            } 
+            }
+        }
+
+        private enum Attributes
+        {
+            OrderId = 0,
+            CuId = 1,
+            Code = 2,
+            Date = 3,
+            DoctorId = 5
         }
     }
 }

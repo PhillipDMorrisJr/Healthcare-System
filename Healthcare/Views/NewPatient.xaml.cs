@@ -1,19 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
-using Healthcare.Model;
 using Healthcare.Utils;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
@@ -21,33 +11,31 @@ using Healthcare.Utils;
 namespace Healthcare.Views
 {
     /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
+    ///     An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
     public sealed partial class NewPatient : Page
     {
         private string phoneNumber;
         private string socialSecurityNumber;
+
         public NewPatient()
         {
-            this.InitializeComponent();
-            this.nameID.Text = AccessValidator.CurrentUser.Username;
-            this.userID.Text = AccessValidator.CurrentUser.Id;
-            this.accessType.Text = AccessValidator.Access;
-            
-            List<string> genders = new List<string> {"Male", "Female"};
-            this.state.ItemsSource = States.GetStates();
-            this.state.SelectedItem = "AL";
-            this.genderCmbox.ItemsSource = genders;
-            this.genderCmbox.SelectedItem = "Male";
-            
+            InitializeComponent();
+            nameID.Text = AccessValidator.CurrentUser.Username;
+            userID.Text = AccessValidator.CurrentUser.Id;
+            accessType.Text = AccessValidator.Access;
+
+            var genders = new List<string> {"Male", "Female"};
+            state.ItemsSource = States.GetStates();
+            state.SelectedItem = "AL";
+            genderCmbox.ItemsSource = genders;
+            genderCmbox.SelectedItem = "Male";
         }
 
 
-
-        
         private void validate()
         {
-            this.validation.Text +=  "Please Address the following:\n";
+            validation.Text += "Please Address the following:\n";
             validateFirstName();
             validateLastName();
             validateStreet();
@@ -59,72 +47,73 @@ namespace Healthcare.Views
 
         private void validateZip()
         {
-            if (string.IsNullOrEmpty(this.zip.Text) || this.zip.Text.Length != 5)
+            if (string.IsNullOrEmpty(zip.Text) || zip.Text.Length != 5)
             {
-                this.validation.Text += "Enter valid 5 digit zip in the following format: xxxxx\n";
-                this.zip.BorderBrush = new SolidColorBrush(Colors.Red);
+                validation.Text += "Enter valid 5 digit zip in the following format: xxxxx\n";
+                zip.BorderBrush = new SolidColorBrush(Colors.Red);
             }
             else
             {
-                this.zip.BorderBrush = new SolidColorBrush(Colors.Gainsboro);
+                zip.BorderBrush = new SolidColorBrush(Colors.Gainsboro);
             }
         }
 
         private void validateDate()
         {
-            if (this.bday.Date > DateTimeOffset.Now)
+            if (bday.Date > DateTimeOffset.Now)
             {
-                this.validation.Text += "Patient's birthday must before the current day\n";
-                this.bday.Background = new SolidColorBrush(Colors.MistyRose);
+                validation.Text += "Patient's birthday must before the current day\n";
+                bday.Background = new SolidColorBrush(Colors.MistyRose);
             }
             else
             {
-                this.bday.Background = new SolidColorBrush(Colors.Azure);
+                bday.Background = new SolidColorBrush(Colors.Azure);
             }
         }
 
         private void validatePhone()
         {
-            int validNumberOfDigits = 10;
-            
-            bool isNumber = long.TryParse(this.phoneNumber, out long result);
-            if (string.IsNullOrEmpty(this.phoneNumber) || this.phoneNumber.Length != validNumberOfDigits || !isNumber)
+            var validNumberOfDigits = 10;
+
+            var isNumber = long.TryParse(phoneNumber, out var result);
+            if (string.IsNullOrEmpty(phoneNumber) || phoneNumber.Length != validNumberOfDigits || !isNumber)
             {
-                this.validation.Text += "Please enter a valid 10 digit phone number in the following format: xxx-xxx-xxxx\n";
-                this.phone.BorderBrush = new SolidColorBrush(Colors.Red);
-                this.phone1.BorderBrush = new SolidColorBrush(Colors.Red);
-                this.phone2.BorderBrush = new SolidColorBrush(Colors.Red);
+                validation.Text += "Please enter a valid 10 digit phone number in the following format: xxx-xxx-xxxx\n";
+                phone.BorderBrush = new SolidColorBrush(Colors.Red);
+                phone1.BorderBrush = new SolidColorBrush(Colors.Red);
+                phone2.BorderBrush = new SolidColorBrush(Colors.Red);
             }
             else
             {
-                this.phone.Text = this.phoneNumber.Substring(0, 3);
-                this.phone1.Text = this.phoneNumber.Substring(3, 3);
-                this.phone2.Text = this.phoneNumber.Substring(6, 4);
-                this.phone.BorderBrush = new SolidColorBrush(Colors.Gainsboro);
-                this.phone1.BorderBrush = new SolidColorBrush(Colors.Gainsboro);
-                this.phone2.BorderBrush = new SolidColorBrush(Colors.Gainsboro);
+                phone.Text = phoneNumber.Substring(0, 3);
+                phone1.Text = phoneNumber.Substring(3, 3);
+                phone2.Text = phoneNumber.Substring(6, 4);
+                phone.BorderBrush = new SolidColorBrush(Colors.Gainsboro);
+                phone1.BorderBrush = new SolidColorBrush(Colors.Gainsboro);
+                phone2.BorderBrush = new SolidColorBrush(Colors.Gainsboro);
             }
         }
 
         private void validateSSN()
         {
-            int validNumberOfDigits = 9;
-            bool isNumber = int.TryParse(this.socialSecurityNumber, out int result);
-            if (string.IsNullOrEmpty(this.socialSecurityNumber) || this.socialSecurityNumber.Length != validNumberOfDigits || !isNumber)
+            var validNumberOfDigits = 9;
+            var isNumber = int.TryParse(socialSecurityNumber, out var result);
+            if (string.IsNullOrEmpty(socialSecurityNumber) || socialSecurityNumber.Length != validNumberOfDigits ||
+                !isNumber)
             {
-                this.validation.Text += "Please enter a valid 9 digit ssn in the following format: xxx-xx-xxxx\n";
-                this.ssn.BorderBrush = new SolidColorBrush(Colors.Red);
-                this.ssn1.BorderBrush = new SolidColorBrush(Colors.Red);
-                this.ssn2.BorderBrush = new SolidColorBrush(Colors.Red);
+                validation.Text += "Please enter a valid 9 digit ssn in the following format: xxx-xx-xxxx\n";
+                ssn.BorderBrush = new SolidColorBrush(Colors.Red);
+                ssn1.BorderBrush = new SolidColorBrush(Colors.Red);
+                ssn2.BorderBrush = new SolidColorBrush(Colors.Red);
             }
             else
             {
-                this.ssn.Password = this.socialSecurityNumber.Substring(0, 3);
-                this.ssn1.Password = this.socialSecurityNumber.Substring(3, 2);
-                this.ssn2.Password = this.socialSecurityNumber.Substring(5, 4);
-                this.ssn.BorderBrush = new SolidColorBrush(Colors.Gainsboro);
-                this.ssn1.BorderBrush = new SolidColorBrush(Colors.Gainsboro);
-                this.ssn2.BorderBrush = new SolidColorBrush(Colors.Gainsboro);
+                ssn.Password = socialSecurityNumber.Substring(0, 3);
+                ssn1.Password = socialSecurityNumber.Substring(3, 2);
+                ssn2.Password = socialSecurityNumber.Substring(5, 4);
+                ssn.BorderBrush = new SolidColorBrush(Colors.Gainsboro);
+                ssn1.BorderBrush = new SolidColorBrush(Colors.Gainsboro);
+                ssn2.BorderBrush = new SolidColorBrush(Colors.Gainsboro);
             }
         }
 
@@ -132,12 +121,12 @@ namespace Healthcare.Views
         {
             if (string.IsNullOrEmpty(street.Text))
             {
-                this.validation.Text += "Please enter a valid street\n";
-                this.street.BorderBrush = new SolidColorBrush(Colors.Red);
+                validation.Text += "Please enter a valid street\n";
+                street.BorderBrush = new SolidColorBrush(Colors.Red);
             }
             else
             {
-                this.street.BorderBrush = new SolidColorBrush(Colors.Gainsboro);
+                street.BorderBrush = new SolidColorBrush(Colors.Gainsboro);
             }
         }
 
@@ -145,12 +134,12 @@ namespace Healthcare.Views
         {
             if (string.IsNullOrEmpty(lname.Text))
             {
-                this.validation.Text += "Please enter a valid last name\n";
-                this.lname.BorderBrush = new SolidColorBrush(Colors.Red);
+                validation.Text += "Please enter a valid last name\n";
+                lname.BorderBrush = new SolidColorBrush(Colors.Red);
             }
             else
             {
-                this.lname.BorderBrush = new SolidColorBrush(Colors.Gainsboro);
+                lname.BorderBrush = new SolidColorBrush(Colors.Gainsboro);
             }
         }
 
@@ -158,71 +147,70 @@ namespace Healthcare.Views
         {
             if (string.IsNullOrEmpty(fname.Text))
             {
-                this.validation.Text += "Please enter a valid first name\n";
-                this.fname.BorderBrush = new SolidColorBrush(Colors.Red);
+                validation.Text += "Please enter a valid first name\n";
+                fname.BorderBrush = new SolidColorBrush(Colors.Red);
             }
             else
             {
-                this.fname.BorderBrush = new SolidColorBrush(Colors.Gainsboro);
+                fname.BorderBrush = new SolidColorBrush(Colors.Gainsboro);
             }
         }
 
         private bool isValid()
         {
-            int validZip = 5;
-            int validSSN = 9;
-            int validPhone = 10;
-            bool isPhoneNumber = long.TryParse(this.phoneNumber, out long result);
-            bool isSSNNumber = int.TryParse(this.ssn.Password, out int result1);
-            bool isZipNumber = int.TryParse(this.zip.Text, out int result2);
-            return (!string.IsNullOrEmpty(this.zip.Text) && isPhoneNumber && isSSNNumber && isZipNumber &&
-                   this.zip.Text.Length == validZip && this.bday.Date <= DateTimeOffset.Now &&
-                   !string.IsNullOrEmpty(this.phoneNumber) && this.phoneNumber.Length == validPhone &&
-                   !string.IsNullOrEmpty(this.socialSecurityNumber) && this.socialSecurityNumber.Length == validSSN &&
+            var validZip = 5;
+            var validSSN = 9;
+            var validPhone = 10;
+            var isPhoneNumber = long.TryParse(phoneNumber, out var result);
+            var isSSNNumber = int.TryParse(ssn.Password, out var result1);
+            var isZipNumber = int.TryParse(zip.Text, out var result2);
+            return !string.IsNullOrEmpty(zip.Text) && isPhoneNumber && isSSNNumber && isZipNumber &&
+                   zip.Text.Length == validZip && bday.Date <= DateTimeOffset.Now &&
+                   !string.IsNullOrEmpty(phoneNumber) && phoneNumber.Length == validPhone &&
+                   !string.IsNullOrEmpty(socialSecurityNumber) && socialSecurityNumber.Length == validSSN &&
                    !string.IsNullOrEmpty(street.Text) && !string.IsNullOrEmpty(lname.Text) &&
-                   !string.IsNullOrEmpty(fname.Text));
-                
+                   !string.IsNullOrEmpty(fname.Text);
         }
 
         private void createPatient_onClick(object sender, RoutedEventArgs e)
         {
-            this.phoneNumber = this.phone.Text + this.phone1.Text + this.phone2.Text;
-            this.validation.Text = "";
-            this.socialSecurityNumber = this.ssn.Password + ssn1.Password + ssn2.Password;
-            string firstName = this.fname.Text;
-            string lastName = this.lname.Text;
-            
-            DateTime dateOfBirth = this.bday.Date.DateTime;
+            phoneNumber = phone.Text + phone1.Text + phone2.Text;
+            validation.Text = "";
+            socialSecurityNumber = ssn.Password + ssn1.Password + ssn2.Password;
+            var firstName = fname.Text;
+            var lastName = lname.Text;
 
-            string gender = string.Empty;
-            
-            var genderCmboxSelectedItem = this.genderCmbox.SelectedItem;
+            var dateOfBirth = bday.Date.DateTime;
+
+            var gender = string.Empty;
+
+            var genderCmboxSelectedItem = genderCmbox.SelectedItem;
             gender = genderCmboxSelectedItem?.ToString();
             var stateCmboxSelectedItem = this.state.SelectedItem;
             var state = stateCmboxSelectedItem?.ToString();
-            
 
-            string street = this.street.Text;
-            string zip = this.zip.Text;
+
+            var street = this.street.Text;
+            var zip = this.zip.Text;
 
             try
             {
                 if (isValid())
                 {
-                string fullAddress = street + ", " + state + ", " + zip;
-                RegistrationUtility.CreateNewPatient(Convert.ToInt32(socialSecurityNumber), firstName, lastName, this.phoneNumber, dateOfBirth,
-                    gender, fullAddress);
-                this.Frame.Navigate(typeof(MainPage));
+                    var fullAddress = street + ", " + state + ", " + zip;
+                    RegistrationUtility.CreateNewPatient(Convert.ToInt32(socialSecurityNumber), firstName, lastName,
+                        phoneNumber, dateOfBirth,
+                        gender, fullAddress);
+                    Frame.Navigate(typeof(MainPage));
                 }
                 else
                 {
                     validate();
                 }
-
             }
             catch (Exception)
             {
-                this.validate();
+                validate();
             }
         }
 

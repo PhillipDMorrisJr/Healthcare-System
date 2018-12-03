@@ -8,39 +8,66 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Grid Background="White" HorizontalAlignment="Center" Height="649" VerticalAlignment="Center" Width="500" Margin="0,0,0,0">
-        <TextBlock Grid.Row="0" Text="Healthcare Services" HorizontalAlignment="Left" Margin="-469,21,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="139" Width="254" Foreground="White" FontSize="50" TextAlignment="Center" />
-        <TextBlock Grid.Row="0" HorizontalAlignment="Left" Margin="-469,231,0,0" Text="Name:" TextWrapping="Wrap" Foreground="GhostWhite" VerticalAlignment="Top" Height="20" Width="62"/>
-        <TextBlock Grid.Row="0" Name="nameID" HorizontalAlignment="Left" Margin="-402,231,0,0" Text="" TextWrapping="Wrap" Foreground="GhostWhite" VerticalAlignment="Top" Height="20" Width="62"/>
-        <TextBlock Grid.Row="0" HorizontalAlignment="Left" Margin="-469,251,0,0" Text="UserId:" TextWrapping="Wrap" Foreground="GhostWhite" VerticalAlignment="Top" Height="20" Width="62"/>
-        <TextBlock Grid.Row="0" Name="userID" HorizontalAlignment="Left" Margin="-402,251,0,0" Text="" TextWrapping="Wrap" Foreground="GhostWhite" VerticalAlignment="Top" Height="20" Width="62"/>
-        <TextBlock Grid.Row="0" HorizontalAlignment="Left" Margin="-469,271,0,0" Text="Access:" TextWrapping="Wrap" Foreground="GhostWhite" VerticalAlignment="Top" Height="20" Width="62"/>
-        <TextBlock Grid.Row="0" Name="accessType" HorizontalAlignment="Left" Margin="-402,271,0,0" Text="" TextWrapping="Wrap" Foreground="GhostWhite" VerticalAlignment="Top" Height="20" Width="100"/>
+    <Grid Background="White" HorizontalAlignment="Center" Height="649" VerticalAlignment="Center" Width="500"
+          Margin="0,0,0,0">
+        <TextBlock Grid.Row="0" Text="Healthcare Services" HorizontalAlignment="Left" Margin="-469,21,0,0"
+                   TextWrapping="Wrap" VerticalAlignment="Top" Height="139" Width="254" Foreground="White"
+                   FontSize="50" TextAlignment="Center" />
+        <TextBlock Grid.Row="0" HorizontalAlignment="Left" Margin="-469,231,0,0" Text="Name:" TextWrapping="Wrap"
+                   Foreground="GhostWhite" VerticalAlignment="Top" Height="20" Width="62" />
+        <TextBlock Grid.Row="0" Name="nameID" HorizontalAlignment="Left" Margin="-402,231,0,0" Text=""
+                   TextWrapping="Wrap" Foreground="GhostWhite" VerticalAlignment="Top" Height="20" Width="62" />
+        <TextBlock Grid.Row="0" HorizontalAlignment="Left" Margin="-469,251,0,0" Text="UserId:" TextWrapping="Wrap"
+                   Foreground="GhostWhite" VerticalAlignment="Top" Height="20" Width="62" />
+        <TextBlock Grid.Row="0" Name="userID" HorizontalAlignment="Left" Margin="-402,251,0,0" Text=""
+                   TextWrapping="Wrap" Foreground="GhostWhite" VerticalAlignment="Top" Height="20" Width="62" />
+        <TextBlock Grid.Row="0" HorizontalAlignment="Left" Margin="-469,271,0,0" Text="Access:" TextWrapping="Wrap"
+                   Foreground="GhostWhite" VerticalAlignment="Top" Height="20" Width="62" />
+        <TextBlock Grid.Row="0" Name="accessType" HorizontalAlignment="Left" Margin="-402,271,0,0" Text=""
+                   TextWrapping="Wrap" Foreground="GhostWhite" VerticalAlignment="Top" Height="20" Width="100" />
 
-        <TextBlock HorizontalAlignment="Left" FontWeight="Bold" Margin="10,10,0,0" Text="Healthcare Services" Foreground="Gray" FontSize="50" TextAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" Height="83" Width="483"/>
-        <Image Source="../Images/noimage.png" HorizontalAlignment="Left" Height="126" Margin="23,87,0,0" VerticalAlignment="Top" Width="81"/>
+        <TextBlock HorizontalAlignment="Left" FontWeight="Bold" Margin="10,10,0,0" Text="Healthcare Services"
+                   Foreground="Gray" FontSize="50" TextAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top"
+                   Height="83" Width="483" />
+        <Image Source="../Images/noimage.png" HorizontalAlignment="Left" Height="126" Margin="23,87,0,0"
+               VerticalAlignment="Top" Width="81" />
 
-        <TextBlock HorizontalAlignment="Left" Margin="191,116,0,0" Text="Name: " TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <TextBlock HorizontalAlignment="Left" Margin="191,142,0,0" Text="Phone: " TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <TextBlock HorizontalAlignment="Left" Margin="191,166,0,0" Text="SSN: " TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Left" Margin="191,116,0,0" Text="Name: " TextWrapping="Wrap"
+                   VerticalAlignment="Top" />
+        <TextBlock HorizontalAlignment="Left" Margin="191,142,0,0" Text="Phone: " TextWrapping="Wrap"
+                   VerticalAlignment="Top" />
+        <TextBlock HorizontalAlignment="Left" Margin="191,166,0,0" Text="SSN: " TextWrapping="Wrap"
+                   VerticalAlignment="Top" />
 
-        <TextBlock HorizontalAlignment="Left" Margin="253,118,0,0" Name="name" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <TextBlock HorizontalAlignment="Left" Margin="253,144,0,0" Name="phone" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <TextBlock HorizontalAlignment="Left" Margin="253,168,0,0" Name="ssn" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Left" Margin="253,118,0,0" Name="name" TextWrapping="Wrap"
+                   VerticalAlignment="Top" />
+        <TextBlock HorizontalAlignment="Left" Margin="253,144,0,0" Name="phone" TextWrapping="Wrap"
+                   VerticalAlignment="Top" />
+        <TextBlock HorizontalAlignment="Left" Margin="253,168,0,0" Name="ssn" TextWrapping="Wrap"
+                   VerticalAlignment="Top" />
 
-        <TextBlock HorizontalAlignment="Left" Margin="35,237,0,0" Text="Doctor:" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <TextBlock HorizontalAlignment="Left" Name="doctor" TextWrapping="Wrap" VerticalAlignment="Top" Margin="108,239,0,0"/>
+        <TextBlock HorizontalAlignment="Left" Margin="35,237,0,0" Text="Doctor:" TextWrapping="Wrap"
+                   VerticalAlignment="Top" />
+        <TextBlock HorizontalAlignment="Left" Name="doctor" TextWrapping="Wrap" VerticalAlignment="Top"
+                   Margin="108,239,0,0" />
 
-        <TextBlock HorizontalAlignment="Left" Margin="35,295,0,0" Text="Result Time:" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <TimePicker Name="ResultTime" HorizontalAlignment="Left" Margin="38,362,0,0" VerticalAlignment="Top" Height="37" Width="298" IsEnabled="False"/>
-        <DatePicker Name="ResultDate" HorizontalAlignment="Left" Margin="36,320,0,0" VerticalAlignment="Top" Height="37" Width="300" IsEnabled="False"/>
+        <TextBlock HorizontalAlignment="Left" Margin="35,295,0,0" Text="Result Time:" TextWrapping="Wrap"
+                   VerticalAlignment="Top" />
+        <TimePicker Name="ResultTime" HorizontalAlignment="Left" Margin="38,362,0,0" VerticalAlignment="Top"
+                    Height="37" Width="298" IsEnabled="False" />
+        <DatePicker Name="ResultDate" HorizontalAlignment="Left" Margin="36,320,0,0" VerticalAlignment="Top"
+                    Height="37" Width="300" IsEnabled="False" />
 
 
-        <TextBlock HorizontalAlignment="Left" Text="Test:" TextWrapping="Wrap" VerticalAlignment="Top" Margin="36,407,0,0"/>
-        <TextBlock Name="test" HorizontalAlignment="Left" Margin="80,409,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Left" Text="Test:" TextWrapping="Wrap" VerticalAlignment="Top"
+                   Margin="36,407,0,0" />
+        <TextBlock Name="test" HorizontalAlignment="Left" Margin="80,409,0,0" Text="" TextWrapping="Wrap"
+                   VerticalAlignment="Top" />
 
-        <TextBlock HorizontalAlignment="Left" Text="Test Reading:" VerticalAlignment="Top" Margin="37,446,0,0"/>
-        <TextBlock Name="reading" HorizontalAlignment="Left" Margin="142,446,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <Button Content="Back" HorizontalAlignment="Left" Margin="36,540,0,0" VerticalAlignment="Top" Height="58" Width="438" FontSize="25" Click="BackBtn_OnClick_Click" />
+        <TextBlock HorizontalAlignment="Left" Text="Test Reading:" VerticalAlignment="Top" Margin="37,446,0,0" />
+        <TextBlock Name="reading" HorizontalAlignment="Left" Margin="142,446,0,0" Text="" TextWrapping="Wrap"
+                   VerticalAlignment="Top" />
+        <Button Content="Back" HorizontalAlignment="Left" Margin="36,540,0,0" VerticalAlignment="Top" Height="58"
+                Width="438" FontSize="25" Click="BackBtn_OnClick_Click" />
     </Grid>
 </Page>

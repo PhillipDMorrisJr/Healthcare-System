@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Healthcare.Model;
 using MySql.Data.MySqlClient;
 
@@ -31,10 +28,11 @@ namespace Healthcare.DAL
                         var name = (string) reader["name"];
 
                         var newTest = new Test(code, name);
-                        tests.Add(newTest);                       
+                        tests.Add(newTest);
                     }
                 }
             }
+
             return tests;
         }
     }
