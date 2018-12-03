@@ -48,8 +48,26 @@ namespace Healthcare.Views
 
             this.checkupListBtn.IsEnabled = AppointmentManager.CurrentAppointment.IsCheckedIn;
 
-            this.finalResultBtn.IsEnabled = false;
-            this.viewResultBtn.IsEnabled = false;
+            RecordedDiagnosis recordedDiagnosis = null;
+
+            foreach (var record in RecordDiagnosisManager.GetRefreshedRecordedDiagnoses())
+            {
+                if (record.ApptId == AppointmentManager.CurrentAppointment.ID)
+                {
+                    recordedDiagnosis = record;
+                }
+            }
+
+            if (recordedDiagnosis == null)
+            {
+                this.finalResultBtn.IsEnabled = true;
+                this.viewResultBtn.IsEnabled = false;
+            }
+            else
+            {
+                this.finalResultBtn.IsEnabled = false;
+                this.viewResultBtn.IsEnabled = true;
+            }
         }
 
         private void home_Click(object sender, RoutedEventArgs e)
@@ -60,6 +78,32 @@ namespace Healthcare.Views
         private void CheckupListBtn_Click(object sender, RoutedEventArgs e)
         {
             this.Frame.Navigate(typeof(CheckupList));
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            bool recordResult = e.Parameter != null && (bool) e.Parameter;
+
+            var previousPage = Frame.BackStack.Last();
+
+            if (previousPage?.SourcePageType != typeof(RecordFinalDiagnosis)) return;
+
+            if (!recordResult) return;
+
+            this.finalResultBtn.IsEnabled = false;
+            this.viewResultBtn.IsEnabled = true;
+
+            base.OnNavigatedTo(e);
+        }
+
+        private void FinalResultBtn_Click(object sender, RoutedEventArgs e)
+        {
+            this.Frame.Navigate(typeof(RecordFinalDiagnosis));
+        }
+
+        private void ViewResultBtn_Click(object sender, RoutedEventArgs e)
+        {
+            this.Frame.Navigate(typeof(ViewRecordFinalDiagnosis));
         }
     }
 }

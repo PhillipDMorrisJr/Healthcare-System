@@ -51,6 +51,23 @@ namespace Healthcare.Views
             this.checkupBtn.IsEnabled = true;
             this.doctorDiagnosisBtn.IsEnabled = false;
             this.homeBtn.IsEnabled = true;
+
+/*            var checkups = CheckUpManager.GetRefreshedCheckUps();
+
+            foreach (var checkup in checkups)
+            {
+                if (checkup != null && checkup.Appointment.ID == AppointmentManager.CurrentAppointment.ID)
+                {
+                    this.systolic.Text = checkup.Systolic.ToString();
+                    this.diastolic.Text = checkup.Diastolic.ToString();
+                    this.pulse.Text = checkup.Pulse.ToString();
+                    this.temperature.Text = checkup.Temperature.ToString(CultureInfo.InvariantCulture);
+                    this.weight.Text = checkup.Weight.ToString(CultureInfo.InvariantCulture);
+                    this.AppointmentDate.Date = checkup.ArrivalDate;
+                    this.AppointmentTime.Time = checkup.ArrivalTime;
+                    break;
+                }
+            }*/
         }
 
         private void checkup_Click(object sender, RoutedEventArgs e)

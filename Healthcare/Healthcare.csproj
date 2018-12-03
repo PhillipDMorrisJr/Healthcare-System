@@ -102,6 +102,7 @@
     <Compile Include="DAL\DoctorDAL.cs" />
     <Compile Include="DAL\PatientDAL.cs" />
     <Compile Include="DAL\QueryDAL.cs" />
+    <Compile Include="DAL\RecordedDiagnosesDAL.cs" />
     <Compile Include="DAL\SymptomDAL.cs" />
     <Compile Include="DAL\TestDAL.cs" />
     <Compile Include="DAL\TestOrderDAL.cs" />
@@ -113,6 +114,7 @@
     <Compile Include="Model\Diagnosis.cs" />
     <Compile Include="Model\Doctor.cs" />
     <Compile Include="Model\Order.cs" />
+    <Compile Include="Model\RecordedDiagnosis.cs" />
     <Compile Include="Model\Symptom.cs" />
     <Compile Include="Model\Test.cs" />
     <Compile Include="Model\TestResult.cs" />
@@ -121,6 +123,7 @@
     <Compile Include="Utils\CustomQuery.cs" />
     <Compile Include="Utils\DiagnosisManager.cs" />
     <Compile Include="Utils\DoctorManager.cs" />
+    <Compile Include="Utils\RecordDiagnosisManager.cs" />
     <Compile Include="Utils\States.cs" />
     <Compile Include="Utils\SymptomManager.cs" />
     <Compile Include="Utils\TestManager.cs" />
@@ -129,6 +132,12 @@
     <Compile Include="Utils\TestTakenManager.cs" />
     <Compile Include="Views\AppointmentDetails.xaml.cs">
       <DependentUpon>AppointmentDetails.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ViewRecordFinalDiagnosis.xaml.cs">
+      <DependentUpon>ViewRecordFinalDiagnosis.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\RecordFinalDiagnosis.xaml.cs">
+      <DependentUpon>RecordFinalDiagnosis.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Confirmation.xaml.cs">
       <DependentUpon>Confirmation.xaml</DependentUpon>
@@ -211,6 +220,14 @@
     <Page Include="Views\AppointmentDetails.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ViewRecordFinalDiagnosis.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\RecordFinalDiagnosis.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Confirmation.xaml">
       <SubType>Designer</SubType>
