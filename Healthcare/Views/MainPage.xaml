@@ -57,9 +57,9 @@
         <Button Content="UPDATE" HorizontalAlignment="Left" Margin="794,713,0,0" VerticalAlignment="Top" Height="66" Width="105" Click="onUpdateAppointment_Click" />
         <Button Content="Check-Up" HorizontalAlignment="Left" Margin="935,713,0,0" VerticalAlignment="Top" Height="66" Width="100" Click="onCheckUp_Click" />
 
-        <TextBox x:Name="lastName" HorizontalAlignment="Left" Margin="-123,590,0,0" Text="Search" VerticalAlignment="Top" Width="142" Background="Azure"/>
+        <TextBox x:Name="lastName" HorizontalAlignment="Left" Margin="-123,590,0,0" Text="" VerticalAlignment="Top" Width="142" Background="Azure"/>
         <Button Content="Find Patient(s)" HorizontalAlignment="Left" Margin="-216,475,0,0" VerticalAlignment="Top" Width="157" Click="FindButton_Click"/>
-        <TextBox x:Name="firstName" HorizontalAlignment="Left" Margin="-123,540,0,0" Text="Search" VerticalAlignment="Top" Width="142" Background="Azure"/>
+        <TextBox x:Name="firstName" HorizontalAlignment="Left" Margin="-123,540,0,0" Text="" VerticalAlignment="Top" Width="142" Background="Azure"/>
         <TextBlock HorizontalAlignment="Left" Margin="-217,546,0,0" Text="First Name:" TextWrapping="Wrap" VerticalAlignment="Top" />
         <TextBlock HorizontalAlignment="Left" Margin="-216,596,0,0" Text="Last Name:" TextWrapping="Wrap" VerticalAlignment="Top" />
         <DatePicker x:Name="datePicker" HorizontalAlignment="Left" Margin="-217,651,0,0" VerticalAlignment="Top"/>
