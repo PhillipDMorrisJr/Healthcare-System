@@ -74,7 +74,8 @@ namespace Healthcare.Views
         {
             if (this.end.Date.Date <= this.begin.Date.Date)
             {
-                this.validateBetweenDates.Text = "The start date must be prior to the end date";
+                this.confirmation.Foreground = new SolidColorBrush(Colors.Yellow);
+                this.confirmation.Text = "The start date must be prior to the end date";
                 return;
             }
 
