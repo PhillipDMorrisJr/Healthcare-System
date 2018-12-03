@@ -183,6 +183,7 @@ namespace Healthcare.Utils
         /// <returns>List of all patients available.</returns>
         public static List<Patient> GetPatients()
         {
+            RegistrationUtility.Patients = PatientDAL.GetPatients();
             return RegistrationUtility.Patients;
 
         }
