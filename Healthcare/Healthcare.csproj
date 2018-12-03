@@ -115,6 +115,7 @@
     <Compile Include="Utils\CustomQuery.cs" />
     <Compile Include="Utils\DoctorManager.cs" />
     <Compile Include="Utils\IdGenerator.cs" />
+    <Compile Include="Utils\States.cs" />
     <Compile Include="Utils\SymptomManager.cs" />
     <Compile Include="Utils\TestManager.cs" />
     <Compile Include="Utils\TestResultManager.cs" />

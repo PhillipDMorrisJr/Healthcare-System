@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -23,14 +24,16 @@ namespace Healthcare.Views
     /// </summary>
     public sealed partial class EditPatient : Page
     {
+        private string phoneNumber;
+        private string socialSecurityNumber;
         public EditPatient()
         {
             this.InitializeComponent();
             this.nameID.Text = AccessValidator.CurrentUser.Username;
             this.userID.Text = AccessValidator.CurrentUser.Id;
             this.accessType.Text = AccessValidator.Access;
-
             List<string> genders = new List<string> {"Male", "Female"};
+            this.state.ItemsSource = States.GetStates();
             this.genderCmbox.ItemsSource = genders;
 
             if (PatientManager.CurrentPatient != null)
@@ -40,50 +43,211 @@ namespace Healthcare.Views
                 if (currentAddress != null)
                 {
                     this.street.Text = currentAddress.Street;
-                    this.state.Text = currentAddress.State;
+                    this.state.ItemsSource = States.GetStates();
+                    this.state.SelectedItem = currentAddress.State;
                     this.zip.Text = currentAddress.Zip.ToString();
                 }
-
-                this.ssn.Password = PatientManager.CurrentPatient.Ssn.ToString();
+                this.socialSecurityNumber = PatientManager.CurrentPatient.Ssn.ToString();                
+                updateSSN();
                 this.fname.Text = PatientManager.CurrentPatient.FirstName;
                 this.lname.Text = PatientManager.CurrentPatient.LastName;
                 this.bday.Date = PatientManager.CurrentPatient.Dob;
-                this.phone.Text = PatientManager.CurrentPatient.Phone;
+                this.phoneNumber = PatientManager.CurrentPatient.Phone;
+                updatePhone();
+                
                 this.genderCmbox.SelectedItem = PatientManager.CurrentPatient.Gender;
             }           
         }
+        private void validate()
+        {
+            this.validation.Text +=  "Please Address the following:\n";
+            validateFirstName();
+            validateLastName();
+            validateStreet();
+            validateSSN();
+            validatePhone();
+            validateDate();
+            validateZip();
+        }
 
+        private void validateZip()
+        {
+            if (string.IsNullOrEmpty(this.zip.Text) || this.zip.Text.Length != 5)
+            {
+                this.validation.Text += "Enter valid 5 digit Zip in the following format: xxxxx\n";
+                this.zip.BorderBrush = new SolidColorBrush(Colors.Red);
+            }
+            else
+            {
+                this.zip.BorderBrush = new SolidColorBrush(Colors.Gainsboro);
+            }
+        }
+
+        private void validateDate()
+        {
+            if (this.bday.Date > DateTimeOffset.Now)
+            {
+                this.validation.Text += "Patient's birthday must before the current day\n";
+                this.bday.Background = new SolidColorBrush(Colors.MistyRose);
+            }
+            else
+            {
+                this.bday.Background = new SolidColorBrush(Colors.Azure);
+            }
+        }
+
+        private void validatePhone()
+        {
+            int validNumberOfDigits = 10;
+            
+            bool isNumber = long.TryParse(this.phoneNumber, out long result);
+            if (string.IsNullOrEmpty(this.phoneNumber) || this.phoneNumber.Length != validNumberOfDigits || !isNumber)
+            {
+                this.validation.Text += "Please enter a valid 10 digit phone number in the following format: xxx-xxx-xxxx\n";
+                this.phone.BorderBrush = new SolidColorBrush(Colors.Red);
+                this.phone1.BorderBrush = new SolidColorBrush(Colors.Red);
+                this.phone2.BorderBrush = new SolidColorBrush(Colors.Red);
+            }
+            else
+            {
+                updatePhone();
+                this.phone.BorderBrush = new SolidColorBrush(Colors.Gainsboro);
+                this.phone1.BorderBrush = new SolidColorBrush(Colors.Gainsboro);
+                this.phone2.BorderBrush = new SolidColorBrush(Colors.Gainsboro);
+            }
+        }
+
+        private void updatePhone()
+        {
+            this.phone.Text = this.phoneNumber.Substring(0, 3);
+            this.phone1.Text = this.phoneNumber.Substring(3, 3);
+            this.phone2.Text = this.phoneNumber.Substring(6, 4);
+        }
+
+        private void validateSSN()
+        {
+            int validNumberOfDigits = 9;
+            bool isNumber = int.TryParse(this.socialSecurityNumber, out int result);
+            if (string.IsNullOrEmpty(this.socialSecurityNumber) || this.socialSecurityNumber.Length != validNumberOfDigits || !isNumber)
+            {
+                this.validation.Text += "Please enter a valid 9 digit ssn in the following format: xxx-xx-xxxx\n";
+                this.ssn.BorderBrush = new SolidColorBrush(Colors.Red);
+                this.ssn1.BorderBrush = new SolidColorBrush(Colors.Red);
+                this.ssn2.BorderBrush = new SolidColorBrush(Colors.Red);
+            }
+            else
+            {
+                updateSSN();
+                this.ssn.BorderBrush = new SolidColorBrush(Colors.Gainsboro);
+                this.ssn1.BorderBrush = new SolidColorBrush(Colors.Gainsboro);
+                this.ssn2.BorderBrush = new SolidColorBrush(Colors.Gainsboro);
+            }
+        }
+
+        private void updateSSN()
+        {
+            this.ssn.Password = this.socialSecurityNumber.Substring(0, 3);
+            this.ssn1.Password = this.socialSecurityNumber.Substring(3, 2);
+            this.ssn2.Password = this.socialSecurityNumber.Substring(5, 4);
+        }
+
+        private void validateStreet()
+        {
+            if (string.IsNullOrEmpty(street.Text))
+            {
+                this.validation.Text += "Please enter a valid street\n";
+                this.street.BorderBrush = new SolidColorBrush(Colors.Red);
+            }
+            else
+            {
+                this.street.BorderBrush = new SolidColorBrush(Colors.Gainsboro);
+            }
+        }
+
+        private void validateLastName()
+        {
+            if (string.IsNullOrEmpty(lname.Text))
+            {
+                this.validation.Text += "Please enter a valid last name\n";
+                this.lname.BorderBrush = new SolidColorBrush(Colors.Red);
+            }
+            else
+            {
+                this.lname.BorderBrush = new SolidColorBrush(Colors.Gainsboro);
+            }
+        }
+
+        private void validateFirstName()
+        {
+            if (string.IsNullOrEmpty(fname.Text))
+            {
+                this.validation.Text += "Please enter a valid first name\n";
+                this.fname.BorderBrush = new SolidColorBrush(Colors.Red);
+            }
+            else
+            {
+                this.fname.BorderBrush = new SolidColorBrush(Colors.Gainsboro);
+            }
+        }
+
+        private bool isValid()
+        {
+            int validZip = 5;
+            int validSSN = 9;
+            int validPhone = 10;
+            bool isPhoneNumber = long.TryParse(this.phoneNumber, out long result);
+            bool isSSNNumber = int.TryParse(this.ssn.Password, out int result1);
+            bool isZipNumber = int.TryParse(this.zip.Text, out int result2);
+            return (!string.IsNullOrEmpty(this.zip.Text) && isPhoneNumber && isSSNNumber && isZipNumber &&
+                    this.zip.Text.Length == validZip && this.bday.Date <= DateTimeOffset.Now &&
+                    !string.IsNullOrEmpty(this.phoneNumber) && this.phoneNumber.Length == validPhone &&
+                    !string.IsNullOrEmpty(this.socialSecurityNumber) && this.socialSecurityNumber.Length == validSSN &&
+                    !string.IsNullOrEmpty(street.Text) && !string.IsNullOrEmpty(lname.Text) &&
+                    !string.IsNullOrEmpty(fname.Text));
+                
+        }
 
         private void updatePatient_onClick(object sender, RoutedEventArgs e)
         {
-            string ssn = this.ssn.Password;
+            this.phoneNumber = this.phone.Text + this.phone1.Text + this.phone2.Text;
+            this.validation.Text = "";
+            this.socialSecurityNumber = this.ssn.Password + ssn1.Password + ssn2.Password;
             string firstName = this.fname.Text;
             string lastName = this.lname.Text;
-            string phone = this.phone.Text;
+            
             DateTime dateOfBirth = this.bday.Date.DateTime;
-            string gender = string.Empty;
 
+            string gender = string.Empty;
+            
             var genderCmboxSelectedItem = this.genderCmbox.SelectedItem;
-            if (genderCmboxSelectedItem != null)
-            {
-                gender = genderCmboxSelectedItem.ToString();
-            }
+            gender = genderCmboxSelectedItem?.ToString();
+            var stateCmboxSelectedItem = this.state.SelectedItem;
+            var state = stateCmboxSelectedItem?.ToString();
+            
 
             string street = this.street.Text;
-            string state = this.state.Text;
             string zip = this.zip.Text;
 
-            bool isTenDigit = phone.Length == 10;
-            bool isSsnNineDigit = ssn.Length == 9;
-
-            if (!(string.IsNullOrWhiteSpace(street) && string.IsNullOrWhiteSpace(state) && string.IsNullOrWhiteSpace(zip) && string.IsNullOrWhiteSpace(firstName) && string.IsNullOrWhiteSpace(lastName) && string.IsNullOrWhiteSpace(phone)) && isTenDigit && isSsnNineDigit)
+            try
             {
-                string fullAddress = street + ", " + state + ", " + zip;
-                RegistrationUtility.EditPatient(PatientManager.CurrentPatient.Id, Convert.ToInt32(ssn), firstName, lastName, phone, dateOfBirth, gender, fullAddress, PatientManager.CurrentPatient.AddressId);
-            }
+                if (isValid())
+                {
+                    string fullAddress = street + ", " + state + ", " + zip;
+                    RegistrationUtility.EditPatient(PatientManager.CurrentPatient.Id, Convert.ToInt32(socialSecurityNumber), firstName, lastName, this.phoneNumber, dateOfBirth, gender, fullAddress, PatientManager.CurrentPatient.AddressId);
+                    this.Frame.Navigate(typeof(MainPage));
+                }
+                else
+                {
+                    validate();
+                }
 
-            this.Frame.Navigate(typeof(MainPage));
+            }
+            catch (Exception)
+            {
+                this.validate();
+            }
         }
+
 
         private void home_onClick(object sender, RoutedEventArgs e)
         {
