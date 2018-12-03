@@ -15,5 +15,11 @@ namespace Healthcare.Utils
             DataTable dataTable = QueryDAL.GetResults(query);
             return dataTable;
         }
+
+        public static DataTable RetrieveResultsBetweenDates(DateTimeOffset beginDate, DateTimeOffset endDate)
+        {
+            DataTable dataTable = QueryDAL.GetResultsBetweenDates(beginDate, endDate);
+            return dataTable;
+        }
     }
 }

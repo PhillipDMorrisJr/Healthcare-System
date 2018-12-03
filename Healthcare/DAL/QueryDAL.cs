@@ -36,5 +36,10 @@ namespace Healthcare.DAL
                 throw;
             }
         }
+
+        public static DataTable GetResultsBetweenDates(DateTimeOffset beginDate, DateTimeOffset endDate)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

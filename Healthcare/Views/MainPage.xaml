@@ -15,10 +15,11 @@
             <Setter Property="Foreground" Value="Aqua" />
             <Setter Property="BorderBrush" Value="#3CC4EE"/>
             <Setter Property="BorderThickness" Value="2"/>
-        </Style>
-<Style TargetType="RadioButton">
             <Setter Property="RequestedTheme" Value="Dark"></Setter>
-</Style>
+        </Style>
+        <Style TargetType="RadioButton">
+            <Setter Property="RequestedTheme" Value="Dark"></Setter>
+        </Style>
         <Style TargetType="TextBlock">
             <Setter Property="Foreground" Value="Azure"></Setter>
         </Style>
