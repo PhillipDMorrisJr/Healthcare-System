@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Healthcare.DAL;
+using Healthcare.Model;
 
 namespace Healthcare.Utils
 {
@@ -21,5 +22,6 @@ namespace Healthcare.Utils
             DataTable dataTable = QueryDAL.GetResultsBetweenDates(beginDate, endDate);
             return dataTable;
         }
+
     }
 }

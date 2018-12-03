@@ -49,7 +49,7 @@
                          GridLinesVisibility="All"
                          AutoGenerateColumns="False"
                          SelectionMode="Single" HorizontalAlignment="Left" Margin="76,495,0,0"  VerticalAlignment="Top" Height="240" Width="1091"/>
-        <TextBlock Grid.Row="0" Name="confirmation" HorizontalAlignment="Left" Margin="76,740,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="27" Width="1026"/>
+        <TextBlock Grid.Row="0" Name="confirmation" HorizontalAlignment="Left" Margin="76,740,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="64" Width="1026"/>
         <DatePicker Name="begin" HorizontalAlignment="Left" Margin="866,229,0,0" VerticalAlignment="Top" Background="Azure"/>
         <DatePicker Name="end" HorizontalAlignment="Left" Margin="866,267,0,0" VerticalAlignment="Top" Background="Azure"/>
         <Button Content="Display Visits" HorizontalAlignment="Left" Margin="866,305,0,0" VerticalAlignment="Top" Width="296" BorderBrush="#3CC4EE" Foreground="Aqua" Background="#0178D4" Click="visitsBetween_Click"/>

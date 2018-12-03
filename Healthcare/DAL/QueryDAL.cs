@@ -5,6 +5,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Healthcare.Model;
 using MySql.Data.MySqlClient;
 
 namespace Healthcare.DAL
@@ -38,10 +39,15 @@ namespace Healthcare.DAL
                 using (MySqlConnection conn = DbConnection.GetConnection())
                 {
                     conn.Open();
-                    string query = "";
+                    string query = "SELECT DATE(`checkup`.arrivalDate) as \"Arrival Date\", `patients`.`patientID`, Concat(`patients`.`firstName`, \" \", `patients`.`lastName`) as Patient, " +
+                        "Concat(`doctors`.`firstName`, \" \", `doctors`.`lastName`) as Doctor, `User`.username as Nurse,  doctorDiagnosis.diagnosis, test.name, `results`.`testReadings` " +
+                        "FROM `patients`, checkup, doctorDiagnosis, results, doctors, `User`, testOrder, test WHERE `patients`.patientID = `checkup`.`pID` AND `checkup`.`nurseID` = `User`.`userID` " +
+                        "AND doctorDiagnosis.doctorID = doctors.doctorID AND checkup.cuID = testOrder.cuID AND testOrder.cuID = checkup.cuID AND test.code = testOrder.code AND results.orderID = testOrder.orderID AND" +
+                         "`checkup`.arrivalDate > @beginDate AND `checkup`.arrivalDate < @endDate";
                     using (var cmd = new MySqlCommand(query, conn))
                     {
-
+                        cmd.Parameters.AddWithValue("@beginDate", beginDate.ToString("yyyy-MM-dd"));
+                        cmd.Parameters.AddWithValue("@endDate", endDate.ToString("yyyy-MM-dd"));
                         DataTable dataTable = new DataTable();
 
                         using (var dataAdapter = new MySqlDataAdapter(cmd))
