@@ -88,6 +88,31 @@ namespace Healthcare.Model
         /// <param name="addressId">The addressId.</param>
         public Patient(int ssn, string firstName, string lastName, string phoneNumber, DateTime dob, string gender, int addressId)
         {
+            int ssnLength = (ssn + "").Length;
+            int phoneLength = phoneNumber.Length;
+            if (ssnLength != 9)
+            {
+                throw new ArgumentException("SSN must be 9 digits");
+            }
+            if (phoneLength != 10)
+            {
+                throw new ArgumentException("Phone number must be 10 digits and in the format: xxxxxxxxxx");
+            }
+
+            if (string.IsNullOrEmpty(firstName))
+            {
+                throw new ArgumentException("Must have a first name");
+            }
+
+            if (string.IsNullOrEmpty(lastName))
+            {
+                throw new ArgumentException("Must have a last name");
+            }
+
+            if (string.IsNullOrEmpty(gender))
+            {
+                throw new ArgumentException("Must have a gender");
+            }
             this.FirstName = firstName;
             this.LastName = lastName;
             this.Phone = phoneNumber;

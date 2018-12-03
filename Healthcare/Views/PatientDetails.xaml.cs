@@ -44,7 +44,8 @@ namespace Healthcare.Views
                 this.fname.Text = PatientManager.CurrentPatient.FirstName;
                 this.lname.Text = PatientManager.CurrentPatient.LastName;
                 this.bday.Date = PatientManager.CurrentPatient.Dob;
-                this.phone.Text = PatientManager.CurrentPatient.Phone;
+                long.TryParse(PatientManager.CurrentPatient.Phone, out long pNumber);
+                this.phone.Text = string.Format("{0:(###) ###-####}", pNumber);
                 this.gender.Text = PatientManager.CurrentPatient.Gender;
 
                 var social = "***-**-" + PatientManager.CurrentPatient.Ssn.ToString().Substring(5);

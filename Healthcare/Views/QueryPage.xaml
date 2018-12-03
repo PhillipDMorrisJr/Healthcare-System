@@ -8,7 +8,15 @@
     x:Class="Healthcare.Views.QueryPage"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-
+    <Page.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Background" Value="#0178D4" />
+            <Setter Property="Foreground" Value="Aqua" />
+            <Setter Property="BorderBrush" Value="#3CC4EE"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="RequestedTheme" Value="Dark"></Setter>
+        </Style>
+    </Page.Resources>
     <Grid  HorizontalAlignment="Stretch" Margin="245,10,0,0" VerticalAlignment="Stretch">
         <Grid.RowDefinitions>
             <RowDefinition Height="826*"/>
@@ -26,10 +34,10 @@
 
         <Button Content="LOG OUT" HorizontalAlignment="Left" Margin="1002,71,0,0" VerticalAlignment="Top" Height="66" Width="165" Click="onLogout_Click" Background="#0178D4" BorderBrush="#3CC4EE" Foreground="Aqua" Grid.Row="1"/>
 
-        <TextBox Grid.Row="0" x:Name="query" HorizontalAlignment="Left" Margin="76,134,0,0" VerticalAlignment="Top" Height="170" Width="1091" Background="Azure" />
-        <TextBlock Grid.Row="0" HorizontalAlignment="Left" Margin="593,99,0,0" Text="Query" Foreground="AliceBlue" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="20" FontWeight="Bold" Width="66"/>
+        <TextBox Grid.Row="0" x:Name="query" HorizontalAlignment="Left" Margin="79,207,0,0" VerticalAlignment="Top" Height="131" Width="571" Background="Azure" />
+        <TextBlock Grid.Row="0" HorizontalAlignment="Left" Margin="336,160,0,0" Text="Query" Foreground="AliceBlue" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="20" FontWeight="Bold" Width="66"/>
         <TextBlock Grid.Row="0" HorizontalAlignment="Left" Margin="594,463,0,0" Text="Results" Foreground="AliceBlue" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="20" FontWeight="Bold" Width="72"/>
-        <Button Grid.Row="0" Content="GO" HorizontalAlignment="Center" Margin="0,309,0,0" VerticalAlignment="Top" Height="51" Width="328" Background="#0178D4" BorderBrush="#3CC4EE" Foreground="Aqua" Click="query_OnClick"/>
+        <Button Grid.Row="0" Content="GO" HorizontalAlignment="Left" Margin="201,353,0,0" VerticalAlignment="Top" Height="51" Width="328" Background="#0178D4" BorderBrush="#3CC4EE" Foreground="Aqua" Click="query_OnClick"/>
         <Button Content="HOME" HorizontalAlignment="Left" Margin="832,70.8,0,0" VerticalAlignment="Top" Height="66" Width="165" Click="home_Click" Background="#0178D4" BorderBrush="#3CC4EE" Foreground="Aqua" Grid.Row="1"/>
 
         <Custom:DataGrid Grid.Row="0" Name="Results" Background="Azure"
@@ -42,6 +50,13 @@
                          AutoGenerateColumns="False"
                          SelectionMode="Single" HorizontalAlignment="Left" Margin="76,495,0,0"  VerticalAlignment="Top" Height="240" Width="1091"/>
         <TextBlock Grid.Row="0" Name="confirmation" HorizontalAlignment="Left" Margin="76,740,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="27" Width="1026"/>
+        <DatePicker Name="begin" HorizontalAlignment="Left" Margin="866,229,0,0" VerticalAlignment="Top" Background="Azure"/>
+        <DatePicker Name="end" HorizontalAlignment="Left" Margin="866,267,0,0" VerticalAlignment="Top" Background="Azure"/>
+        <Button Content="Display Visits" HorizontalAlignment="Left" Margin="866,305,0,0" VerticalAlignment="Top" Width="296" BorderBrush="#3CC4EE" Foreground="Aqua" Background="#0178D4" Click="visitsBetween_Click"/>
+        <TextBlock HorizontalAlignment="Left" Margin="870,204,0,0" Text="Display Visits Between the Following Dates: " TextWrapping="Wrap" VerticalAlignment="Top" Width="293" Foreground="AliceBlue"/>
+        <TextBlock HorizontalAlignment="Left" Margin="801,269,0,0" Text="End: " TextWrapping="Wrap" VerticalAlignment="Top" Width="41" Foreground="AliceBlue" Height="31"/>
+        <TextBlock HorizontalAlignment="Left" Margin="801,231,0,0" Text="Begin: " TextWrapping="Wrap" VerticalAlignment="Top" Width="45" Foreground="AliceBlue" Height="33"/>
+        <TextBlock Name="validateBetweenDates" HorizontalAlignment="Left" Margin="866,353,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Height="57" Width="290" Foreground="Yellow"/>
 
     </Grid>
 

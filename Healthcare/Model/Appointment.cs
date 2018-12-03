@@ -62,8 +62,13 @@ namespace Healthcare.Model
         /// <param name="checkedIn">The status for if the patient is checked in.</param>
         public Appointment(Patient patient, Doctor doctor, DateTime appointmentDateTime, TimeSpan appointmentTime, string description, bool checkedIn)
         {
-            this.Doctor = doctor;
-            this.Patient = patient;
+            if (appointmentDateTime == null)
+            {
+                throw new ArgumentException();
+            }
+
+            this.Doctor = doctor ?? throw new ArgumentException("Doctor must not be null");
+            this.Patient = patient ?? throw new ArgumentException("Patient must not be null");
             this.AppointmentDateTime = appointmentDateTime;
             this.AppointmentTime = appointmentTime;
             this.IsCheckedIn = checkedIn;
@@ -81,8 +86,8 @@ namespace Healthcare.Model
         /// <param name="checkedIn">The status for if the patient is checked in.</param>
         public Appointment(Patient patient, Doctor doctor, DateTime appointmentDateTime, TimeSpan appointmentTime, string description, bool checkedIn, uint id)
         {
-            this.Doctor = doctor;
-            this.Patient = patient;
+            this.Doctor = doctor ?? throw new ArgumentException("Doctor must not be null");
+            this.Patient = patient ?? throw new ArgumentException("Patient must not be null");
             this.AppointmentDateTime = appointmentDateTime;
             this.AppointmentTime = appointmentTime;
             this.IsCheckedIn = checkedIn;

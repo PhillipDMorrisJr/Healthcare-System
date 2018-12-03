@@ -13,8 +13,7 @@ namespace Healthcare.DAL
     {
         public static DataTable GetResults(string query)
         {
-            try
-            {
+
                 using (MySqlConnection conn = DbConnection.GetConnection())
                 {
                     conn.Open();
@@ -31,10 +30,27 @@ namespace Healthcare.DAL
                     }
                 }
             }
-            catch (Exception)
-            {
-                throw;
-            }
+
+        
+
+        public static DataTable GetResultsBetweenDates(DateTimeOffset beginDate, DateTimeOffset endDate)
+        {
+                using (MySqlConnection conn = DbConnection.GetConnection())
+                {
+                    conn.Open();
+                    string query = "";
+                    using (var cmd = new MySqlCommand(query, conn))
+                    {
+
+                        DataTable dataTable = new DataTable();
+
+                        using (var dataAdapter = new MySqlDataAdapter(cmd))
+                        {
+                            dataAdapter.Fill(dataTable);
+                            return dataTable;
+                        }
+                    }
+                }
         }
     }
 }
