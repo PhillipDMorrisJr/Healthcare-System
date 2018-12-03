@@ -115,8 +115,11 @@ namespace Healthcare
             {
                 this.Frame.Navigate(typeof(EditPatient));
             }
-
-            await InformToSelectPatient();
+            else
+            {
+                await InformToSelectPatient();
+            }
+            
         }
 
         private static async Task InformToSelectPatient()
@@ -236,6 +239,30 @@ namespace Healthcare
             PatientManager.CurrentPatient = currentPatient;
             List<Appointment> appointments = AppointmentDAL.GetAppointments(currentPatient);
 
+            AddAPpointmentsToManager(appointments);
+
+            displayAppointments();
+
+        }
+
+        private void displayAppointments()
+        {
+            try
+            {
+                foreach (var appointment in AppointmentManager.Appointments[currentPatient])
+                {
+                    if (appointment == null) continue;
+                    var item = new ListViewItem {Tag = appointment, Content = appointment.Format()};
+                    this.DatabaseAppointmentInformation.Items?.Add(item);
+                }
+            }
+            catch (Exception)
+            {
+            }
+        }
+
+        private void AddAPpointmentsToManager(List<Appointment> appointments)
+        {
             if (appointments != null)
             {
                 try
@@ -246,13 +273,6 @@ namespace Healthcare
                 {
                     // ignored
                 }
-            }
-        
-            foreach (var appointment in AppointmentManager.Appointments[currentPatient])
-            {
-                if (appointment == null) continue;
-                var item = new ListViewItem {Tag = appointment, Content = appointment.Format()};
-                this.DatabaseAppointmentInformation.Items?.Add(item);
             }
         }
 

@@ -39,7 +39,10 @@ namespace Healthcare.Views
             {
                 this.Frame.Navigate(typeof(MainPage));
             }
-            this.loginValidator.Visibility = Visibility.Visible;
+            else
+            {
+                this.loginValidator.Visibility = Visibility.Visible;
+            }
         }
 
     }

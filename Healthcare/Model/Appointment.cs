@@ -67,12 +67,17 @@ namespace Healthcare.Model
         /// <param name="testTaken">The status for if the test ordered was taken for the patient by a doctor.</param>
         public Appointment(Patient patient, Doctor doctor, DateTime appointmentDateTime, TimeSpan appointmentTime, string description, bool checkedIn, bool testOrdered, bool testTaken)
         {
-            this.Doctor = doctor;
-            this.Patient = patient;
+            if (appointmentDateTime == null)
+            {
+                throw new ArgumentException();
+            }
+
+            this.Doctor = doctor ?? throw new ArgumentException("Doctor must not be null");
+            this.Patient = patient ?? throw new ArgumentException("Patient must not be null");
             this.AppointmentDateTime = appointmentDateTime;
             this.AppointmentTime = appointmentTime;
             this.IsCheckedIn = checkedIn;
-            this.Description = description;
+            this.Description = description ?? throw new ArgumentException("Description must not be null");
             this.TestOrdered = testOrdered;
             this.TestTaken = testTaken;
         }
@@ -90,12 +95,12 @@ namespace Healthcare.Model
         /// <param name="testTaken">The status for if the test ordered was taken for the patient by a doctor.</param>
         public Appointment(Patient patient, Doctor doctor, DateTime appointmentDateTime, TimeSpan appointmentTime, string description, bool checkedIn, uint id, bool testOrdered, bool testTaken)
         {
-            this.Doctor = doctor;
-            this.Patient = patient;
+            this.Doctor = doctor ?? throw new ArgumentException("Doctor must not be null");
+            this.Patient = patient ?? throw new ArgumentException("Patient must not be null");
             this.AppointmentDateTime = appointmentDateTime;
             this.AppointmentTime = appointmentTime;
             this.IsCheckedIn = checkedIn;
-            this.Description = description;
+            this.Description = description ?? throw new ArgumentException("Description must not be null");
             this.TestOrdered = testOrdered;
             this.TestTaken = testTaken;
             ID = id;

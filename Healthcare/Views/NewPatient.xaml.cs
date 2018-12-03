@@ -33,53 +33,138 @@ namespace Healthcare.Views
             this.accessType.Text = AccessValidator.Access;
             
             List<string> genders = new List<string> {"Male", "Female"};
+            this.state.ItemsSource = States.GetStates();
+            this.state.SelectedItem = "AL";
             this.genderCmbox.ItemsSource = genders;
             this.genderCmbox.SelectedItem = "Male";
         }
 
+
+
+        
         private void validate()
         {
             this.validation.Text +=  "Please Address the following:\n";
-            if (string.IsNullOrEmpty(fname.Text))
+            validateFirstName();
+            validateLastName();
+            validateStreet();
+            validateSSN();
+            validatePhone();
+            validateDate();
+            validateZip();
+        }
+
+        private void validateZip()
+        {
+            if (string.IsNullOrEmpty(this.zip.Text) || this.zip.Text.Length != 5)
             {
-                this.validation.Text += "Please enter a valid first name\n";
-                this.fname.BorderBrush = new SolidColorBrush(Colors.Red);
+                this.validation.Text += "Enter Valid Zip in the following format: xxxxx\n";
+                this.zip.BorderBrush = new SolidColorBrush(Colors.Red);
             }
-            if (string.IsNullOrEmpty(lname.Text))
+            else
             {
-                this.validation.Text += "Please enter a valid last name\n";
-                this.lname.BorderBrush = new SolidColorBrush(Colors.Red);
+                this.zip.BorderBrush = new SolidColorBrush(Colors.Gainsboro);
             }
+        }
+
+        private void validateDate()
+        {
+            if (this.bday.Date > DateTimeOffset.Now)
+            {
+                this.validation.Text += "Patient's birthday must before the current day\n";
+                this.bday.Background = new SolidColorBrush(Colors.MistyRose);
+            }
+            else
+            {
+                this.bday.Background = new SolidColorBrush(Colors.Azure);
+            }
+        }
+
+        private void validatePhone()
+        {
+            int validNumberOfDigits = 10;
+            
+            bool isNumber = long.TryParse(this.phone.Text, out long result);
+            if (string.IsNullOrEmpty(this.phone.Text) || this.phone.Text.Length != validNumberOfDigits || !isNumber)
+            {
+                this.validation.Text += "Please enter a valid 10 digit phone number in the following format: xxxxxxxxxx\n";
+                this.phone.BorderBrush = new SolidColorBrush(Colors.Red);
+            }
+            else
+            {
+                this.phone.BorderBrush = new SolidColorBrush(Colors.Gainsboro);
+            }
+        }
+
+        private void validateSSN()
+        {
+            int validNumberOfDigits = 9;
+            bool isNumber = int.TryParse(this.ssn.Password, out int result);
+            if (string.IsNullOrEmpty(this.ssn.Password) || this.ssn.Password.Length != validNumberOfDigits || !isNumber)
+            {
+                this.validation.Text += "Please enter a valid 9 digit ssn in the following format: xxxxxxxxx\n";
+                this.ssn.BorderBrush = new SolidColorBrush(Colors.Red);
+            }
+            else
+            {
+                this.ssn.BorderBrush = new SolidColorBrush(Colors.Gainsboro);
+            }
+        }
+
+        private void validateStreet()
+        {
             if (string.IsNullOrEmpty(street.Text))
             {
                 this.validation.Text += "Please enter a valid street\n";
                 this.street.BorderBrush = new SolidColorBrush(Colors.Red);
             }
-
-            if (string.IsNullOrEmpty(this.ssn.Password))
+            else
             {
-                this.validation.Text += "Please enter a valid ssn in the following format: xxxxxxxxx\n";
-                this.street.BorderBrush = new SolidColorBrush(Colors.Red);
-
+                this.street.BorderBrush = new SolidColorBrush(Colors.Gainsboro);
             }
-            if (string.IsNullOrEmpty(this.phone.Text))
+        }
+
+        private void validateLastName()
+        {
+            if (string.IsNullOrEmpty(lname.Text))
             {
-                this.validation.Text += "Please enter a valid phone number in the following format: xxxxxxxxxx\n";
-                this.street.BorderBrush = new SolidColorBrush(Colors.Red);
-
+                this.validation.Text += "Please enter a valid last name\n";
+                this.lname.BorderBrush = new SolidColorBrush(Colors.Red);
             }
-
-            if (this.bday.Date > DateTimeOffset.Now)
+            else
             {
-                this.validation.Text += "Patient's birthday must before the current day\n";
-                this.bday.BorderBrush = new SolidColorBrush(Colors.Red);
+                this.lname.BorderBrush = new SolidColorBrush(Colors.Gainsboro);
             }
+        }
 
-            if (this.genderCmbox.SelectedItem == null)
+        private void validateFirstName()
+        {
+            if (string.IsNullOrEmpty(fname.Text))
             {
-                this.validation.Text += "Must select a gender\n";
-                this.genderCmbox.BorderBrush = new SolidColorBrush(Colors.Red);
+                this.validation.Text += "Please enter a valid first name\n";
+                this.fname.BorderBrush = new SolidColorBrush(Colors.Red);
             }
+            else
+            {
+                this.fname.BorderBrush = new SolidColorBrush(Colors.Gainsboro);
+            }
+        }
+
+        private bool isValid()
+        {
+            int validZip = 5;
+            int validSSN = 9;
+            int validPhone = 10;
+            bool isPhoneNumber = long.TryParse(this.phone.Text, out long result);
+            bool isSSNNumber = int.TryParse(this.ssn.Password, out int result1);
+            bool isZipNumber = int.TryParse(this.zip.Text, out int result2);
+            return (!string.IsNullOrEmpty(this.zip.Text) && isPhoneNumber && isSSNNumber && isZipNumber &&
+                   this.zip.Text.Length == validZip && this.bday.Date <= DateTimeOffset.Now &&
+                   !string.IsNullOrEmpty(this.phone.Text) && this.phone.Text.Length == validPhone &&
+                   !string.IsNullOrEmpty(this.ssn.Password) && this.ssn.Password.Length == validSSN &&
+                   !string.IsNullOrEmpty(street.Text) && !string.IsNullOrEmpty(lname.Text) &&
+                   !string.IsNullOrEmpty(fname.Text));
+                
         }
 
         private void createPatient_onClick(object sender, RoutedEventArgs e)
@@ -95,18 +180,27 @@ namespace Healthcare.Views
             
             var genderCmboxSelectedItem = this.genderCmbox.SelectedItem;
             gender = genderCmboxSelectedItem?.ToString();
+            var stateCmboxSelectedItem = this.state.SelectedItem;
+            var state = stateCmboxSelectedItem?.ToString();
             
 
             string street = this.street.Text;
-            string state = this.state.Text;
             string zip = this.zip.Text;
 
             try
             {
+                if (isValid())
+                {
                 string fullAddress = street + ", " + state + ", " + zip;
                 RegistrationUtility.CreateNewPatient(Convert.ToInt32(ssn), firstName, lastName, phone, dateOfBirth,
                     gender, fullAddress);
                 this.Frame.Navigate(typeof(MainPage));
+                }
+                else
+                {
+                    validate();
+                }
+
             }
             catch (Exception)
             {
