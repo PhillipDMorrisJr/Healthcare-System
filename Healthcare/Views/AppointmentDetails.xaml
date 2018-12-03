@@ -8,7 +8,7 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Grid Background="White" HorizontalAlignment="Center" Height="908" VerticalAlignment="Center" Width="500">
+    <Grid Background="White" HorizontalAlignment="Center" Height="927" VerticalAlignment="Top" Width="500" Margin="0,24,0,0">
         <TextBlock Grid.Row="0" Text="Healthcare Services" HorizontalAlignment="Left" Margin="-469,21,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="139" Width="254" Foreground="White" FontSize="50" TextAlignment="Center" />
         <TextBlock Grid.Row="0" HorizontalAlignment="Left" Margin="-469,231,0,0" Text="Name:" TextWrapping="Wrap" Foreground="GhostWhite" VerticalAlignment="Top" Height="20" Width="62"/>
         <TextBlock Grid.Row="0" Name="nameID" HorizontalAlignment="Left" Margin="-402,231,0,0" Text="" TextWrapping="Wrap" Foreground="GhostWhite" VerticalAlignment="Top" Height="20" Width="62"/>
@@ -21,30 +21,27 @@
 
         <TextBlock HorizontalAlignment="Left" Margin="36,298,0,0" Text="Appointment Date:" TextWrapping="Wrap" VerticalAlignment="Top" Height="33" Width="133"/>
         <DatePicker Name="AppointmentDate" HorizontalAlignment="Left" Margin="36,324,0,0" VerticalAlignment="Top" Height="37" Width="436" IsEnabled="False"/>
-        <TextBlock HorizontalAlignment="Left" Margin="37,376,0,0" Text="Appointment Time:" TextWrapping="Wrap" VerticalAlignment="Top" Height="33" Width="133"/>
-        <TimePicker Name="AppointmentTime" HorizontalAlignment="Left" Margin="36,401,0,0" VerticalAlignment="Top" Height="37" Width="436" IsEnabled="False"/>
-        <Button Name="enterTestBtn" Content="Enter Test Results" HorizontalAlignment="Left" Margin="37,704,0,0" VerticalAlignment="Top" Height="58" Width="438" FontSize="25" Click="enterTestResults_Click" />
-        <Button Name="viewTestBtn" Content="View Test Results" HorizontalAlignment="Left" Margin="37,794,0,0" VerticalAlignment="Top" Height="58" Width="438" FontSize="25" Click="viewTestResults_Click" />
+        <TextBlock HorizontalAlignment="Left" Margin="37,368,0,0" Text="Appointment Time:" TextWrapping="Wrap" VerticalAlignment="Top" Height="33" Width="133"/>
+        <TimePicker Name="AppointmentTime" HorizontalAlignment="Left" Margin="36,393,0,0" VerticalAlignment="Top" Height="37" Width="436" IsEnabled="False"/>
+        <Button Name="finalResultBtn" Content="Record Final Results" HorizontalAlignment="Left" Margin="37,754,0,0" VerticalAlignment="Top" Height="58" Width="438" FontSize="25"  />
+        <Button Name="viewResultBtn" Content="View Results" HorizontalAlignment="Left" Margin="37,841,0,0" VerticalAlignment="Top" Height="58" Width="438" FontSize="25"  />
         <Image Source="../Images/noimage.png" HorizontalAlignment="Left" Height="126" Margin="23,87,0,0" VerticalAlignment="Top" Width="81"/>
 
         <TextBlock HorizontalAlignment="Left" Margin="191,116,0,0" Text="Name: " TextWrapping="Wrap" VerticalAlignment="Top"/>
         <TextBlock HorizontalAlignment="Left" Margin="191,142,0,0" Text="Phone: " TextWrapping="Wrap" VerticalAlignment="Top"/>
         <TextBlock HorizontalAlignment="Left" Margin="191,166,0,0" Text="SSN: " TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <TextBlock HorizontalAlignment="Left" Margin="191,195,0,0" Text="Test Ordered: " TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <TextBlock HorizontalAlignment="Left" Margin="191,223,0,0" Text="Test Taken: " TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <TextBlock HorizontalAlignment="Left" Margin="191,249,0,0" Text="Checked-In: " TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Left" Margin="191,191,0,0" Text="Checked-In: " TextWrapping="Wrap" VerticalAlignment="Top"/>
 
         <TextBlock HorizontalAlignment="Left" Margin="253,120,0,0" Name="name" TextWrapping="Wrap" VerticalAlignment="Top"/>
         <TextBlock HorizontalAlignment="Left" Margin="253,144,0,0" Name="phone" TextWrapping="Wrap" VerticalAlignment="Top"/>
         <TextBlock HorizontalAlignment="Left" Margin="253,168,0,0" Name="ssn" TextWrapping="Wrap" VerticalAlignment="Top"/>
-
-        <TextBlock HorizontalAlignment="Left" Margin="301,197,0,0" Name="orderedTest" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <TextBlock HorizontalAlignment="Left" Margin="301,225,0,0" Name="takenTest" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <TextBlock HorizontalAlignment="Left" Margin="301,249,0,0" Name="checkedIn" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Left" Margin="301,193,0,0" Name="checkedIn" TextWrapping="Wrap" VerticalAlignment="Top"/>
 
         <TextBlock HorizontalAlignment="Left" Margin="35,271,0,0" Text="Doctor:" TextWrapping="Wrap" VerticalAlignment="Top"/>
         <TextBlock HorizontalAlignment="Left" Name="doctor" TextWrapping="Wrap" VerticalAlignment="Top" Margin="92,273,0,0"/>
-        <Button Content="Home" HorizontalAlignment="Left" Margin="37,619,0,0" VerticalAlignment="Top" Height="58" Width="438" FontSize="25" Click="home_Click" />
-        <TextBox IsEnabled="False" Name="description" Header="Description" HorizontalAlignment="Left" Margin="34,451,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Height="134" Width="440" Background="Azure"/>
+        <Button Content="Home" HorizontalAlignment="Left" Margin="37,577,0,0" VerticalAlignment="Top" Height="58" Width="438" FontSize="25" Click="home_Click" />
+        <Button Name="checkupListBtn" Content="List of Checkups" HorizontalAlignment="Left" Margin="36,665,0,0" VerticalAlignment="Top" Height="58" Width="438" FontSize="25" Click="CheckupListBtn_Click"  />
+
+        <TextBox IsEnabled="False" Name="description" Header="Description" HorizontalAlignment="Left" Margin="36,458,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Height="97" Width="440" Background="Azure"/>
     </Grid>
 </Page>

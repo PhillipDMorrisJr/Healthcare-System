@@ -13,39 +13,47 @@ namespace Healthcare.DAL
     {
         private enum Attributes
         {
-            PatientId = 0, Code = 2, TestReadings = 4, Diagnosis = 5
+            ResultId = 0, OrderId = 1, Date = 2, Reading = 4
         }
 
         public static void AddTestResult(TestResult result)
         {
             try
             {
-                var pId = result.PatientId;
-                var apptId = result.AppointmentId;
-                var code = result.Code;
+                var orderId = result.OrderId;
+                var reading = result.Readings;
+                var date = result.Date;
                 var time = result.Time;
-                var testReadings = result.Readings;
-                var diagnosis = result.Diagnosis;
 
                 using (MySqlConnection conn = DbConnection.GetConnection())
                 {
                     conn.Open();
 
                     var insertResultQuery =
-                        "INSERT INTO `results` (`patientID`, `apptID`, `code`, `time`, `testReadings`, `diagnosis`) VALUE (@patientID, @apptID, @code, @time, @testReadings, @diagnosis)";
+                        "INSERT INTO `results` (`orderID`, `date`, `time`, `testReadings`) VALUE (@orderID, @date, @time, @testReadings)";
 
                     using (MySqlCommand cmd = new MySqlCommand(insertResultQuery, conn))
                     {
-                        cmd.Parameters.AddWithValue("@patientID", pId);
-                        cmd.Parameters.AddWithValue("@apptID", apptId);
-                        cmd.Parameters.AddWithValue("@code", code);
+                        cmd.Parameters.AddWithValue("@orderID", orderId);
+                        cmd.Parameters.AddWithValue("@testReadings", reading);
+                        cmd.Parameters.AddWithValue("@date", date.ToString("yyyy-MM-dd"));
                         cmd.Parameters.AddWithValue("@time", time);
-                        cmd.Parameters.AddWithValue("@testReadings", testReadings);
-                        cmd.Parameters.AddWithValue("@diagnosis", diagnosis);
                         cmd.ExecuteNonQuery();
                     }
 
-                    conn.Close();
+                    var selectQuery = "select LAST_INSERT_ID()";
+
+                    using (MySqlCommand selectCommand = new MySqlCommand(selectQuery, conn))
+                    {
+                        MySqlDataReader lastIndexReader = selectCommand.ExecuteReader();
+                        lastIndexReader.Read();
+                        var resultId = lastIndexReader.GetInt32(0);
+
+                        result.ResultId = resultId;
+                        TestResultManager.Results.Add(result);
+                    }
+
+                    conn.Close();               
                 }
 
                 using (MySqlConnection conn = DbConnection.GetConnection())
@@ -53,15 +61,16 @@ namespace Healthcare.DAL
                     conn.Open();
 
                     var updateQuery =
-                        "UPDATE `appointments` SET testTaken = @testTaken WHERE appointmentID = @apptID";
+                        "UPDATE `testsTaken` SET isTestTaken = @isTestTaken, date = @date, time = @time WHERE orderID = @orderID";
                     using (MySqlCommand cmd = new MySqlCommand(updateQuery, conn))
                     {
-                        cmd.Parameters.AddWithValue("@testTaken", 1);
-                        cmd.Parameters.AddWithValue("@apptID", apptId);
-                        cmd.ExecuteNonQuery();
+                        cmd.Parameters.AddWithValue("@orderID", orderId);
+                        cmd.Parameters.AddWithValue("@isTestTaken", true);
+                        cmd.Parameters.AddWithValue("@date", date.ToString("yyyy-MM-dd"));
+                        cmd.Parameters.AddWithValue("@time", time);
+                        cmd.ExecuteReader();                      
                     }
-
-                    conn.Close();
+                    conn.Close();               
                 }
             }
             catch (Exception exception)
@@ -71,41 +80,32 @@ namespace Healthcare.DAL
             }
         }
 
-        public static TestResult GetTestResult(int apptId)
+        public static List<TestResult> GetTestResults()
         {
-            try
-            {
-                TestResult result = null;
+                var results = new List<TestResult>();
 
                 using (MySqlConnection conn = DbConnection.GetConnection())
                 {
                     conn.Open();
-                    var selectQuery = "select * from results WHERE apptID = @apptID";
+                    var selectQuery = "select * from results";
                     using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
                     {
-                        cmd.Parameters.AddWithValue("@apptID", apptId);
                         MySqlDataReader reader = cmd.ExecuteReader();
 
                         while (reader.Read())
-                        {                         
-                            var pId = reader.GetInt32((int) Attributes.PatientId);
-                            var code = reader.GetInt32((int) Attributes.Code);
+                        {       
+                            var resultId = reader.GetInt32((int) Attributes.ResultId);
+                            var id = reader.GetInt32((int) Attributes.OrderId);
+                            var date = reader.GetDateTime((int) Attributes.Date);
                             var time = (TimeSpan) reader["time"];
-                            var testReadings = reader.GetBoolean((int) Attributes.TestReadings);
-                            var diagnosis = reader.GetString((int) Attributes.Diagnosis);
+                            var reading = reader.GetBoolean((int) Attributes.Reading);
 
-                            result = new TestResult(pId, apptId, code, time, testReadings, diagnosis);                          
-                        }
-                        conn.Close();
-                        return result;
+                            var result = new TestResult(id, date, time, reading) {ResultId = resultId};  
+                            results.Add(result);
+                        }                      
                     }
-                }
-            }
-            catch (Exception)
-            {
-                DbConnection.GetConnection().Close();
-                return null;
-            }
+                }   
+            return results;
         }
     }
 }

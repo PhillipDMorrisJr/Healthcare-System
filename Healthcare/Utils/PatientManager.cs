@@ -8,7 +8,7 @@ using Healthcare.Model;
 
 namespace Healthcare.Utils
 {
-    public class PatientManager
+    public static class PatientManager
     {
         public static Patient CurrentPatient;
 

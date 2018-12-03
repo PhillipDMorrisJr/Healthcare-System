@@ -1,5 +1,5 @@
 ﻿<Page
-    x:Class="Healthcare.Views.ViewTestResult"
+    x:Class="Healthcare.Views.OrderTest"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:Healthcare.Views"
@@ -8,7 +8,7 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Grid Background="White" HorizontalAlignment="Center" Height="649" VerticalAlignment="Center" Width="500" Margin="0,0,0,0">
+    <Grid Background="White" HorizontalAlignment="Center" Height="850" VerticalAlignment="Center" Width="500">
         <TextBlock Grid.Row="0" Text="Healthcare Services" HorizontalAlignment="Left" Margin="-469,21,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="139" Width="254" Foreground="White" FontSize="50" TextAlignment="Center" />
         <TextBlock Grid.Row="0" HorizontalAlignment="Left" Margin="-469,231,0,0" Text="Name:" TextWrapping="Wrap" Foreground="GhostWhite" VerticalAlignment="Top" Height="20" Width="62"/>
         <TextBlock Grid.Row="0" Name="nameID" HorizontalAlignment="Left" Margin="-402,231,0,0" Text="" TextWrapping="Wrap" Foreground="GhostWhite" VerticalAlignment="Top" Height="20" Width="62"/>
@@ -31,16 +31,24 @@
         <TextBlock HorizontalAlignment="Left" Margin="35,237,0,0" Text="Doctor:" TextWrapping="Wrap" VerticalAlignment="Top"/>
         <TextBlock HorizontalAlignment="Left" Name="doctor" TextWrapping="Wrap" VerticalAlignment="Top" Margin="108,239,0,0"/>
 
-        <TextBlock HorizontalAlignment="Left" Margin="35,295,0,0" Text="Result Time:" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <TimePicker Name="ResultTime" HorizontalAlignment="Left" Margin="38,362,0,0" VerticalAlignment="Top" Height="37" Width="298" IsEnabled="False"/>
-        <DatePicker Name="ResultDate" HorizontalAlignment="Left" Margin="36,320,0,0" VerticalAlignment="Top" Height="37" Width="300" IsEnabled="False"/>
+        <TextBlock HorizontalAlignment="Left" Margin="39,267,0,0" Text="Order Date:" TextWrapping="Wrap" VerticalAlignment="Top"/>
+
+        <DatePicker Name="AppointmentDate" HorizontalAlignment="Left" Margin="36,290,0,0" VerticalAlignment="Top" Height="37" Width="169"/>
+
+        <TimePicker Name="AppointmentTime" HorizontalAlignment="Left" Margin="37,332,0,0" VerticalAlignment="Top" Height="37" Width="295"/>
+
+        <TextBlock HorizontalAlignment="Left" Text="Tests" TextWrapping="Wrap" VerticalAlignment="Top" Margin="124,377,0,0"/>
+        <ListView Name="Tests" Loaded="Tests_OnLoaded" HorizontalAlignment="Left" Height="189" VerticalAlignment="Top" Width="215" Background="Azure" Margin="35,402,0,0" BorderBrush="LightGray" BorderThickness="2" />
+
+        <TextBlock HorizontalAlignment="Left" Text="Tests To Order" TextWrapping="Wrap" VerticalAlignment="Top" Margin="315,377,0,0"/>
+        <ListView Name="TestToOrder" HorizontalAlignment="Left" Height="189" VerticalAlignment="Top" Width="215" Background="Azure" Margin="255,402,0,0" BorderBrush="LightGray" BorderThickness="2" SelectionChanged="TestsToOrder_SelectionChanged"/>
 
 
-        <TextBlock HorizontalAlignment="Left" Text="Test:" TextWrapping="Wrap" VerticalAlignment="Top" Margin="36,407,0,0"/>
-        <TextBlock Name="test" HorizontalAlignment="Left" Margin="80,409,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top"/>
 
-        <TextBlock HorizontalAlignment="Left" Text="Test Reading:" VerticalAlignment="Top" Margin="37,446,0,0"/>
-        <TextBlock Name="reading" HorizontalAlignment="Left" Margin="142,446,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <Button Content="Back" HorizontalAlignment="Left" Margin="36,540,0,0" VerticalAlignment="Top" Height="58" Width="438" FontSize="25" Click="BackBtn_OnClick_Click" />
+        <Button Name="orderBtn" Content="Order Tests" HorizontalAlignment="Left" Margin="35,680,0,0" VerticalAlignment="Top" Height="58" Width="438" FontSize="25" Click="orderBtn_Click" IsEnabled="False"/>
+        <Button Content="Cancel" HorizontalAlignment="Left" Margin="34,753,0,0" VerticalAlignment="Top" Height="58" Width="438" FontSize="25" Click="CancelBtn_OnClick_Click" />
+        <Button Content="Add" HorizontalAlignment="Left" Margin="104,619,0,0" VerticalAlignment="Top" Width="76" Click="addTest_Click"/>
+        <Button Content="Remove" HorizontalAlignment="Left" Margin="325,619,0,0" VerticalAlignment="Top" Click="removeTest_Click"/>
+
     </Grid>
 </Page>

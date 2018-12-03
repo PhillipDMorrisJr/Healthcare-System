@@ -26,7 +26,6 @@ namespace Healthcare.Views
     public sealed partial class EnterTestResult : Page
     {
         private static bool testReading;
-        private Test test;
 
         public EnterTestResult()
         {
@@ -36,15 +35,26 @@ namespace Healthcare.Views
             this.userID.Text = AccessValidator.CurrentUser.Id;
             this.accessType.Text = AccessValidator.Access;
 
-            this.doctor.Text = AppointmentManager.CurrentAppointment.Doctor.FullName;
+            foreach (var doctor in DoctorManager.Doctors)
+            {
+                if (doctor.Id == DiagnosisManager.CurrentDiagnosis.DoctorId)
+                {
+                    this.doctor.Text = doctor.FullName;
+                }
+            }
+
+            List<Order> orders = TestOrderManager.GetRefreshedOrders();
+
+            foreach (var order in orders)
+            {
+                this.test.Text = this.getTestName(order);
+            }
 
             this.name.Text = AppointmentManager.CurrentAppointment.Patient.FirstName + " " +
                              AppointmentManager.CurrentAppointment.Patient.LastName;
 
             this.phone.Text = String.Format("{0:(###) ###-####}", AppointmentManager.CurrentAppointment.Patient.Phone);
             this.ssn.Text = "***-**-" + AppointmentManager.CurrentAppointment.Patient.Ssn.ToString().Substring(5);
-
-            this.submitBtn.IsEnabled = false;
         }
 
         private void positiveRadioButton_Checked(object sender, RoutedEventArgs e)
@@ -59,44 +69,40 @@ namespace Healthcare.Views
 
         private void submitResult_Click(object sender, RoutedEventArgs e)
         {
-            var time = this.ResultTime.Time;
-            var code = this.test.Code;
+            var appointmentDate = this.AppointmentDate.Date;
+            var appointmentTime = this.AppointmentTime.Time;
+
+            var time = appointmentTime;
+            var date = appointmentDate.DateTime;
+
+            var currentOrder = TestOrderManager.CurrentTestOrder;
+
+            var orderId = currentOrder.OrderId;
             var reading = testReading;
-            var testDiagnosis = this.diagnosis.Text;
-            var patientId = AppointmentManager.CurrentAppointment.Patient.Id;
-            var appointmentId = (int) AppointmentManager.CurrentAppointment.ID;
 
-            var result = new TestResult(patientId, appointmentId, code, time, reading, testDiagnosis);
+            var result = new TestResult(orderId, date, time, reading);
             TestResultDAL.AddTestResult(result);
-            this.Frame.Navigate(typeof(MainPage));
-        }
-
-        private void Tests_OnLoaded(object sender, RoutedEventArgs e)
-        {
-            List<Test> tests =  TestManager.Tests;
-            foreach (var test in tests)
-            {
-                if (test != null)
-                {
-                    ListViewItem item = new ListViewItem
-                    {                       
-                        Tag = test, Content = test.Name
-                    };
-
-                    this.Tests.Items?.Add(item);
-                }
-            }
-        }
-
-        private void Tests_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            this.submitBtn.IsEnabled = true;
-            this.test = (this.Tests.SelectedItem as ListViewItem)?.Tag as Test;
+            this.Frame.Navigate(typeof(CheckupList));
         }
 
         private void CancelBtn_OnClick_Click(object sender, RoutedEventArgs e)
         {
-            this.Frame.Navigate(typeof(AppointmentDetails));
+            this.Frame.Navigate(typeof(CheckupList));
+        }
+
+        private string getTestName(Order order)
+        {
+            string name = string.Empty;
+
+            foreach (var test in TestManager.Tests)
+            {
+                if (test.Code == order.Code)
+                {
+                    name = test.Name;
+                }
+            }
+
+            return name;
         }
     }
 }

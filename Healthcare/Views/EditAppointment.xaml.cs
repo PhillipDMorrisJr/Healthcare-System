@@ -183,7 +183,7 @@ namespace Healthcare.Views
             if (this.doctor != null && this.isValidTime)
             {
                 Appointment newAppointment =
-                    new Appointment(this.patient, this.doctor, date, time, description.Text, false, false, false);
+                    new Appointment(this.patient, this.doctor, date, time, description.Text, false);
                 
                 AppointmentManager.UpdateAppointment(this.originalAppointment, newAppointment, this.patient);
                 this.Frame.Navigate(typeof(Confirmation));

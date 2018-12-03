@@ -46,7 +46,7 @@
 
         <Button Content="HOME" HorizontalAlignment="Center" Margin="0,872,0,0" VerticalAlignment="Top" Height="58" Width="438" FontSize="25" Click="homeButton_Click" />
         <ListBox x:Name="AppointmentTimes" SelectionChanged="Times_OnSelectionChanged" HorizontalAlignment="Left" Height="159" VerticalAlignment="Top" Width="427" Background="Azure" Margin="60,445,0,0" BorderBrush="LightGray" BorderThickness="2"/>
-        <TextBox Name="description" Header="Description" HorizontalAlignment="Left" Margin="58,614,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Height="165" Width="424" Background="Azure"/>
+        <TextBox Name="description" Header="Description" HorizontalAlignment="Center" Margin="0,614,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Height="165" Width="436" Background="Azure"/>
 
 
     </Grid>
