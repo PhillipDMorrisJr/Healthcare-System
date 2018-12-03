@@ -143,38 +143,59 @@ namespace Healthcare.Views
             if (!this.isValidTime || this.doctor == null)
             {
                 this.validation.Text = "Please address the following: \n";
-                if (!this.isValidTime)
-                {
-                    this.validation.Text += "Please select a valid time \n";
-                    this.AppointmentTimes.BorderBrush = new SolidColorBrush(Colors.Red);
-                    isValid = false;
-                }
-                else
-                {
-                    this.AppointmentTimes.BorderBrush = new SolidColorBrush(Colors.Gainsboro);
-                }
+                isValid = this.validateTime(isValid);
 
-                if (this.doctor == null)
-                {
-                    this.validation.Text += "Please select a doctor \n";
-                    this.Doctors.Background = new SolidColorBrush(Colors.MistyRose);
-                    isValid = false;
-                }
-                else
-                {
-                    this.Doctors.Background = new SolidColorBrush(Colors.Azure);
-                }
+                isValid = this.validateDoctor(isValid);
 
-                if (this.AppointmentDate.Date.Date < DateTime.Now.Date.Date)
-                {
-                    this.validation.Text += "Please select a valid date \n";
-                    this.AppointmentDate.Background = new SolidColorBrush(Colors.MistyRose);
-                    isValid = false;
-                }
-                else
-                {
-                    this.AppointmentDate.Background = new SolidColorBrush(Colors.Azure);
-                }
+                isValid = this.validateAppointmentDate(isValid);
+            }
+
+            return isValid;
+        }
+
+        private bool validateAppointmentDate(bool isValid)
+        {
+            if (this.AppointmentDate.Date.Date < DateTime.Now.Date.Date)
+            {
+                this.validation.Text += "Please select a valid date \n";
+                this.AppointmentDate.Background = new SolidColorBrush(Colors.MistyRose);
+                isValid = false;
+            }
+            else
+            {
+                this.AppointmentDate.Background = new SolidColorBrush(Colors.Azure);
+            }
+
+            return isValid;
+        }
+
+        private bool validateDoctor(bool isValid)
+        {
+            if (this.doctor == null)
+            {
+                this.validation.Text += "Please select a doctor \n";
+                this.Doctors.Background = new SolidColorBrush(Colors.MistyRose);
+                isValid = false;
+            }
+            else
+            {
+                this.Doctors.Background = new SolidColorBrush(Colors.Azure);
+            }
+
+            return isValid;
+        }
+
+        private bool validateTime(bool isValid)
+        {
+            if (!this.isValidTime)
+            {
+                this.validation.Text += "Please select a valid time \n";
+                this.AppointmentTimes.BorderBrush = new SolidColorBrush(Colors.Red);
+                isValid = false;
+            }
+            else
+            {
+                this.AppointmentTimes.BorderBrush = new SolidColorBrush(Colors.Gainsboro);
             }
 
             return isValid;
