@@ -24,14 +24,16 @@ namespace Healthcare.Views
     /// </summary>
     public sealed partial class EditPatient : Page
     {
+        private string phoneNumber;
+        private string socialSecurityNumber;
         public EditPatient()
         {
             this.InitializeComponent();
             this.nameID.Text = AccessValidator.CurrentUser.Username;
             this.userID.Text = AccessValidator.CurrentUser.Id;
             this.accessType.Text = AccessValidator.Access;
-
             List<string> genders = new List<string> {"Male", "Female"};
+            this.state.ItemsSource = States.GetStates();
             this.genderCmbox.ItemsSource = genders;
 
             if (PatientManager.CurrentPatient != null)
@@ -42,15 +44,17 @@ namespace Healthcare.Views
                 {
                     this.street.Text = currentAddress.Street;
                     this.state.ItemsSource = States.GetStates();
-                    this.state.SelectedItem = "AL";
+                    this.state.SelectedItem = currentAddress.State;
                     this.zip.Text = currentAddress.Zip.ToString();
                 }
-
-                this.ssn.Password = PatientManager.CurrentPatient.Ssn.ToString();
+                this.socialSecurityNumber = PatientManager.CurrentPatient.Ssn.ToString();                
+                updateSSN();
                 this.fname.Text = PatientManager.CurrentPatient.FirstName;
                 this.lname.Text = PatientManager.CurrentPatient.LastName;
                 this.bday.Date = PatientManager.CurrentPatient.Dob;
-                this.phone.Text = PatientManager.CurrentPatient.Phone;
+                this.phoneNumber = PatientManager.CurrentPatient.Phone;
+                updatePhone();
+                
                 this.genderCmbox.SelectedItem = PatientManager.CurrentPatient.Gender;
             }           
         }
@@ -96,31 +100,55 @@ namespace Healthcare.Views
         {
             int validNumberOfDigits = 10;
             
-            bool isNumber = long.TryParse(this.phone.Text, out long result);
-            if (string.IsNullOrEmpty(this.phone.Text) || this.phone.Text.Length != validNumberOfDigits || !isNumber)
+            bool isNumber = long.TryParse(this.phoneNumber, out long result);
+            if (string.IsNullOrEmpty(this.phoneNumber) || this.phoneNumber.Length != validNumberOfDigits || !isNumber)
             {
-                this.validation.Text += "Please enter a valid 10 digit phone number in the following format: xxxxxxxxxx\n";
+                this.validation.Text += "Please enter a valid 10 digit phone number in the following format: xxx-xxx-xxxx\n";
                 this.phone.BorderBrush = new SolidColorBrush(Colors.Red);
+                this.phone1.BorderBrush = new SolidColorBrush(Colors.Red);
+                this.phone2.BorderBrush = new SolidColorBrush(Colors.Red);
             }
             else
             {
+                updatePhone();
                 this.phone.BorderBrush = new SolidColorBrush(Colors.Gainsboro);
+                this.phone1.BorderBrush = new SolidColorBrush(Colors.Gainsboro);
+                this.phone2.BorderBrush = new SolidColorBrush(Colors.Gainsboro);
             }
+        }
+
+        private void updatePhone()
+        {
+            this.phone.Text = this.phoneNumber.Substring(0, 3);
+            this.phone1.Text = this.phoneNumber.Substring(3, 3);
+            this.phone2.Text = this.phoneNumber.Substring(6, 4);
         }
 
         private void validateSSN()
         {
             int validNumberOfDigits = 9;
-            bool isNumber = int.TryParse(this.ssn.Password, out int result);
-            if (string.IsNullOrEmpty(this.ssn.Password) || this.ssn.Password.Length != validNumberOfDigits || !isNumber)
+            bool isNumber = int.TryParse(this.socialSecurityNumber, out int result);
+            if (string.IsNullOrEmpty(this.socialSecurityNumber) || this.socialSecurityNumber.Length != validNumberOfDigits || !isNumber)
             {
-                this.validation.Text += "Please enter a valid 9 digit ssn in the following format: xxxxxxxxx\n";
+                this.validation.Text += "Please enter a valid 9 digit ssn in the following format: xxx-xx-xxxx\n";
                 this.ssn.BorderBrush = new SolidColorBrush(Colors.Red);
+                this.ssn1.BorderBrush = new SolidColorBrush(Colors.Red);
+                this.ssn2.BorderBrush = new SolidColorBrush(Colors.Red);
             }
             else
             {
+                updateSSN();
                 this.ssn.BorderBrush = new SolidColorBrush(Colors.Gainsboro);
+                this.ssn1.BorderBrush = new SolidColorBrush(Colors.Gainsboro);
+                this.ssn2.BorderBrush = new SolidColorBrush(Colors.Gainsboro);
             }
+        }
+
+        private void updateSSN()
+        {
+            this.ssn.Password = this.socialSecurityNumber.Substring(0, 3);
+            this.ssn1.Password = this.socialSecurityNumber.Substring(3, 2);
+            this.ssn2.Password = this.socialSecurityNumber.Substring(5, 4);
         }
 
         private void validateStreet()
@@ -167,25 +195,26 @@ namespace Healthcare.Views
             int validZip = 5;
             int validSSN = 9;
             int validPhone = 10;
-            bool isPhoneNumber = long.TryParse(this.phone.Text, out long result);
+            bool isPhoneNumber = long.TryParse(this.phoneNumber, out long result);
             bool isSSNNumber = int.TryParse(this.ssn.Password, out int result1);
             bool isZipNumber = int.TryParse(this.zip.Text, out int result2);
             return (!string.IsNullOrEmpty(this.zip.Text) && isPhoneNumber && isSSNNumber && isZipNumber &&
-                   this.zip.Text.Length == validZip && this.bday.Date <= DateTimeOffset.Now &&
-                   !string.IsNullOrEmpty(this.phone.Text) && this.phone.Text.Length == validPhone &&
-                   !string.IsNullOrEmpty(this.ssn.Password) && this.ssn.Password.Length == validSSN &&
-                   !string.IsNullOrEmpty(street.Text) && !string.IsNullOrEmpty(lname.Text) &&
-                   !string.IsNullOrEmpty(fname.Text));
+                    this.zip.Text.Length == validZip && this.bday.Date <= DateTimeOffset.Now &&
+                    !string.IsNullOrEmpty(this.phoneNumber) && this.phoneNumber.Length == validPhone &&
+                    !string.IsNullOrEmpty(this.socialSecurityNumber) && this.socialSecurityNumber.Length == validSSN &&
+                    !string.IsNullOrEmpty(street.Text) && !string.IsNullOrEmpty(lname.Text) &&
+                    !string.IsNullOrEmpty(fname.Text));
                 
         }
 
         private void updatePatient_onClick(object sender, RoutedEventArgs e)
         {
+            this.phoneNumber = this.phone.Text + this.phone1.Text + this.phone2.Text;
             this.validation.Text = "";
-            string ssn = this.ssn.Password;
+            this.socialSecurityNumber = this.ssn.Password + ssn1.Password + ssn2.Password;
             string firstName = this.fname.Text;
             string lastName = this.lname.Text;
-            string phone = this.phone.Text;
+            
             DateTime dateOfBirth = this.bday.Date.DateTime;
 
             string gender = string.Empty;
@@ -204,7 +233,7 @@ namespace Healthcare.Views
                 if (isValid())
                 {
                     string fullAddress = street + ", " + state + ", " + zip;
-                    RegistrationUtility.EditPatient(PatientManager.CurrentPatient.Id, Convert.ToInt32(ssn), firstName, lastName, phone, dateOfBirth, gender, fullAddress, PatientManager.CurrentPatient.AddressId);
+                    RegistrationUtility.EditPatient(PatientManager.CurrentPatient.Id, Convert.ToInt32(socialSecurityNumber), firstName, lastName, this.phoneNumber, dateOfBirth, gender, fullAddress, PatientManager.CurrentPatient.AddressId);
                     this.Frame.Navigate(typeof(MainPage));
                 }
                 else
@@ -218,6 +247,7 @@ namespace Healthcare.Views
                 this.validate();
             }
         }
+
 
         private void home_onClick(object sender, RoutedEventArgs e)
         {

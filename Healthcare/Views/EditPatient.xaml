@@ -19,12 +19,8 @@
         <TextBlock Grid.Row="0" HorizontalAlignment="Left" Margin="-469,271,0,0" Text="Access:" TextWrapping="Wrap" Foreground="GhostWhite" VerticalAlignment="Top" Height="20" Width="62"/>
         <TextBlock Grid.Row="0" Name="accessType" HorizontalAlignment="Left" Margin="-402,271,0,0" Text="" TextWrapping="Wrap" Foreground="GhostWhite" VerticalAlignment="Top" Height="20" Width="100"/>
 
-        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Width="530" Margin="10,21,10,10">
+        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Width="530" Margin="10,21,10,10" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
             <Grid Height="1866">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="103*"/>
-                    <ColumnDefinition Width="427*"/>
-                </Grid.ColumnDefinitions>
                 <TextBlock HorizontalAlignment="Left" FontWeight="Bold" Margin="10,10,0,0" Text="Healthcare Services" Foreground="Gray" FontSize="50" TextAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" Height="123" Width="483" Grid.ColumnSpan="2"/>
 
                 <TextBlock HorizontalAlignment="Left" Margin="26,146,0,0" Text="First Name:" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="30" Grid.ColumnSpan="2"/>
@@ -37,10 +33,14 @@
                 <TextBlock HorizontalAlignment="Left" Margin="26,695,0,0" Text="Social Security:" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="30" Grid.ColumnSpan="2"/>
                 <TextBox x:Name="fname" HorizontalAlignment="Center" Margin="0,186,0,0" VerticalAlignment="Top" Height="61" Width="455" Background="Azure" FontSize="30" Grid.ColumnSpan="2"/>
                 <TextBox x:Name="lname" HorizontalAlignment="Center" Margin="0,339,0,0" VerticalAlignment="Top" Height="61" Width="455" Background="Azure" FontSize="30" Grid.ColumnSpan="2"/>
-                <TextBox x:Name="phone" HorizontalAlignment="Center" Margin="0,472,0,0" VerticalAlignment="Top" Height="61" Width="455" Background="Azure" FontSize="30" Grid.ColumnSpan="2"/>
+                <TextBox x:Name="phone" InputScope="TelephoneNumber" HorizontalAlignment="Left" Margin="38,472,0,0" VerticalAlignment="Top" Height="61" Width="112" Background="Azure" FontSize="30"/>
+                <TextBox x:Name="phone1" InputScope="TelephoneNumber" HorizontalAlignment="Center" Margin="0,472,0,0" VerticalAlignment="Top" Height="61" Width="106" Background="Azure" FontSize="30"/>
+                <TextBox x:Name="phone2" InputScope="TelephoneNumber" HorizontalAlignment="Left" Margin="376,472,0,0" VerticalAlignment="Top" Height="61" Width="118" Background="Azure" FontSize="30"/>
                 <DatePicker x:Name="bday" HorizontalAlignment="Center" Margin="0,615,0,0" VerticalAlignment="Top" MinHeight="33" MinWidth="455" Background="Azure" FontSize="30" Grid.ColumnSpan="2"/>
                 <Button Content="SUBMIT" HorizontalAlignment="Center" Margin="0,1493,0,0" VerticalAlignment="Top" Height="61" Width="456" Click="updatePatient_onClick" Grid.ColumnSpan="2"/>
-                <PasswordBox x:Name="ssn" HorizontalAlignment="Center" Margin="0,740,0,1065" Width="455" Background="Azure" FontSize="30" Grid.ColumnSpan="2"/>
+                <PasswordBox x:Name="ssn" InputScope="Number" HorizontalAlignment="Left" Margin="38,740,0,0" VerticalAlignment="Top" Height="61" Width="112" Background="Azure" FontSize="30"/>
+                <PasswordBox x:Name="ssn1" InputScope="Number" HorizontalAlignment="Center" Margin="0,740,0,0" VerticalAlignment="Top" Height="61" Width="105" Background="Azure" FontSize="30"/>
+                <PasswordBox x:Name="ssn2" InputScope="Number" HorizontalAlignment="Left" Margin="376,740,0,0" VerticalAlignment="Top" Height="61" Width="116" Background="Azure" FontSize="30"/>
                 <TextBox x:Name="street" HorizontalAlignment="Center" Margin="0,866,0,0" VerticalAlignment="Top" Height="61" Width="455" Background="Azure" FontSize="30" Grid.ColumnSpan="2"/>
                 <TextBlock HorizontalAlignment="Left" Margin="26,826,0,0" Text="Street:" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="30" Grid.ColumnSpan="2"/>
                 <TextBlock HorizontalAlignment="Left" Margin="26,952,0,0" Text="State:" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="30"/>
@@ -50,6 +50,10 @@
                 <TextBlock HorizontalAlignment="Left" Margin="26,1258,0,0" Text="Gender:" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="30" Grid.ColumnSpan="2"/>
                 <ComboBox x:Name="genderCmbox" HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="38,1331,0,489" RenderTransformOrigin="0.424,0.665" Width="167" Background="Azure"></ComboBox>
                 <Button Content="HOME" HorizontalAlignment="Left" Margin="38,1427,0,0" VerticalAlignment="Top" Height="61" Width="456" Click="home_onClick" Grid.ColumnSpan="2"/>
+                <TextBlock HorizontalAlignment="Left" Margin="169,453,0,0" VerticalAlignment="Top" Height="81" Width="27" Text="-" FontSize="60"/>
+                <TextBlock HorizontalAlignment="Left" Margin="334,452,0,0" VerticalAlignment="Top" Height="90" Width="27" Text="-" FontSize="60"/>
+                <TextBlock HorizontalAlignment="Left" Margin="169,722,0,0" VerticalAlignment="Top" Height="81" Width="27" Text="-" FontSize="60"/>
+                <TextBlock HorizontalAlignment="Left" Margin="334,721,0,0" VerticalAlignment="Top" Height="90" Width="27" Text="-" FontSize="60"/>
             </Grid>
         </ScrollViewer>
         <TextBlock Name="validation" HorizontalAlignment="Left" Margin="-469,311,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" Width="431" Height="455" Foreground="Yellow" FontSize="14"/>

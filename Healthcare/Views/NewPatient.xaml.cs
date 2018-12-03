@@ -26,7 +26,7 @@ namespace Healthcare.Views
     public sealed partial class NewPatient : Page
     {
         private string phoneNumber;
-        private string ssnNumber;
+        private string socialSecurityNumber;
         public NewPatient()
         {
             this.InitializeComponent();
@@ -61,7 +61,7 @@ namespace Healthcare.Views
         {
             if (string.IsNullOrEmpty(this.zip.Text) || this.zip.Text.Length != 5)
             {
-                this.validation.Text += "Enter valid 5 digit Zip in the following format: xxxxx\n";
+                this.validation.Text += "Enter valid 5 digit zip in the following format: xxxxx\n";
                 this.zip.BorderBrush = new SolidColorBrush(Colors.Red);
             }
             else
@@ -109,8 +109,8 @@ namespace Healthcare.Views
         private void validateSSN()
         {
             int validNumberOfDigits = 9;
-            bool isNumber = int.TryParse(this.ssn.Password, out int result);
-            if (string.IsNullOrEmpty(this.ssn.Password) || this.ssn.Password.Length != validNumberOfDigits || !isNumber)
+            bool isNumber = int.TryParse(this.socialSecurityNumber, out int result);
+            if (string.IsNullOrEmpty(this.socialSecurityNumber) || this.socialSecurityNumber.Length != validNumberOfDigits || !isNumber)
             {
                 this.validation.Text += "Please enter a valid 9 digit ssn in the following format: xxx-xx-xxxx\n";
                 this.ssn.BorderBrush = new SolidColorBrush(Colors.Red);
@@ -119,9 +119,9 @@ namespace Healthcare.Views
             }
             else
             {
-                this.phone.Text = this.phoneNumber.Substring(0, 3);
-                this.phone1.Text = this.phoneNumber.Substring(3, 5);
-                this.phone2.Text = this.phoneNumber.Substring(5, 9);
+                this.ssn.Password = this.socialSecurityNumber.Substring(0, 3);
+                this.ssn1.Password = this.socialSecurityNumber.Substring(3, 2);
+                this.ssn2.Password = this.socialSecurityNumber.Substring(5, 4);
                 this.ssn.BorderBrush = new SolidColorBrush(Colors.Gainsboro);
                 this.ssn1.BorderBrush = new SolidColorBrush(Colors.Gainsboro);
                 this.ssn2.BorderBrush = new SolidColorBrush(Colors.Gainsboro);
@@ -178,7 +178,7 @@ namespace Healthcare.Views
             return (!string.IsNullOrEmpty(this.zip.Text) && isPhoneNumber && isSSNNumber && isZipNumber &&
                    this.zip.Text.Length == validZip && this.bday.Date <= DateTimeOffset.Now &&
                    !string.IsNullOrEmpty(this.phoneNumber) && this.phoneNumber.Length == validPhone &&
-                   !string.IsNullOrEmpty(this.ssnNumber) && this.ssnNumber.Length == validSSN &&
+                   !string.IsNullOrEmpty(this.socialSecurityNumber) && this.socialSecurityNumber.Length == validSSN &&
                    !string.IsNullOrEmpty(street.Text) && !string.IsNullOrEmpty(lname.Text) &&
                    !string.IsNullOrEmpty(fname.Text));
                 
@@ -188,7 +188,7 @@ namespace Healthcare.Views
         {
             this.phoneNumber = this.phone.Text + this.phone1.Text + this.phone2.Text;
             this.validation.Text = "";
-            string ssn = this.ssn.Password + ssn1.Password + ssn2.Password;
+            this.socialSecurityNumber = this.ssn.Password + ssn1.Password + ssn2.Password;
             string firstName = this.fname.Text;
             string lastName = this.lname.Text;
             
@@ -210,7 +210,7 @@ namespace Healthcare.Views
                 if (isValid())
                 {
                 string fullAddress = street + ", " + state + ", " + zip;
-                RegistrationUtility.CreateNewPatient(Convert.ToInt32(ssn), firstName, lastName, this.phoneNumber, dateOfBirth,
+                RegistrationUtility.CreateNewPatient(Convert.ToInt32(socialSecurityNumber), firstName, lastName, this.phoneNumber, dateOfBirth,
                     gender, fullAddress);
                 this.Frame.Navigate(typeof(MainPage));
                 }
