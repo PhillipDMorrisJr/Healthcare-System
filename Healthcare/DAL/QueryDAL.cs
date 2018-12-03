@@ -32,8 +32,6 @@ namespace Healthcare.DAL
                 }
             }
 
-        
-
         public static DataTable GetResultsBetweenDates(DateTimeOffset beginDate, DateTimeOffset endDate)
         {
                 using (MySqlConnection conn = DbConnection.GetConnection())

@@ -78,7 +78,7 @@ namespace Healthcare.Views
                 }
                 foreach (var currentSlot in timeSlots)
                 {
-                    if (!usedSlots.Contains(currentSlot))
+                    if (!usedSlots.Contains(currentSlot) && ((this.AppointmentDate.Date.Date == DateTimeOffset.Now.Date.Date && currentSlot > DateTime.Now.TimeOfDay) || this.AppointmentDate.Date.Date > DateTimeOffset.Now.Date.Date))
                     {
                         ListViewItem item = new ListViewItem();
                         item.Tag = currentSlot;
@@ -123,15 +123,61 @@ namespace Healthcare.Views
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void schedule_Click(object sender, RoutedEventArgs e)
         {
+            this.validation.Text = "";
             DateTime date = this.AppointmentDate.Date.DateTime;
+            bool isValid = this.validate();
 
-            if (this.doctor != null && this.isValidTime)
+
+            if (isValid)
             {
                 Appointment appointment = new Appointment(this.patient, this.doctor, date, time, description.Text,false);
                 AppointmentDAL.AddAppointment(appointment);
                 AppointmentManager.AddAppointment(appointment, this.patient);
                 this.Frame.Navigate(typeof(Confirmation));
             }
+        }
+
+        private bool validate()
+        {
+            bool isValid = true;
+            if (!this.isValidTime || this.doctor == null)
+            {
+                this.validation.Text = "Please address the following: \n";
+                if (!this.isValidTime)
+                {
+                    this.validation.Text += "Please select a valid time \n";
+                    this.AppointmentTimes.BorderBrush = new SolidColorBrush(Colors.Red);
+                    isValid = false;
+                }
+                else
+                {
+                    this.AppointmentTimes.BorderBrush = new SolidColorBrush(Colors.Gainsboro);
+                }
+
+                if (this.doctor == null)
+                {
+                    this.validation.Text += "Please select a doctor \n";
+                    this.Doctors.Background = new SolidColorBrush(Colors.MistyRose);
+                    isValid = false;
+                }
+                else
+                {
+                    this.Doctors.Background = new SolidColorBrush(Colors.Azure);
+                }
+
+                if (this.AppointmentDate.Date.Date < DateTime.Now.Date.Date)
+                {
+                    this.validation.Text += "Please select a valid date \n";
+                    this.AppointmentDate.Background = new SolidColorBrush(Colors.MistyRose);
+                    isValid = false;
+                }
+                else
+                {
+                    this.AppointmentDate.Background = new SolidColorBrush(Colors.Azure);
+                }
+            }
+
+            return isValid;
         }
 
         private void Doctors_OnSelectionChanged(object sender, SelectionChangedEventArgs e)

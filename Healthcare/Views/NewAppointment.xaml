@@ -32,6 +32,7 @@
         <TextBlock HorizontalAlignment="Left" Margin="58,425,0,0" Text="Appointment Time:" TextWrapping="Wrap" VerticalAlignment="Top" Height="33" Width="133"/>
         <Button Content="SCHEDULE" HorizontalAlignment="Center" Margin="0,808,0,0" VerticalAlignment="Top" Height="58" Width="438" FontSize="25" Click="schedule_Click" />
 
+        <TextBlock Name="validation" HorizontalAlignment="Left" Margin="-469,311,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" Width="431" Height="455" Foreground="Yellow" FontSize="14"/>
 
         <Button Content="HOME" HorizontalAlignment="Center" Margin="0,872,0,0" VerticalAlignment="Top" Height="58" Width="438" FontSize="25" Click="homeButton_Click" />
         <ListBox x:Name="AppointmentTimes" SelectionChanged="Times_OnSelectionChanged" HorizontalAlignment="Left" Height="159" VerticalAlignment="Top" Width="433" Background="Azure" Margin="60,445,0,0" BorderBrush="LightGray" BorderThickness="2"/>
