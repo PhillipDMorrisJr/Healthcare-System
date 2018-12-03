@@ -28,7 +28,7 @@
         <TextBlock Name="validation" HorizontalAlignment="Left" Margin="-469,311,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" Width="431" Height="455" Foreground="Yellow" FontSize="14"/>
 
         <TextBlock HorizontalAlignment="Left" Margin="61,342,0,0" Text="Appointment Date:" TextWrapping="Wrap" VerticalAlignment="Top" Height="33" Width="133"/>
-        <DatePicker Name="AppointmentDate" HorizontalAlignment="Left" Margin="61,367,0,0" VerticalAlignment="Top" Height="37" Width="421"/>
+        <DatePicker Name="AppointmentDate" HorizontalAlignment="Center" Margin="0,383,0,0" VerticalAlignment="Top" Height="37" Width="436" DateChanged="AppointmentDate_DateChanged"/>
 
         <TextBlock HorizontalAlignment="Left" Margin="191,134,0,0" Text="Name: " TextWrapping="Wrap" VerticalAlignment="Top"/>
         <TextBlock HorizontalAlignment="Left" Name="nameTxt" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Margin="272,134,0,0"/>

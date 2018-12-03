@@ -59,6 +59,7 @@ namespace Healthcare.Views
             this.AppointmentDate.Date = this.originalAppointment.AppointmentDateTime;
             this.description.Text = this.originalAppointment.Description;
             initializeTimes();
+
         }
 
         private void initializeTimes()
@@ -95,15 +96,12 @@ namespace Healthcare.Views
             {
                 return;
             }
-
             this.AppointmentTimes.Items?.Clear();
 
-            List<TimeSpan> usedSlots =
-                AppointmentManager.RetrieveUsedTimeSlots(this.AppointmentDate.Date.Date, doctor, patient);
-           
+            List<TimeSpan> usedSlots = AppointmentManager.RetrieveUsedTimeSlots(this.AppointmentDate.Date.Date, doctor, patient);
 
             if (!(this.AppointmentDate.Date.DayOfWeek == DayOfWeek.Saturday ||
-                  this.AppointmentDate.Date.DayOfWeek == DayOfWeek.Sunday))
+                this.AppointmentDate.Date.DayOfWeek == DayOfWeek.Sunday))
             {
                 TimeSpan slot = new TimeSpan(7, 0, 0);
                 List<TimeSpan> timeSlots = new List<TimeSpan>();
@@ -113,7 +111,6 @@ namespace Healthcare.Views
                     slot += TimeSpan.FromMinutes(30);
                     timeSlots.Add(slot);
                 }
-
                 foreach (var currentSlot in timeSlots)
                 {
                     if (!usedSlots.Contains(currentSlot) && ((this.AppointmentDate.Date.Date == DateTimeOffset.Now.Date.Date && currentSlot > DateTime.Now.TimeOfDay) || this.AppointmentDate.Date.Date > DateTimeOffset.Now.Date.Date))
@@ -138,7 +135,6 @@ namespace Healthcare.Views
                     }
                 }
             }
-
         }
 
         private void displayDoctors(List<Doctor> doctors)
@@ -256,7 +252,10 @@ namespace Healthcare.Views
 
             return isValid;
         }
-
+        private void AppointmentDate_DateChanged(object sender, DatePickerValueChangedEventArgs e)
+        {
+            displayTimes();
+        }
         private void Doctors_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             this.doctor = (this.Doctors.SelectedItem as ListViewItem)?.Tag as Doctor;
