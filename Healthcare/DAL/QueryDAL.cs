@@ -44,7 +44,7 @@ namespace Healthcare.DAL
                                    "Case when `results`.`testReadings` THEN \"Positive\" ELSE \"Negative\" END as Reading " +
                                     "FROM `patients`, checkup, doctorDiagnosis, results, doctors, `User`, testOrder, test WHERE `patients`.patientID = `checkup`.`pID` AND `checkup`.`nurseID` = `User`.`userID` " +
                                     "AND doctorDiagnosis.doctorID = doctors.doctorID AND checkup.cuID = testOrder.cuID AND testOrder.cuID = checkup.cuID AND test.code = testOrder.code AND results.orderID = testOrder.orderID AND" +
-                                    "`checkup`.arrivalDate > @beginDate AND `checkup`.arrivalDate < @endDate";
+                                    "`checkup`.arrivalDate > @beginDate AND `checkup`.arrivalDate < @endDate Order by `checkup`.arrivalDate, `patients`.lastName";
                     using (var cmd = new MySqlCommand(query, conn))
                     {
                         cmd.Parameters.AddWithValue("@beginDate", beginDate.ToString("yyyy-MM-dd"));
