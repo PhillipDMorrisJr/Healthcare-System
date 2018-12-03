@@ -72,6 +72,14 @@ namespace Healthcare.Views
 
         private void visitsBetween_Click(object sender, RoutedEventArgs e)
         {
+            if (this.end.Date <= this.begin.Date)
+            {
+                this.validateBetweenDates.Text = "The start date must be prior to the end date";
+                return;
+            }
+
+
+
             var collection = new ObservableCollection<object>();
             Results.Columns.Clear(); 
             try
