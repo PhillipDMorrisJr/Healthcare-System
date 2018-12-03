@@ -58,7 +58,7 @@ namespace Healthcare.Views
         {
             if (string.IsNullOrEmpty(this.zip.Text) || this.zip.Text.Length != 5)
             {
-                this.validation.Text += "Enter Valid Zip in the following format: xxxxx\n";
+                this.validation.Text += "Enter valid 5 digit Zip in the following format: xxxxx\n";
                 this.zip.BorderBrush = new SolidColorBrush(Colors.Red);
             }
             else
