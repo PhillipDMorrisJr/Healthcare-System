@@ -72,7 +72,7 @@ namespace Healthcare.Views
 
         private void visitsBetween_Click(object sender, RoutedEventArgs e)
         {
-            if (this.end.Date <= this.begin.Date)
+            if (this.end.Date.Date <= this.begin.Date.Date)
             {
                 this.validateBetweenDates.Text = "The start date must be prior to the end date";
                 return;

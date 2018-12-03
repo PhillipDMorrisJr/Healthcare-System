@@ -39,11 +39,12 @@ namespace Healthcare.DAL
                 using (MySqlConnection conn = DbConnection.GetConnection())
                 {
                     conn.Open();
-                    string query = "SELECT DATE(`checkup`.arrivalDate) as \"Arrival Date\", `patients`.`patientID`, Concat(`patients`.`firstName`, \" \", `patients`.`lastName`) as Patient, " +
-                        "Concat(`doctors`.`firstName`, \" \", `doctors`.`lastName`) as Doctor, `User`.username as Nurse,  doctorDiagnosis.diagnosis, test.name, `results`.`testReadings` " +
-                        "FROM `patients`, checkup, doctorDiagnosis, results, doctors, `User`, testOrder, test WHERE `patients`.patientID = `checkup`.`pID` AND `checkup`.`nurseID` = `User`.`userID` " +
-                        "AND doctorDiagnosis.doctorID = doctors.doctorID AND checkup.cuID = testOrder.cuID AND testOrder.cuID = checkup.cuID AND test.code = testOrder.code AND results.orderID = testOrder.orderID AND" +
-                         "`checkup`.arrivalDate > @beginDate AND `checkup`.arrivalDate < @endDate";
+                    string query = "SELECT DATE(`checkup`.arrivalDate) as \"Arrival Date\", `patients`.`patientID` as \"Patient ID\", Concat(`patients`.`firstName`, \" \", `patients`.`lastName`) as Patient, " +
+                        "Concat(`doctors`.`firstName`, \" \", `doctors`.`lastName`) as Doctor, `User`.username as Nurse,  doctorDiagnosis.diagnosis as Diagnosis, test.name as \"Test Name\", " +
+                                   "Case when `results`.`testReadings` THEN \"Positive\" ELSE \"Negative\" END as Reading " +
+                                    "FROM `patients`, checkup, doctorDiagnosis, results, doctors, `User`, testOrder, test WHERE `patients`.patientID = `checkup`.`pID` AND `checkup`.`nurseID` = `User`.`userID` " +
+                                    "AND doctorDiagnosis.doctorID = doctors.doctorID AND checkup.cuID = testOrder.cuID AND testOrder.cuID = checkup.cuID AND test.code = testOrder.code AND results.orderID = testOrder.orderID AND" +
+                                    "`checkup`.arrivalDate > @beginDate AND `checkup`.arrivalDate < @endDate";
                     using (var cmd = new MySqlCommand(query, conn))
                     {
                         cmd.Parameters.AddWithValue("@beginDate", beginDate.ToString("yyyy-MM-dd"));

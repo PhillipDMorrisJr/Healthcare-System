@@ -41,6 +41,7 @@ namespace Healthcare.Views
             }
             else
             {
+                this.PasswordBox.Password = "";
                 this.loginValidator.Visibility = Visibility.Visible;
             }
         }
