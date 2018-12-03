@@ -8,21 +8,22 @@ namespace Healthcare.Model
 {
     public class TestResult
     {
-        public int PatientId { get; private set; }
-        public int Code { get; private set; }
-        public TimeSpan Time { get; private set; }
-        public int AppointmentId { get; private set; }
-        public bool Readings { get; private set; }
-        public string Diagnosis { get; private set; }
+        public int ResultId { get; set; }
 
-        public TestResult(int patientId, int appointmentId, int code, TimeSpan time, bool testReadings, string testDiagnosis)
+        public int OrderId { get; private set; }
+
+        public DateTime Date { get; private set; }
+
+        public TimeSpan Time { get; private set; }
+
+        public bool Readings { get; private set; }
+
+        public TestResult(int orderId, DateTime date, TimeSpan time, bool testReadings)
         {
-            this.PatientId = patientId;
-            this.Code = code;
-            this.Time = time;
-            this.AppointmentId = appointmentId;
-            this.Readings = testReadings;
-            this.Diagnosis = testDiagnosis;
+            OrderId = orderId;
+            Date = date;
+            Time = time;
+            Readings = testReadings;
         }
     }
 }

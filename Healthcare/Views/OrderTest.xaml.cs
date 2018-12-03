@@ -47,34 +47,32 @@ namespace Healthcare.Views
 
         private void orderBtn_Click(object sender, RoutedEventArgs e)
         {
-            TimeSpan time;
-            DateTime date;
+            var appointmentDate = this.AppointmentDate.Date;
+            var appointmentTime = this.AppointmentTime.Time;
 
-            var dateTimeOffset = this.orderTime.Date;
-            if (dateTimeOffset != null)
-            {
-                time = dateTimeOffset.Value.TimeOfDay;
-                date = dateTimeOffset.Value.Date;
-            }
+            var time = appointmentTime;
+            var date = appointmentDate.DateTime;
 
-            var patientId = AppointmentManager.CurrentAppointment.Patient.Id;
-            var appointmentId = (int) AppointmentManager.CurrentAppointment.ID;
+            var doctorId = AppointmentManager.CurrentAppointment.Doctor.Id;
+            var cuId = CheckUpManager.CurrentCheckUp.cuID;
 
-            List<Test> tests = new List<Test>();
+
+            List<Order> orders = new List<Order>();
 
             ItemCollection items = this.TestToOrder?.Items;
             if (items != null)
             {
                 foreach (ListViewItem item in items)
                 {
-                    Test aTest = item.Tag as Test;
-                    tests.Add(aTest);
+                    if (!(item.Tag is Test aTest)) continue;
+
+                    var code = aTest.Code;
+                    Order order = new Order(cuId, code, date, time, doctorId);
+                    orders.Add(order);
                 }
             }
 
-            //create order object
-
-            //TestOrderDAL.AddTestOrder(order);
+            TestOrderDAL.AddTestOrders(orders);
             this.Frame.Navigate(typeof(DoctorDiagnosis), true);
         }
 

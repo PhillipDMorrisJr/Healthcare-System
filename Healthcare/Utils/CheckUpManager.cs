@@ -10,7 +10,7 @@ namespace Healthcare.Utils
 {
     public static class CheckUpManager
     {
-        //public static List<CheckUp> checkups = CheckUpDAL.getCheckups();
+        public static List<CheckUp> Checkups = CheckUpDAL.GetCheckups();
 
         public static CheckUp CurrentCheckUp;
 
@@ -22,6 +22,13 @@ namespace Healthcare.Utils
         public static CheckUp Execute(CheckUp details)
         {
             return CheckUpDAL.AddCheckUp(details);
+
+        }
+
+        public static List<CheckUp> GetRefreshedCheckUps()
+        {
+            Checkups = CheckUpDAL.GetCheckups();
+            return Checkups;
         }
     }
 }

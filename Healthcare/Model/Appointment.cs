@@ -50,9 +50,6 @@ namespace Healthcare.Model
 
         public string Description { get; set; }
 
-        public bool TestOrdered { get; private set; }
-
-        public bool TestTaken { get; private set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Appointment" /> class.
@@ -63,9 +60,7 @@ namespace Healthcare.Model
         /// <param name="appointmentTime">The appointment time.</param>
         /// <param name="description">The description.</param>
         /// <param name="checkedIn">The status for if the patient is checked in.</param>
-        /// <param name="testOrdered">The status for if a test was ordered for a patient.</param>
-        /// <param name="testTaken">The status for if the test ordered was taken for the patient by a doctor.</param>
-        public Appointment(Patient patient, Doctor doctor, DateTime appointmentDateTime, TimeSpan appointmentTime, string description, bool checkedIn, bool testOrdered, bool testTaken)
+        public Appointment(Patient patient, Doctor doctor, DateTime appointmentDateTime, TimeSpan appointmentTime, string description, bool checkedIn)
         {
             this.Doctor = doctor;
             this.Patient = patient;
@@ -73,8 +68,6 @@ namespace Healthcare.Model
             this.AppointmentTime = appointmentTime;
             this.IsCheckedIn = checkedIn;
             this.Description = description;
-            this.TestOrdered = testOrdered;
-            this.TestTaken = testTaken;
         }
 
         /// <summary>
@@ -86,9 +79,7 @@ namespace Healthcare.Model
         /// <param name="appointmentTime">The appointment time.</param>
         /// <param name="description">The description.</param
         /// <param name="checkedIn">The status for if the patient is checked in.</param>
-        /// <param name="testOrdered">The status for if a test was ordered for a patient.</param>
-        /// <param name="testTaken">The status for if the test ordered was taken for the patient by a doctor.</param>
-        public Appointment(Patient patient, Doctor doctor, DateTime appointmentDateTime, TimeSpan appointmentTime, string description, bool checkedIn, uint id, bool testOrdered, bool testTaken)
+        public Appointment(Patient patient, Doctor doctor, DateTime appointmentDateTime, TimeSpan appointmentTime, string description, bool checkedIn, uint id)
         {
             this.Doctor = doctor;
             this.Patient = patient;
@@ -96,21 +87,8 @@ namespace Healthcare.Model
             this.AppointmentTime = appointmentTime;
             this.IsCheckedIn = checkedIn;
             this.Description = description;
-            this.TestOrdered = testOrdered;
-            this.TestTaken = testTaken;
             ID = id;
         }
-
-        public void CheckIn()
-        {
-            if (!IsCheckedIn)
-            {
-                this.IsCheckedIn = true;
-            }
-        }
-
-
-
 
         /// <summary>
         /// Formats this instance.

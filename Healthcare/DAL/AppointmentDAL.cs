@@ -14,7 +14,7 @@ namespace Healthcare.DAL
     {
         private enum Attributes
         {
-            ApptDay = 2, Description = 4, IsCheckedIn = 5, DoctorId = 6, TestOrdered = 8, TestTaken = 9
+            ApptDay = 2, Description = 4, IsCheckedIn = 5, DoctorId = 6
         }
 
         public static List<Appointment> GetAppointments(Patient patient)
@@ -40,13 +40,10 @@ namespace Healthcare.DAL
                             TimeSpan time2 = (TimeSpan) reader["apptTime"];
                             string description = reader.GetString((int) Attributes.Description);
                             bool checkedIn = reader.GetBoolean((int) Attributes.IsCheckedIn);
-                            bool isTestOrdered = reader.GetBoolean((int) Attributes.TestOrdered);
-                            bool isTestTaken = reader.GetBoolean((int) Attributes.TestTaken);
-
-
+          
 
                             Doctor doctor = DoctorManager.Doctors.Find(aDoctor => aDoctor.Id.Equals(dID));
-                            Appointment appointment = new Appointment(patient, doctor, apptDay,time2,description,checkedIn, aID, isTestOrdered, isTestTaken);
+                            Appointment appointment = new Appointment(patient, doctor, apptDay,time2,description,checkedIn, aID);
                             appointments.Add(appointment);
                         }
                         conn.Close();
@@ -71,7 +68,7 @@ namespace Healthcare.DAL
                     conn.Open();
 
                     var insertQuery =
-                        "INSERT INTO `appointments` (`doctorID`, `patientID`, `apptDay`, `apptTime`, `description`, `isCheckedIn`,`userID`, `testOrdered`, `testTaken`) VALUES (@doctorID, @patientID, @apptDay, @apptTime, @description, @isCheckedIn, @userID, @testOrdered, @testTaken)";
+                        "INSERT INTO `appointments` (`doctorID`, `patientID`, `apptDay`, `apptTime`, `description`, `isCheckedIn`,`userID`) VALUES (@doctorID, @patientID, @apptDay, @apptTime, @description, @isCheckedIn, @userID)";
                     using (MySqlCommand cmd = new MySqlCommand(insertQuery, conn))
                     {
                         cmd.Parameters.AddWithValue("@doctorID", details.Doctor.Id);
@@ -79,9 +76,7 @@ namespace Healthcare.DAL
                         cmd.Parameters.AddWithValue("@apptDay", details.AppointmentDateTime.Date.ToString("yyyy-MM-dd"));
                         cmd.Parameters.AddWithValue("@apptTime", details.AppointmentTime.ToString());
                         cmd.Parameters.AddWithValue("@description", details.Description);
-                        cmd.Parameters.AddWithValue("@isCheckedIn", details.IsCheckedIn);
-                        cmd.Parameters.AddWithValue("@testOrdered", details.TestOrdered);
-                        cmd.Parameters.AddWithValue("@testTaken", details.TestTaken);
+                        cmd.Parameters.AddWithValue("@isCheckedIn", details.IsCheckedIn);                
                         cmd.Parameters.AddWithValue("@userID", AccessValidator.CurrentUser.Id);
                         cmd.ExecuteNonQuery();
                     }
@@ -155,33 +150,5 @@ namespace Healthcare.DAL
                 DbConnection.GetConnection().Close();
             }
         }
-
-
-            public static bool updateTestOrdered(int apptId)
-            {
-                try
-                {
-                    using (MySqlConnection conn = DbConnection.GetConnection())
-                    {
-                        conn.Open();
-                        var updateQuery = "UPDATE `appointments` SET testOrdered = @testOrdered WHERE appointmentID = @apptID";
-                        using (MySqlCommand cmd = new MySqlCommand(updateQuery, conn))
-                        {
-                            cmd.Parameters.AddWithValue("@testOrdered", 1);
-                            cmd.Parameters.AddWithValue("@apptID", apptId);
-                            cmd.ExecuteNonQuery();
-                        }
-                        conn.Close();
-                    }
-
-                    return true;
-                }
-                catch (Exception exception)
-                {
-                    Console.Write(exception.Message);
-                    DbConnection.GetConnection().Close();
-                    return false;
-                }
-            }
     }
 }

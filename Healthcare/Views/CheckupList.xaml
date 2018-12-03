@@ -1,5 +1,5 @@
 ﻿<Page
-    x:Class="Healthcare.Views.ViewTestResult"
+    x:Class="Healthcare.Views.CheckupList"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:Healthcare.Views"
@@ -8,7 +8,7 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Grid Background="White" HorizontalAlignment="Center" Height="649" VerticalAlignment="Center" Width="500" Margin="0,0,0,0">
+    <Grid Background="White" HorizontalAlignment="Center" Height="820" VerticalAlignment="Center" Width="532">
         <TextBlock Grid.Row="0" Text="Healthcare Services" HorizontalAlignment="Left" Margin="-469,21,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="139" Width="254" Foreground="White" FontSize="50" TextAlignment="Center" />
         <TextBlock Grid.Row="0" HorizontalAlignment="Left" Margin="-469,231,0,0" Text="Name:" TextWrapping="Wrap" Foreground="GhostWhite" VerticalAlignment="Top" Height="20" Width="62"/>
         <TextBlock Grid.Row="0" Name="nameID" HorizontalAlignment="Left" Margin="-402,231,0,0" Text="" TextWrapping="Wrap" Foreground="GhostWhite" VerticalAlignment="Top" Height="20" Width="62"/>
@@ -31,16 +31,17 @@
         <TextBlock HorizontalAlignment="Left" Margin="35,237,0,0" Text="Doctor:" TextWrapping="Wrap" VerticalAlignment="Top"/>
         <TextBlock HorizontalAlignment="Left" Name="doctor" TextWrapping="Wrap" VerticalAlignment="Top" Margin="108,239,0,0"/>
 
-        <TextBlock HorizontalAlignment="Left" Margin="35,295,0,0" Text="Result Time:" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <TimePicker Name="ResultTime" HorizontalAlignment="Left" Margin="38,362,0,0" VerticalAlignment="Top" Height="37" Width="298" IsEnabled="False"/>
-        <DatePicker Name="ResultDate" HorizontalAlignment="Left" Margin="36,320,0,0" VerticalAlignment="Top" Height="37" Width="300" IsEnabled="False"/>
+        <TextBlock HorizontalAlignment="Left" Margin="34,267,0,0" Text="Checkups:" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Left" Margin="288,267,0,0" Text="Test Orders:" TextWrapping="Wrap" VerticalAlignment="Top" RenderTransformOrigin="0.244,0.55"/>
+
+        <ListView Name="Checkups" Loaded="Checkups_Loaded" HorizontalAlignment="Left" Height="234" VerticalAlignment="Top" Width="215" Background="Azure" Margin="34,287,0,0" BorderBrush="LightGray" BorderThickness="2" SelectionChanged="Checkups_SelectionChanged" />
+        <ListView Name="TestOrders" HorizontalAlignment="Left" Height="234" VerticalAlignment="Top" Width="215" Background="Azure" Margin="288,287,0,0" BorderBrush="LightGray" BorderThickness="2" SelectionChanged="TestOrders_SelectionChanged"/>
+        <Button Content="Cancel" HorizontalAlignment="Center" Margin="0,715,0,0" VerticalAlignment="Top" Height="58" Width="469" FontSize="25" Click="CancelBtn_OnClick_Click" />
+        <Button Name="enterTestBtn" Content="Enter Test Results" HorizontalAlignment="Left" Margin="326,540,0,0" VerticalAlignment="Top" Width="140" Click="EnterResultsButton_Click" />
+        <Button Name="viewTestBtn" Content="View Test Results" HorizontalAlignment="Left" Margin="326,596,0,0" VerticalAlignment="Top"  Width="140" Click="ViewResultsButton_Click"/>
+
+        <TextBox Name="diagnosisBox" Header="Diagnosis:" HorizontalAlignment="Left" Margin="35,556,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Height="104" Width="253" Background="Azure"/>
 
 
-        <TextBlock HorizontalAlignment="Left" Text="Test:" TextWrapping="Wrap" VerticalAlignment="Top" Margin="36,407,0,0"/>
-        <TextBlock Name="test" HorizontalAlignment="Left" Margin="80,409,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top"/>
-
-        <TextBlock HorizontalAlignment="Left" Text="Test Reading:" VerticalAlignment="Top" Margin="37,446,0,0"/>
-        <TextBlock Name="reading" HorizontalAlignment="Left" Margin="142,446,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <Button Content="Back" HorizontalAlignment="Left" Margin="36,540,0,0" VerticalAlignment="Top" Height="58" Width="438" FontSize="25" Click="BackBtn_OnClick_Click" />
     </Grid>
 </Page>

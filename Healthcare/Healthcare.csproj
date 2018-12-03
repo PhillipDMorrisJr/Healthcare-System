@@ -98,26 +98,34 @@
     <Compile Include="DAL\AppointmentDAL.cs" />
     <Compile Include="DAL\CheckUpDAL.cs" />
     <Compile Include="DAL\DbConnection.cs" />
+    <Compile Include="DAL\DiagnosisDAL.cs" />
     <Compile Include="DAL\DoctorDAL.cs" />
     <Compile Include="DAL\PatientDAL.cs" />
     <Compile Include="DAL\QueryDAL.cs" />
     <Compile Include="DAL\SymptomDAL.cs" />
     <Compile Include="DAL\TestDAL.cs" />
+    <Compile Include="DAL\TestOrderDAL.cs" />
     <Compile Include="DAL\TestResultDAL.cs" />
+    <Compile Include="DAL\TestTakenDAL.cs" />
     <Compile Include="DAL\UserDAL.cs" />
     <Compile Include="Model\Address.cs" />
     <Compile Include="Model\CheckUp.cs" />
+    <Compile Include="Model\Diagnosis.cs" />
     <Compile Include="Model\Doctor.cs" />
+    <Compile Include="Model\Order.cs" />
     <Compile Include="Model\Symptom.cs" />
     <Compile Include="Model\Test.cs" />
     <Compile Include="Model\TestResult.cs" />
+    <Compile Include="Model\TestTaken.cs" />
     <Compile Include="Utils\CheckUpManager.cs" />
     <Compile Include="Utils\CustomQuery.cs" />
+    <Compile Include="Utils\DiagnosisManager.cs" />
     <Compile Include="Utils\DoctorManager.cs" />
-    <Compile Include="Utils\IdGenerator.cs" />
     <Compile Include="Utils\SymptomManager.cs" />
     <Compile Include="Utils\TestManager.cs" />
+    <Compile Include="Utils\TestOrderManager.cs" />
     <Compile Include="Utils\TestResultManager.cs" />
+    <Compile Include="Utils\TestTakenManager.cs" />
     <Compile Include="Views\AppointmentDetails.xaml.cs">
       <DependentUpon>AppointmentDetails.xaml</DependentUpon>
     </Compile>
@@ -132,6 +140,9 @@
     </Compile>
     <Compile Include="Views\DoctorDiagnosis.xaml.cs">
       <DependentUpon>DoctorDiagnosis.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CheckupList.xaml.cs">
+      <DependentUpon>CheckupList.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\OrderTest.xaml.cs">
       <DependentUpon>OrderTest.xaml</DependentUpon>
@@ -213,6 +224,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\DoctorDiagnosis.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\CheckupList.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

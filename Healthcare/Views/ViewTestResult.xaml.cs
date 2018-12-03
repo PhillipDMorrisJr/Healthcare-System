@@ -40,18 +40,19 @@ namespace Healthcare.Views
             this.phone.Text = String.Format("{0:(###) ###-####}", AppointmentManager.CurrentAppointment.Patient.Phone);
             this.ssn.Text = "***-**-" + AppointmentManager.CurrentAppointment.Patient.Ssn.ToString().Substring(5);
 
-            this.ResultTime.Time = TestResultManager.CurrentTestResult.Time;
+            List<TestResult> testResults = TestResultManager.GetRefresheResults();
 
-            foreach (Test currentTest in TestManager.Tests)
+            foreach (var result in testResults)
             {
-                if (currentTest.Code == TestResultManager.CurrentTestResult.Code)
+                if (result.OrderId == TestOrderManager.CurrentTestOrder.OrderId)
                 {
-                    this.test.Text = currentTest.Name;
+                    TestResultManager.CurrentTestResult = result;
                 }
             }
 
+            this.ResultDate.Date = TestResultManager.CurrentTestResult.Date;
+            this.ResultTime.Time = TestResultManager.CurrentTestResult.Time;
             this.reading.Text = TestResultManager.CurrentTestResult.Readings ? "Positive" : "Negative";
-            this.diagnosis.Text = TestResultManager.CurrentTestResult.Diagnosis;
         }
 
         private void BackBtn_OnClick_Click(object sender, RoutedEventArgs e)

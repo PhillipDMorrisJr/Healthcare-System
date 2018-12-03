@@ -36,14 +36,14 @@ namespace Healthcare.Model
         /// <value>
         /// The temperature.
         /// </value>
-        public int Temperature { get; }
+        public double Temperature { get; }
         /// <summary>
         /// Gets the weight.
         /// </summary>
         /// <value>
         /// The weight.
         /// </value>
-        public int Weight { get; }
+        public double Weight { get; }
         /// <summary>
         /// Gets the nurse.
         /// </summary>
@@ -80,7 +80,9 @@ namespace Healthcare.Model
         /// </value>
         public Appointment Appointment { get; private set; }
 
-        public int cuID { get; private set; }
+        public int cuID { get; set; }
+
+        public DateTime ArrivalDate { get; private set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CheckUp" /> class.
@@ -95,8 +97,8 @@ namespace Healthcare.Model
         /// <param name="pulse">The pulse.</param>
         /// <param name="symptoms">The symptoms.</param>
         /// <param name="appointment">The appointment.</param>
-        public CheckUp(int systolic, int diastolic, Patient patient, int temperature, TimeSpan arrivalTime, Nurse nurse,
-            int weight, int pulse, List<Symptom> symptoms, Appointment appointment)
+        public CheckUp(int systolic, int diastolic, Patient patient, double temperature, DateTime arrivalDate, TimeSpan arrivalTime, Nurse nurse,
+            double weight, int pulse, List<Symptom> symptoms, Appointment appointment)
         {
             Systolic = systolic;
             Diastolic = diastolic;
@@ -108,6 +110,7 @@ namespace Healthcare.Model
             Pulse = pulse;
             Symptoms = symptoms;
             Appointment = appointment;
+            ArrivalDate = arrivalDate;
         }
     }
 }

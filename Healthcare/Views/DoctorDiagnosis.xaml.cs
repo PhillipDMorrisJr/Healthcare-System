@@ -27,8 +27,6 @@ namespace Healthcare.Views
     {
         private static bool testReading;
         private Test test;
-        private bool cancelBtOn = true;
-        private bool orderBtnOn = true;
 
         public DoctorDiagnosis()
         {
@@ -46,8 +44,8 @@ namespace Healthcare.Views
             this.phone.Text = String.Format("{0:(###) ###-####}", AppointmentManager.CurrentAppointment.Patient.Phone);
             this.ssn.Text = "***-**-" + AppointmentManager.CurrentAppointment.Patient.Ssn.ToString().Substring(5);
 
-            this.cancelBtn.IsEnabled = cancelBtOn;
-            this.orderTestsBtn.IsEnabled = orderBtnOn;
+            this.cancelBtn.IsEnabled = true;
+            this.orderTestsBtn.IsEnabled = true;
 
         }
 
@@ -58,13 +56,38 @@ namespace Healthcare.Views
 
         private void NormalDiagnosisBtn_Click(object sender, RoutedEventArgs e)
         {
-            //TODO: handle normal diagnosis 
+            var doctorId = AppointmentManager.CurrentAppointment.Doctor.Id;
+            var cuId = CheckUpManager.CurrentCheckUp.cuID;
+
+            var appointmentDate = this.AppointmentDate.Date;
+            var appointmentTime = this.AppointmentTime.Time;
+
+            var time = appointmentTime;
+            var date = appointmentDate.DateTime;
+
+            var checkupDiagnosis = this.diagnosisBox.Text;
+
+            Diagnosis diagnosis = new Diagnosis(cuId, doctorId, date, time, checkupDiagnosis, false);
+
+            DiagnosisDAL.AddDiagnosis(diagnosis);
             this.Frame.Navigate(typeof(RoutineCheckUp), true);
         }
 
         private void FinalDiagnosisBtn_Click(object sender, RoutedEventArgs e)
         {
-            //TODO: handle final diagnosis 
+            var doctorId = AppointmentManager.CurrentAppointment.Doctor.Id;
+            var cuId = CheckUpManager.CurrentCheckUp.cuID;
+
+            var appointmentDate = this.AppointmentDate.Date;
+            var appointmentTime = this.AppointmentTime.Time;
+
+            var time = appointmentTime;
+            var date = appointmentDate.DateTime;
+
+            var checkupDiagnosis = this.diagnosisBox.Text;
+
+            Diagnosis diagnosis = new Diagnosis(cuId, doctorId, date, time, checkupDiagnosis, true);
+            DiagnosisDAL.AddDiagnosis(diagnosis);
             this.Frame.Navigate(typeof(RoutineCheckUp), true);
         }
 
@@ -83,8 +106,9 @@ namespace Healthcare.Views
 
             if (!orderResult) return;
 
-            cancelBtOn = false;
-            orderBtnOn = false;
+            this.cancelBtn.IsEnabled = false;
+            this.orderTestsBtn.IsEnabled = false;
+            this.finalDiagnosisBtn.IsEnabled = false;
 
             base.OnNavigatedTo(e);
         }

@@ -8,7 +8,7 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Grid Background="White" HorizontalAlignment="Center" Height="942" VerticalAlignment="Center" Width="500" Margin="0,0,0,0">
+    <Grid Background="White" HorizontalAlignment="Center" Height="888" VerticalAlignment="Center" Width="500">
         <TextBlock Grid.Row="0" Text="Healthcare Services" HorizontalAlignment="Left" Margin="-469,21,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="139" Width="254" Foreground="White" FontSize="50" TextAlignment="Center" />
         <TextBlock Grid.Row="0" HorizontalAlignment="Left" Margin="-469,231,0,0" Text="Name:" TextWrapping="Wrap" Foreground="GhostWhite" VerticalAlignment="Top" Height="20" Width="62"/>
         <TextBlock Grid.Row="0" Name="nameID" HorizontalAlignment="Left" Margin="-402,231,0,0" Text="" TextWrapping="Wrap" Foreground="GhostWhite" VerticalAlignment="Top" Height="20" Width="62"/>
@@ -31,11 +31,15 @@
         <TextBlock HorizontalAlignment="Left" Margin="35,237,0,0" Text="Doctor:" TextWrapping="Wrap" VerticalAlignment="Top"/>
         <TextBlock HorizontalAlignment="Left" Name="doctor" TextWrapping="Wrap" VerticalAlignment="Top" Margin="108,239,0,0"/>
 
-        <TextBlock HorizontalAlignment="Left" Margin="35,295,0,0" Text="Result Time:" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <TimePicker Name="ResultTime" HorizontalAlignment="Left" Margin="38,324,0,0" VerticalAlignment="Top" Height="37" Width="436"/>
+        <TextBlock HorizontalAlignment="Left" Margin="35,295,0,0" Text="Result Date:" TextWrapping="Wrap" VerticalAlignment="Top"/>
 
-        <TextBlock HorizontalAlignment="Left" Text="Tests:" TextWrapping="Wrap" VerticalAlignment="Top" Margin="36,393,0,0"/>
-        <ListBox Name="Tests" Loaded="Tests_OnLoaded" HorizontalAlignment="Left" Height="66" VerticalAlignment="Top" Width="436" Background="Azure" Margin="38,418,0,0" BorderBrush="LightGray" BorderThickness="2" SelectionChanged="Tests_SelectionChanged"/>
+        <DatePicker Name="AppointmentDate" HorizontalAlignment="Left" Margin="36,320,0,0" VerticalAlignment="Top" Height="37" Width="169"/>
+
+        <TimePicker Name="AppointmentTime" HorizontalAlignment="Left" Margin="37,366,0,0" VerticalAlignment="Top" Height="37" Width="295"/>
+
+        <TextBlock HorizontalAlignment="Left" Text="Test:" TextWrapping="Wrap" VerticalAlignment="Top" Margin="36,419,0,0"/>
+        <TextBlock Name="test" HorizontalAlignment="Left" Margin="38,448,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+
 
         <TextBlock HorizontalAlignment="Left" Text="Test Reading:" VerticalAlignment="Top" Margin="35,500,0,0"/>
 
@@ -44,9 +48,7 @@
             <RadioButton Content="Negative" Checked="negativeRadioButton_Checked" GroupName="ReadingButtons" IsChecked="True"/>
         </StackPanel>
 
-        <TextBox Name="diagnosis" Header="Diagnosis" HorizontalAlignment="Left" Margin="36,621,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Height="134" Width="440" Background="Azure"/>
-
-        <Button Name="submitBtn" Content="Submit Results" HorizontalAlignment="Left" Margin="37,779,0,0" VerticalAlignment="Top" Height="58" Width="438" FontSize="25" Click="submitResult_Click" />
-        <Button Content="Cancel" HorizontalAlignment="Left" Margin="38,863,0,0" VerticalAlignment="Top" Height="58" Width="438" FontSize="25" Click="CancelBtn_OnClick_Click" />
+        <Button Content="Submit Results" HorizontalAlignment="Left" Margin="38,690,0,0" VerticalAlignment="Top" Height="58" Width="438" FontSize="25" Click="submitResult_Click" />
+        <Button Content="Cancel" HorizontalAlignment="Left" Margin="36,781,0,0" VerticalAlignment="Top" Height="58" Width="438" FontSize="25" Click="CancelBtn_OnClick_Click" />
     </Grid>
 </Page>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -29,8 +30,6 @@ namespace Healthcare.Views
     public sealed partial class RoutineCheckUp : Page
     {
         private Patient patient;
-        private bool checkupBtnOn = true;
-        private bool doctorDiagnosisBtnOn = true;
 
         public RoutineCheckUp()
         {
@@ -49,8 +48,9 @@ namespace Healthcare.Views
             this.ssn.Text = "***-**-" + AppointmentManager.CurrentAppointment.Patient.Ssn.ToString().Substring(5);   
             this.doctor.Text = AppointmentManager.CurrentAppointment.Doctor.FullName;
 
-            this.checkupBtn.IsEnabled = checkupBtnOn;
-            this.doctorDiagnosisBtn.IsEnabled = doctorDiagnosisBtnOn;
+            this.checkupBtn.IsEnabled = true;
+            this.doctorDiagnosisBtn.IsEnabled = false;
+            this.homeBtn.IsEnabled = true;
         }
 
         private void checkup_Click(object sender, RoutedEventArgs e)
@@ -60,10 +60,15 @@ namespace Healthcare.Views
                 int systolic = int.Parse(this.systolic.Text);
                 int diastolic = int.Parse(this.diastolic.Text);
                 int pulse = int.Parse(this.pulse.Text);
-                int temp = int.Parse(this.temperature.Text);
-                int weight = int.Parse(this.weight.Text);
-                TimeSpan time = this.AppointmentTime.Time;
-             
+                double temp = double.Parse(this.temperature.Text);
+                double weight = double.Parse(this.weight.Text);
+
+                var appointmentDate = this.AppointmentDate.Date;
+                var appointmentTime = this.AppointmentTime.Time;
+
+                var time = appointmentTime;
+                var date = appointmentDate.DateTime;
+
                 Nurse nurse = AccessValidator.CurrentUser as Nurse;
                 Appointment appointment = AppointmentManager.CurrentAppointment;
                 List<Symptom> symptoms = new List<Symptom>();
@@ -78,13 +83,13 @@ namespace Healthcare.Views
                     }
                 }
                 
-                CheckUp details = new CheckUp(systolic, diastolic, this.patient, temp, time, nurse, weight, pulse, symptoms, appointment);
-
+                CheckUp details = new CheckUp(systolic, diastolic, this.patient, temp, date, time, nurse, weight, pulse, symptoms, appointment);            
                 var result = CheckUpManager.Execute(details);
 
                 if (result != null)
                 {
                     this.doctorDiagnosisBtn.IsEnabled = true;
+                    this.homeBtn.IsEnabled = false;
                     this.checkupBtn.IsEnabled = false;
 
                     //display complete check-in and checkup dialog
@@ -94,11 +99,14 @@ namespace Healthcare.Views
                     this.pulse.IsEnabled = false;
                     this.temperature.IsEnabled = false;
                     this.weight.IsEnabled = false;
+                    this.AppointmentDate.IsEnabled = false;
                     this.AppointmentTime.IsEnabled = false;
                     this.patientSymptoms.IsEnabled = false;
                     this.knownSymptoms.IsEnabled = false;
                     this.addSymptomBtn.IsEnabled = false;
-                    this.removeSymptomBtn.IsEnabled = false;                    
+                    this.removeSymptomBtn.IsEnabled = false;
+
+                    CheckUpManager.CurrentCheckUp = details;
                 }
                 else
                 {
@@ -200,23 +208,87 @@ namespace Healthcare.Views
 
         private void doctorDiagnosisBtn_Click(object sender, RoutedEventArgs e)
         {
-
+            this.Frame.Navigate(typeof(DoctorDiagnosis));
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
+            var checkup = CheckUpManager.CurrentCheckUp;
+
             bool diagnosisResult = e.Parameter != null && (bool) e.Parameter;
 
             var previousPage = Frame.BackStack.Last();
 
             if (previousPage?.SourcePageType != typeof(DoctorDiagnosis)) return;
 
-            if (!diagnosisResult) return;
+            if (!diagnosisResult)
+            {
+                if (checkup != null)
+                {
+                    this.handleFalsePageReturn(checkup);
+                }
 
-            checkupBtnOn = false;
-            doctorDiagnosisBtnOn = false;
+                return;
+            }
 
-            base.OnNavigatedTo(e);
+
+           this.handleTruePageReturn(checkup);
+
+           base.OnNavigatedTo(e);
+        }
+
+        private void handleFalsePageReturn(CheckUp checkup)
+        {
+            this.systolic.Text = checkup.Systolic.ToString();
+            this.diastolic.Text = checkup.Diastolic.ToString();
+            this.pulse.Text = checkup.Pulse.ToString();
+            this.temperature.Text = checkup.Temperature.ToString(CultureInfo.InvariantCulture);
+            this.weight.Text = checkup.Weight.ToString(CultureInfo.InvariantCulture);
+            this.AppointmentDate.Date = checkup.ArrivalDate;
+            this.AppointmentTime.Time = checkup.ArrivalTime;
+
+            this.doctorDiagnosisBtn.IsEnabled = true;
+            this.homeBtn.IsEnabled = true;
+            this.checkupBtn.IsEnabled = false;
+
+            this.systolic.IsEnabled = false;
+            this.diastolic.IsEnabled = false;
+            this.pulse.IsEnabled = false;
+            this.temperature.IsEnabled = false;
+            this.weight.IsEnabled = false;
+            this.AppointmentDate.IsEnabled = false;
+            this.AppointmentTime.IsEnabled = false;
+            this.patientSymptoms.IsEnabled = false;
+            this.knownSymptoms.IsEnabled = false;
+            this.addSymptomBtn.IsEnabled = false;
+            this.removeSymptomBtn.IsEnabled = false;
+        }
+
+        private void handleTruePageReturn(CheckUp checkup)
+        {
+            this.systolic.Text = checkup.Systolic.ToString();
+            this.diastolic.Text = checkup.Diastolic.ToString();
+            this.pulse.Text = checkup.Pulse.ToString();
+            this.temperature.Text = checkup.Temperature.ToString(CultureInfo.InvariantCulture);
+            this.weight.Text = checkup.Weight.ToString(CultureInfo.InvariantCulture);
+            this.AppointmentDate.Date = checkup.ArrivalDate;
+            this.AppointmentTime.Time = checkup.ArrivalTime;
+
+            this.doctorDiagnosisBtn.IsEnabled = false;
+            this.homeBtn.IsEnabled = true;
+            this.checkupBtn.IsEnabled = false;
+
+            this.systolic.IsEnabled = false;
+            this.diastolic.IsEnabled = false;
+            this.pulse.IsEnabled = false;
+            this.temperature.IsEnabled = false;
+            this.weight.IsEnabled = false;
+            this.AppointmentDate.IsEnabled = false;
+            this.AppointmentTime.IsEnabled = false;
+            this.patientSymptoms.IsEnabled = false;
+            this.knownSymptoms.IsEnabled = false;
+            this.addSymptomBtn.IsEnabled = false;
+            this.removeSymptomBtn.IsEnabled = false;
         }
     }
 }

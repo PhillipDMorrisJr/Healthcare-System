@@ -8,7 +8,7 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Grid Background="White" HorizontalAlignment="Center" Height="787" VerticalAlignment="Center" Width="500">
+    <Grid Background="White" HorizontalAlignment="Center" Height="850" VerticalAlignment="Center" Width="500">
         <TextBlock Grid.Row="0" Text="Healthcare Services" HorizontalAlignment="Left" Margin="-469,21,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="139" Width="254" Foreground="White" FontSize="50" TextAlignment="Center" />
         <TextBlock Grid.Row="0" HorizontalAlignment="Left" Margin="-469,231,0,0" Text="Name:" TextWrapping="Wrap" Foreground="GhostWhite" VerticalAlignment="Top" Height="20" Width="62"/>
         <TextBlock Grid.Row="0" Name="nameID" HorizontalAlignment="Left" Margin="-402,231,0,0" Text="" TextWrapping="Wrap" Foreground="GhostWhite" VerticalAlignment="Top" Height="20" Width="62"/>
@@ -32,20 +32,23 @@
         <TextBlock HorizontalAlignment="Left" Name="doctor" TextWrapping="Wrap" VerticalAlignment="Top" Margin="108,239,0,0"/>
 
         <TextBlock HorizontalAlignment="Left" Margin="39,267,0,0" Text="Order Date:" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <CalendarDatePicker Name="orderTime" HorizontalAlignment="Left" Margin="38,288,0,0" VerticalAlignment="Top" Width="179"/>
 
-        <TextBlock HorizontalAlignment="Left" Text="Tests" TextWrapping="Wrap" VerticalAlignment="Top" Margin="124,331,0,0"/>
-        <ListView Name="Tests" Loaded="Tests_OnLoaded" HorizontalAlignment="Left" Height="189" VerticalAlignment="Top" Width="215" Background="Azure" Margin="35,356,0,0" BorderBrush="LightGray" BorderThickness="2" />
+        <DatePicker Name="AppointmentDate" HorizontalAlignment="Left" Margin="36,290,0,0" VerticalAlignment="Top" Height="37" Width="169"/>
 
-        <TextBlock HorizontalAlignment="Left" Text="Tests To Order" TextWrapping="Wrap" VerticalAlignment="Top" Margin="315,331,0,0"/>
-        <ListView Name="TestToOrder" HorizontalAlignment="Left" Height="189" VerticalAlignment="Top" Width="215" Background="Azure" Margin="255,356,0,0" BorderBrush="LightGray" BorderThickness="2" SelectionChanged="TestsToOrder_SelectionChanged"/>
+        <TimePicker Name="AppointmentTime" HorizontalAlignment="Left" Margin="37,332,0,0" VerticalAlignment="Top" Height="37" Width="295"/>
+
+        <TextBlock HorizontalAlignment="Left" Text="Tests" TextWrapping="Wrap" VerticalAlignment="Top" Margin="124,377,0,0"/>
+        <ListView Name="Tests" Loaded="Tests_OnLoaded" HorizontalAlignment="Left" Height="189" VerticalAlignment="Top" Width="215" Background="Azure" Margin="35,402,0,0" BorderBrush="LightGray" BorderThickness="2" />
+
+        <TextBlock HorizontalAlignment="Left" Text="Tests To Order" TextWrapping="Wrap" VerticalAlignment="Top" Margin="315,377,0,0"/>
+        <ListView Name="TestToOrder" HorizontalAlignment="Left" Height="189" VerticalAlignment="Top" Width="215" Background="Azure" Margin="255,402,0,0" BorderBrush="LightGray" BorderThickness="2" SelectionChanged="TestsToOrder_SelectionChanged"/>
 
 
 
-        <Button Name="orderBtn" Content="Order Tests" HorizontalAlignment="Left" Margin="35,618,0,0" VerticalAlignment="Top" Height="58" Width="438" FontSize="25" Click="orderBtn_Click" IsEnabled="False"/>
-        <Button Content="Cancel" HorizontalAlignment="Left" Margin="34,695,0,0" VerticalAlignment="Top" Height="58" Width="438" FontSize="25" Click="CancelBtn_OnClick_Click" />
-        <Button Content="Add" HorizontalAlignment="Left" Margin="104,557,0,0" VerticalAlignment="Top" Width="76" Click="addTest_Click"/>
-        <Button Content="Remove" HorizontalAlignment="Left" Margin="325,557,0,0" VerticalAlignment="Top" Click="removeTest_Click"/>
+        <Button Name="orderBtn" Content="Order Tests" HorizontalAlignment="Left" Margin="35,680,0,0" VerticalAlignment="Top" Height="58" Width="438" FontSize="25" Click="orderBtn_Click" IsEnabled="False"/>
+        <Button Content="Cancel" HorizontalAlignment="Left" Margin="34,753,0,0" VerticalAlignment="Top" Height="58" Width="438" FontSize="25" Click="CancelBtn_OnClick_Click" />
+        <Button Content="Add" HorizontalAlignment="Left" Margin="104,619,0,0" VerticalAlignment="Top" Width="76" Click="addTest_Click"/>
+        <Button Content="Remove" HorizontalAlignment="Left" Margin="325,619,0,0" VerticalAlignment="Top" Click="removeTest_Click"/>
 
     </Grid>
 </Page>

@@ -27,7 +27,7 @@ namespace Healthcare.DAL
 
                     while (reader.Read())
                     {
-                        var id = (uint) reader["sid"];
+                        var id = (uint) reader["sID"];
                         var name = (string) reader["name"];
 
                         var newSymptom = new Symptom(id, name);

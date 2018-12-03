@@ -151,7 +151,7 @@ namespace Healthcare
         /// <exception cref="NotImplementedException"></exception>
         private void onCheckUp_Click(object sender, RoutedEventArgs e)
         {
-            if (currentAppointment != null && AccessValidator.Access.Equals("Nurse") && !currentAppointment.IsCheckedIn)
+            if (currentAppointment != null && AccessValidator.Access.Equals("Nurse"))
             {
                 this.Frame.Navigate(typeof(RoutineCheckUp));
             }
@@ -311,14 +311,6 @@ namespace Healthcare
             if (AccessValidator.Access.Equals("Administrator"))
             {
                 Frame.Navigate(typeof(QueryPage));
-            }
-        }
-
-        private void onDetails_Click(object sender, RoutedEventArgs e)
-        {
-            if (currentAppointment != null)
-            {
-                this.Frame.Navigate(typeof(AppointmentDetails));
             }
         }
     }
